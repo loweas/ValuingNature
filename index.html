@@ -82,8 +82,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#valuing-nature" id="toc-valuing-nature" class="nav-link active" data-scroll-target="#valuing-nature">Valuing Nature</a>
+  <li><a href="#valuing-nature" id="toc-valuing-nature" class="nav-link active" data-scroll-target="#valuing-nature">Valuing Nature</a></li>
+  <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">R</a>
   <ul class="collapse">
+  <li><a href="#what-is-r" id="toc-what-is-r" class="nav-link" data-scroll-target="#what-is-r">What is R?</a></li>
+  <li><a href="#download" id="toc-download" class="nav-link" data-scroll-target="#download">Download</a></li>
   <li><a href="#simple-linear-regression" id="toc-simple-linear-regression" class="nav-link" data-scroll-target="#simple-linear-regression">Simple Linear Regression</a>
   <ul class="collapse">
   <li><a href="#wage-example-ols-model" id="toc-wage-example-ols-model" class="nav-link" data-scroll-target="#wage-example-ols-model"><strong>Wage Example OLS model</strong></a></li>
@@ -132,13 +135,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="valuing-nature" class="level1">
 <h1>Valuing Nature</h1>
-<p>In this course, we begin each topic by reviewing the latest best practices for each method. While reading about how to estimate the value of nature is important, applying these methods in practice is equally essential. Throughout the course, we will periodically incorporate hands-on examples that demonstrate how to carry out these estimation techniques using real data.</p>
+<p>In this course, we begin each topic by reviewing the latest best practices for each method. While reading about how to estimate the value of nature is important, applying these methods in practice is half the battle. Throughout the course, we will periodically incorporate hands-on examples that demonstrate how to carry out these estimation techniques using real data.</p>
+<p>This module is to help beginners with material on implementation of non-market valuation (NMV) with R (<a href="https://www.r-project.org/">https://www.R-project.org</a>). NMV methods have been widely applied in the social sciences such as environmental economics, agricultural economics, and transportation economics. Although various methods are associated with NMV, we focus on contingent valuation, discrete choice experiments, travel cost method, and hedonic pricing.</p>
+</section>
+<section id="r" class="level1">
+<h1>R</h1>
+<section id="what-is-r" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-r">What is R?</h2>
+<p>R is a programming language and software environment specifically designed for statistical computing and data analysis. It is widely used by statisticians, data scientists, researchers, and analysts to explore, model, and visualize data. Developed in the early 1990s, R has since become one of the most popular tools for applied statistics and quantitative analysis.</p>
+<p>R is open-source, meaning it’s free to use and supported by a large and active global community. Users can contribute packages to CRAN (the Comprehensive R Archive Network), which hosts thousands of libraries that extend R's functionality across fields like economics, epidemiology, ecology, and more.</p>
+</section>
+<section id="download" class="level2">
+<h2 class="anchored" data-anchor-id="download">Download</h2>
+<p>We will be getting familiar with R (and RStudio, if necessary). If you are completely unfamiliar with R, you are advised to consult [<em>An Introduction to R</em>] (<a href="https://cran.r-project.org/manuals.html">https://CRAN.R-project.org/manuals.html</a>) or the other support material, which may be found on the websites mentioned below, before referring the contents.</p>
+<ul>
+<li><p>R Project (<a href="https://www.r-project.org/">https://www.R-project.org/</a>)</p></li>
+<li><p>The Comprehensive R Archive Network (CRAN) (<a href="https://cran.r-project.org/">https://CRAN.R-project.org/</a>)</p></li>
+<li><p>Official R Manuals on CRAN (<a href="https://cran.r-project.org/manuals.html">https://CRAN.R-project.org/manuals.html</a>)</p></li>
+<li><p>RStudio (<a href="https://www.rstudio.com/">https://www.RStudio.com/</a>)</p></li>
+</ul>
+</section>
 <section id="simple-linear-regression" class="level2">
 <h2 class="anchored" data-anchor-id="simple-linear-regression">Simple Linear Regression</h2>
+<p>Now that you have downloaded r we will walk through a simple example.</p>
 <p>A simple regression model is</p>
 <p><span class="math display">\[y=\beta_0+\beta_1x+u\]</span></p>
 <p><span class="math inline">\(y\)</span> is the dependent variable, the one we want to explain or predict <span class="math inline">\(x\)</span> is independent variable (regressor), the one we use to explain or predict <span class="math inline">\(y\)</span> <span class="math inline">\(u\)</span> is error term representing unobserved other factors that affect y <span class="math inline">\(β_0\)</span> is intercept term (constant term) <span class="math inline">\(β_1\)</span> is slope coefficient.</p>
-<p>We will cover a basic example which reproduces a well known finding in <em>Introductory Econometrics: A Modern Approach, 7e</em> by Jeffrey M. Wooldridge. This famous example is of the wage pay gap. This is a finding that is more of interest to more broader economics as a field than our focus of valuing nature. However, I find this is really helpful to illustrate the power of regression analysis and what the regression is telling us.</p>
+<p>We will cover a basic example in linear regression which reproduces a well known example of the wage pay gap. This example can be found in <em>Introductory Econometrics: A Modern Approach, 7e</em> by Jeffrey M. Wooldridge.</p>
+<p>This is a finding that is more of interest to the broader field of economics than our focus of valuing nature. However, I find this is really helpful to illustrate the power of regression analysis and what the they can tell us about the world.</p>
 <p>Each example illustrates how to load data, build econometric models, and compute estimates with <strong>R</strong>.</p>
 <p><strong>Lets Begin</strong> Install and load the <code>wooldridge</code> package and lets get started!</p>
 <div class="cell">
