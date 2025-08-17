@@ -7,3 +7,5 @@ This course introduces empirical methods at the current frontiers of research in
 ## Prerequisites: 
 Students should be familiar with treatment of micro theory and econometrics. Past training in environmental economics, econometrics, and experience with statistical software and programming will be useful but is not required.
 
+![image](index_files/figure-html/NREM Flyer.tiff)
+
