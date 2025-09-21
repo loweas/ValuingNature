@@ -51,9 +51,9 @@ We will cover a basic example in linear regression which reproduces a well known
 
 This is a finding that is more of interest to the broader field of economics than our focus of valuing nature. However, I find this is really helpful to illustrate the power of regression analysis and what the they can tell us about the world.
 
-Each example illustrates how to load data, build econometric models, and compute estimates with **R**.
+Each example illustrates how to load data, build econometric models, and compute estimates with R.
 
-**Lets Begin** Install and load the `wooldridge` package and lets get started!
+Lets Begin Install and load the `wooldridge` package and lets get started!
 
 ```{r}
 #install.packages("wooldridge")
@@ -61,7 +61,7 @@ library(wooldridge)
 
 ```
 
-### **Wage Example OLS model**
+### Wage Example OLS model
 
 Load the `wage1` data and check out the documentation.
 
@@ -116,7 +116,7 @@ Print the `summary` of the results.
 summary(log_wage_model)
 ```
 
-# **Multiple Regression Analysis: Estimation**
+# Multiple Regression Analysis: Estimation
 
 Check the documentation for variable information
 

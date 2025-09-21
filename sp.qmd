@@ -7,11 +7,11 @@ editor: visual
 
 **Core Stated Preference Methods:**
 
--   [**Contingent Valuation**]
+-   \[**Contingent Valuation**\]
 
     This method directly asks individuals about their willingness to pay for a good or service, or their willingness to accept compensation for its loss. In R, packages can be used to analyze responses from single-bounded or double-bounded dichotomous choice CV surveys, employing both parametric and nonparametric approaches.
 
--   [**Discrete Choice**]
+-   \[**Discrete Choice**\]
 
     DCEs present respondents with several choice scenarios, each containing multiple alternatives described by various attributes and their levels. Respondents choose their preferred alternative in each scenario. R packages facilitate the design of DCEs (e.g., using orthogonal main-effect designs) and the analysis of choice data using models like conditional and binary logit.
 
@@ -31,14 +31,14 @@ Open R. You will need additional packages **DCchoice**, **Ecdat** ([Croissant an
 #install.packages("DCchoice",repos = c("http://www.bioconductor.org/packages/release/bioc","https://cran.rstudio.com/"), dep = TRUE)
 
 #install.packages(ggplot2)
-#install.packages(ddplyr)
+#install.packages(dplyr)
 ```
 
 After installing the necessary packages, the next step is to load `DCchoice`, `Ecdat`, and `lmtest` into your current R session. The `DCchoice` package provides the core functions used in our analysis. Additionally, `lmtest` offers essential tools for model testing. The `Ecdat` package includes publicly available real-world datasets.
 
 *For this example, we'll use the `NaturalParks` dataset to demonstrate how contingent valuation (CV) study data can be analyzed.*
 
-```{r}
+```{r echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 library(DCchoice)
 library(Ecdat)
 library(lmtest)
@@ -193,11 +193,11 @@ coeftest(sb1)
 
 ```
 
-The most important thing to notice in the model\'s coefficients is the **negative sign** on the bid variable. No matter how the original data is coded, the bid will always show up as **BID** in the results. This negative sign means that as the bid price goes up, fewer people say \"yes\" they are less willing to pay that amount!
+The most important thing to notice in the model's coefficients is the **negative sign** on the bid variable. No matter how the original data is coded, the bid will always show up as **BID** in the results. This negative sign means that as the bid price goes up, fewer people say "yes" they are less willing to pay that amount!
 
-The results also show that this relationship is **statistically significant**, meaning it\'s unlikely to be due to chance.
+The results also show that this relationship is **statistically significant**, meaning it's unlikely to be due to chance.
 
-Lets see these results visually by using the `plot()` function. This plot shows the willingness-to-pay data along with a horizontal line marking the point where 50% of people say \"yes.\" From the plot, you can see that this 50% support happens at about **€35**.
+Lets see these results visually by using the `plot()` function. This plot shows the willingness-to-pay data along with a horizontal line marking the point where 50% of people say "yes." From the plot, you can see that this 50% support happens at about **€35**.
 
 ```{r}
 # plots the predicted support at each bid value 
@@ -232,7 +232,7 @@ The summary output has several parts:
     Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
     ```
 
--   The second part shows the model\'s coefficients and whether they are statistically significant.
+-   The second part shows the model's coefficients and whether they are statistically significant.
 
     ```         
     Distribution: logistic 
@@ -243,7 +243,7 @@ The summary output has several parts:
     AIC: 428.793653 , BIC: 436.279659 
     ```
 
--   The third part shows how well the model fits the data. This helps us compare different models. It\'s important to see \"Convergence: TRUE,\" which means the model worked properly. If not, you\'ll get an error.
+-   The third part shows how well the model fits the data. This helps us compare different models. It's important to see "Convergence: TRUE," which means the model worked properly. If not, you'll get an error.
 
     ```         
     Iterations: 4  
@@ -270,9 +270,9 @@ $1/\beta_{bid} = 1/-0.015722=63.95$
 
 This is the **unbounded mean** and its calculated using the full range of the estimated distribution of WTP, even beyond your maximum bid.
 
-**How it\'s calculated:**
+**How it's calculated:**
 
--   Uses the model\'s estimated coefficients to integrate the WTP distribution from 0 to infinity (or theoretically negative infinity to positive infinity depending on the model).
+-   Uses the model's estimated coefficients to integrate the WTP distribution from 0 to infinity (or theoretically negative infinity to positive infinity depending on the model).
 
 -   **Issue:** May overestimate WTP, especially if the upper tail is long (which it often is).
 
@@ -289,7 +289,7 @@ This is the mean WTP **truncated at the maximum bid** in your data.
 
 $1/\beta_{bid}(1+exp(\beta_0+\sum(\beta_nZ_n)))$
 
-**How it\'s calculated:**
+**How it's calculated:**
 
 -   Integration is limited from 0 up to the **highest bid amount** offered in your survey.
 
@@ -307,7 +307,7 @@ medianWTP * (log(1 + exp(sb1$coefficients[1] + sb1$coefficients[2] * max(Natural
 
 This is the **same as #2** but with a **correction** applied to adjust for truncation bias.
 
-**How it\'s calculated:**
+**How it's calculated:**
 
 -   Still truncated at the max bid, but includes a **bias-correction factor** based on the distribution. the truncated mean WTP with the adjustment of Boyle et\~al.(1988)
 
@@ -319,13 +319,13 @@ This is the **same as #2** but with a **correction** applied to adjust for trunc
 
 This is the **bid level at which 50% of respondents are predicted to say "yes"**.
 
-**How it\'s calculated:**
+**How it's calculated:**
 
 $-(\alpha/\beta_{bid})$
 
--   It\'s the bid where the predicted probability of saying \"yes\" is 0.5, based on your model.
+-   It's the bid where the predicted probability of saying "yes" is 0.5, based on your model.
 
--   **Why:** Commonly used because it\'s less sensitive to skewed data than the mean.
+-   **Why:** Commonly used because it's less sensitive to skewed data than the mean.
 
 ```{r}
 -sb1$coefficients[1]/sb1$coefficients[2]
