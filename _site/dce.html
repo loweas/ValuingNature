@@ -55,7 +55,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -251,9 +271,10 @@ window.Quarto = {
 
 <section id="stated-preference-dce" class="level1">
 <h1>Stated Preference : DCE</h1>
-<p>Discrete Choice Experiements (DCEs) ( present respondents with several choice scenarios, each containing multiple alternatives described by various attributes and their levels. Respondents choose their preferred alternative in each scenario. R packages facilitate the design of DCEs (e.g., using orthogonal main-effect designs) and the analysis of choice data using models like conditional and binary logit.</p>
+<p>Discrete Choice Experiments (DCEs) present respondents with several choice scenarios, each containing multiple alternatives described by various attributes and their levels. Respondents choose their preferred alternative in each scenario. R packages facilitate the design of DCEs (e.g., using orthogonal main-effect designs) and the analysis of choice data using models like conditional and binary logit.</p>
 <p>For our example we will be using this book</p>
-<p><a href="https://library.oapen.org/bitstream/handle/20.500.12657/104194/1/9783031893384.pdf">Environmental Valuation with Discrete Choice Experiments in R</a></p>
+<p><a href="https://library.oapen.org/bitstream/handle/20.500.12657/104194/1/9783031893384.pdf">Environmental Valuation with Discrete Choice Experiments in R</a> <span class="citation" data-cites="mariel2025">(<a href="#ref-mariel2025" role="doc-biblioref">Mariel et al. 2025</a>)</span></p>
+<p><img src="images/download-1.png" class="img-fluid"></p>
 <p>These are the libraries you need to run the code below:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note if you don't have packages install.packages("put library name in here")</span></span>
@@ -782,7 +803,7 @@ $alt2_farm3
 <p>Blocking involves dividing the full design into smaller subsets, or <em>blocks</em>, so that each respondent is only shown the tasks from one block. For example, if pre-testing shows that respondents can comfortably complete 10 tasks, then a 100-task design would be split into 10 blocks of 10 tasks each.</p>
 <p>Each choice task still needs to be answered by at least one respondent, so blocking increases the number of participants required. In this case, you’d need at least 10 respondents (one per block), instead of just one respondent completing all 100 tasks. In general, larger designs with blocking demand more respondents to ensure all tasks are adequately covered.</p>
 <p>When using a blocked design, each respondent is randomly assigned to a block, and the order of choice tasks within that block is also randomized. Be sure to record the specific choice tasks shown to each respondent so you can accurately reconstruct their responses later.</p>
-<p>The blocking column in your design must be orthogonal, meaning it should not be correlated with the other attributes. The block() function from the <code>spdesign</code> package creates a blocking column that minimizes mean squared correlation. However, it does not preserve attribute level balance within each block.</p>
+<p>The blocking column in your design must be orthogonal, meaning it should not be correlated with the other attributes. The <code>block()</code> function from the <code>spdesign</code> package creates a blocking column that minimizes mean squared correlation. However, it does not preserve attribute level balance within each block.</p>
 <p>If your overall design is balanced, blocking won’t change that. But keep in mind that in a blocked design, some respondents may never see certain attribute levels, which could affect how realistic the choice tasks feel. Also, depending on the complexity of your design, generating the blocking column may take some time.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a blocking variable to the design with 10 blocks.</span></span>
@@ -806,11 +827,16 @@ $alt2_farm3
 <p>Here, we see that the blocking column is practically uncorrelated with the rest of the design.</p>
 
 
+
 </section>
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-mariel2025" class="csl-entry" role="listitem">
+Mariel, Petr, Danny Campbell, Erlend Dancke Sandorf, Jürgen Meyerhoff, Ainhoa Vega-Bayo, and Rebecca Blevins. 2025. <em>Environmental Valuation with Discrete Choice Experiments in R: A Guide on Design, Implementation, and Data Analysis</em>. Vol. 17. The Economics of Non-Market Goods and Resources. Cham: Springer Nature Switzerland. <a href="https://doi.org/10.1007/978-3-031-89338-4">https://doi.org/10.1007/978-3-031-89338-4</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -884,7 +910,7 @@ $alt2_farm3
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/loweas\.github\.io\/ValuingNature\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

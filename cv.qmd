@@ -2,6 +2,7 @@
 title: "Contingent Valuation"
 format: html
 editor: visual
+bibliography: references.bib
 ---
 
 # Stated Preference: CV
@@ -10,7 +11,13 @@ The contingent valuation method involves directly asking people, in a survey, ho
 
 ## Packages
 
-Open R. You will need additional packages **DCchoice**, **Ecdat** ([Croissant and Graves 2020](#0)) and **lmtest** ([Zeileis and Hothorn 2002](#0)).
+Open R. You will need additional packages
+
+-   **DCchoice** [@nakatani]Functions for analyzing dichotomous choice contingent valuation (CV) data. It provides functions for estimating parametric and nonparametric models for single-, one-and-one-half-, and double-bounded CV data. For details, see [@aizaki2022]
+
+-   **Ecdat** [@croissant] For the dataset NationalPark: Willingness to Pay for the Preservation of the Alentejo Natural Park
+
+-    **lmtest** [@hothorn]
 
 ```{r}
 #install.packages("DCchoice",repos = c("http://www.bioconductor.org/packages/release/bioc","https://cran.rstudio.com/"), dep = TRUE)
@@ -91,13 +98,13 @@ table(NaturalPark$ans1, NaturalPark$bid1)
 
 The table can be interpreted as follows:
 
--   For a bid price of **€6**, there are **76 survey responses**. Out of these, **50 respondents** said they would be willing to pay €6, while **26 said they would not**.
+-   For a bid price of €6, there are 76 survey responses. Out of these, 50 respondents said they would be willing to pay €6, while 26 said they would not.
 
 -   And so on for higher bid amounts.
 
-As the **bid price increases**, we expect rationally (from law of demand) there will be a **decline in the proportion of "yes" responses**, since fewer people are likely to be willing to pay higher amounts for the same environmental improvement.\
+As the bid price increases, we expect rationally (from law of demand) there will be a decline in the proportion of "yes" responses, since fewer people are likely to be willing to pay higher amounts for the same environmental improvement.\
 
-This pattern is visible in the table, particularly when reading across the row representing "yes" responses (often coded as `1`), where the number of affirmative answers drops from **50 to 36**, and continues decreasing with higher bids. Lets look at this in a graph.
+This pattern is visible in the table, particularly when reading across the row representing "yes" responses (often coded as `1`), where the number of affirmative answers drops from 50 to 36, and continues decreasing with higher bids. Lets look at this in a graph.
 
 ## Data Visualization
 
@@ -143,11 +150,11 @@ For now, we'll ignore gender, income, and age. The model assumes that a person's
 
 -   ***0** ("no, not willing to pay")*
 
--   ***1** ("yes, willing to pay") depends only on the **bid amount** (or "price").*
+-   ***1** ("yes, willing to pay") depends only on the bid amount (or "price").*
 
 So this model includes just one explanatory variable which is the bid.
 
-Using **DCchoice** the formula for this type of model is as follows:
+Using **`DCchoice`** the formula for this type of model is as follows:
 
 `model1 <- sbchoice(dep var ~ exp var | bid, dist = "", data = my.data)`
 
@@ -178,11 +185,11 @@ coeftest(sb1)
 
 ```
 
-The most important thing to notice in the model's coefficients is the **negative sign** on the bid variable. No matter how the original data is coded, the bid will always show up as **BID** in the results. This negative sign means that as the bid price goes up, fewer people say "yes" they are less willing to pay that amount!
+The most important thing to notice in the model's coefficients is the negative sign on the bid variable. No matter how the original data is coded, the bid will always show up as BID in the results. This negative sign means that as the bid price goes up, fewer people say "yes" they are less willing to pay that amount!
 
-The results also show that this relationship is **statistically significant**, meaning it's unlikely to be due to chance.
+The results also show that this relationship is statistically significant, meaning it's unlikely to be due to chance.
 
-Lets see these results visually by using the `plot()` function. This plot shows the willingness-to-pay data along with a horizontal line marking the point where 50% of people say "yes." From the plot, you can see that this 50% support happens at about **€35**.
+Lets see these results visually by using the `plot()` function. This plot shows the willingness-to-pay data along with a horizontal line marking the point where 50% of people say "yes." From the plot, you can see that this 50% support happens at about €35.
 
 ```{r}
 # plots the predicted support at each bid value 
@@ -251,9 +258,11 @@ The summary output has several parts:
 
 This estimate can be calculated by taking the coefficient of the estimation on bid:
 
-$1/\beta_{bid} = 1/-0.015722=63.95$
+$$
+1/\beta_{bid} = 1/-0.015722=63.95
+$$
 
-This is the **unbounded mean** and its calculated using the full range of the estimated distribution of WTP, even beyond your maximum bid.
+This is the unbounded mean and its calculated using the full range of the estimated distribution of WTP, even beyond your maximum bid. The adjustment for the truncated mean WTP is implemented by the method of [@boyle1988]
 
 **How it's calculated:**
 
@@ -266,17 +275,19 @@ medianWTP=1/sb1$coefficients[2]
 medianWTP
 ```
 
-### 2. **Mean WTP (truncated at max bid)**
+### 2. Mean WTP (truncated at max bid)
 
-**Value:** `26.04`\
+**sValue:** `26.04`\
 
-This is the mean WTP **truncated at the maximum bid** in your data.
+This is the mean WTP truncated at the maximum bid in your data.
 
-$1/\beta_{bid}(1+exp(\beta_0+\sum(\beta_nZ_n)))$
+$$
+1/\beta_{bid}(1+exp(\beta_0+\sum(\beta_nZ_n)))
+$$
 
 **How it's calculated:**
 
--   Integration is limited from 0 up to the **highest bid amount** offered in your survey.
+-   Integration is limited from 0 up to the highest bid amount offered in your survey.
 
 -   **Why:** This avoids overestimating WTP from extrapolating too far beyond your data.
 
@@ -286,27 +297,29 @@ medianWTP * (log(1 + exp(sb1$coefficients[1] + sb1$coefficients[2] * max(Natural
 
 ```
 
-### 3. **Mean WTP (truncated with adjustment)**
+### 3. Mean WTP (truncated with adjustment)
 
 **#Value:** `47.27`\
 
-This is the **same as #2** but with a **correction** applied to adjust for truncation bias.
+This is the same as #2 but with a correction applied to adjust for truncation bias.
 
 **How it's calculated:**
 
--   Still truncated at the max bid, but includes a **bias-correction factor** based on the distribution. the truncated mean WTP with the adjustment of Boyle et\~al.(1988)
+-   Still truncated at the max bid, but includes a bias-correction factor based on the distribution.
 
 -   **Why:** Balances realism (truncation) with statistical accuracy (adjustment).
 
-### 4. **Median WTP**
+### 4. Median WTP
 
-**Value:** `34.99`\
+**Value:** `34.99`
 
-This is the **bid level at which 50% of respondents are predicted to say "yes"**.
+This is the bid level at which 50% of respondents are predicted to say "yes".
 
 **How it's calculated:**
 
-$-(\alpha/\beta_{bid})$
+$$
+-(\alpha/\beta_{bid})
+$$
 
 -   It's the bid where the predicted probability of saying "yes" is 0.5, based on your model.
 

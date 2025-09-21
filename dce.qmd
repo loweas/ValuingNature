@@ -2,15 +2,18 @@
 title: "Discrete Choice Experiment"
 format: html
 editor: visual
+bibliography: references.bib
 ---
 
 # Stated Preference : DCE
 
-Discrete Choice Experiements (DCEs) ( present respondents with several choice scenarios, each containing multiple alternatives described by various attributes and their levels. Respondents choose their preferred alternative in each scenario. R packages facilitate the design of DCEs (e.g., using orthogonal main-effect designs) and the analysis of choice data using models like conditional and binary logit.
+Discrete Choice Experiments (DCEs) present respondents with several choice scenarios, each containing multiple alternatives described by various attributes and their levels. Respondents choose their preferred alternative in each scenario. R packages facilitate the design of DCEs (e.g., using orthogonal main-effect designs) and the analysis of choice data using models like conditional and binary logit.
 
 For our example we will be using this book
 
-[Environmental Valuation with Discrete Choice Experiments in R](https://library.oapen.org/bitstream/handle/20.500.12657/104194/1/9783031893384.pdf)
+[Environmental Valuation with Discrete Choice Experiments in R](https://library.oapen.org/bitstream/handle/20.500.12657/104194/1/9783031893384.pdf) [@mariel2025]
+
+![](images/download-1.png)
 
 These are the libraries you need to run the code below:
 
@@ -324,7 +327,7 @@ Each choice task still needs to be answered by at least one respondent, so block
 
 When using a blocked design, each respondent is randomly assigned to a block, and the order of choice tasks within that block is also randomized. Be sure to record the specific choice tasks shown to each respondent so you can accurately reconstruct their responses later.
 
-The blocking column in your design must be orthogonal, meaning it should not be correlated with the other attributes. The block() function from the `spdesign` package creates a blocking column that minimizes mean squared correlation. However, it does not preserve attribute level balance within each block.
+The blocking column in your design must be orthogonal, meaning it should not be correlated with the other attributes. The `block()` function from the `spdesign` package creates a blocking column that minimizes mean squared correlation. However, it does not preserve attribute level balance within each block.
 
 If your overall design is balanced, blocking won't change that. But keep in mind that in a blocked design, some respondents may never see certain attribute levels, which could affect how realistic the choice tasks feel. Also, depending on the complexity of your design, generating the blocking column may take some time.
 
