@@ -15,13 +15,13 @@ In this course, we begin each topic by reviewing the latest best practices for e
 
 This module is to help beginners with material on implementation of non-market valuation (NMV) with R ([https://www.R-project.org](https://www.r-project.org/)). NMV methods have been widely applied in the social sciences such as environmental economics, agricultural economics, and transportation economics. Although various methods are associated with NMV, we focus on contingent valuation, discrete choice experiments, travel cost method, and hedonic pricing.
 
-# R 
+# R
 
 ## What is R?
 
 R is a programming language and software environment specifically designed for statistical computing and data analysis. It is widely used by statisticians, data scientists, researchers, and analysts to explore, model, and visualize data. Developed in the early 1990s, R has since become one of the most popular tools for applied statistics and quantitative analysis.
 
-R is open-source, meaning it's free to use and supported by a large and active global community. Users can contribute packages to CRAN (the Comprehensive R Archive Network), which hosts thousands of libraries that extend R\'s functionality across fields like economics, epidemiology, ecology, and more.
+R is open-source, meaning it's free to use and supported by a large and active global community. Users can contribute packages to CRAN (the Comprehensive R Archive Network), which hosts thousands of libraries that extend R's functionality across fields like economics, epidemiology, ecology, and more.
 
 ## Download
 
@@ -35,7 +35,7 @@ We will be getting familiar with R (and RStudio, if necessary). If you are compl
 
 -   RStudio ([https://www.RStudio.com/](https://www.rstudio.com/))
 
-## Simple Linear Regression
+# Simple Linear Regression
 
 Now that you have downloaded r we will walk through a simple example.
 
@@ -45,7 +45,9 @@ $$y=\beta_0+\beta_1x+u$$
 
 $y$ is the dependent variable, the one we want to explain or predict $x$ is independent variable (regressor), the one we use to explain or predict $y$ $u$ is error term representing unobserved other factors that affect y $β_0$ is intercept term (constant term) $β_1$ is slope coefficient.
 
-We will cover a basic example in linear regression which reproduces a well known example of the wage pay gap. This example can be found in *Introductory Econometrics: A Modern Approach, 7e* by Jeffrey M. Wooldridge.
+We will cover a basic example in linear regression which reproduces a well known example of the wage pay gap. This example can be found in
+
+*Introductory Econometrics: A Modern Approach, 7e* by Jeffrey M. Wooldridge.
 
 This is a finding that is more of interest to the broader field of economics than our focus of valuing nature. However, I find this is really helpful to illustrate the power of regression analysis and what the they can tell us about the world.
 
@@ -114,7 +116,7 @@ Print the `summary` of the results.
 summary(log_wage_model)
 ```
 
-### **Multiple Regression Analysis: Estimation**
+# **Multiple Regression Analysis: Estimation**
 
 Check the documentation for variable information
 
@@ -188,14 +190,4 @@ barplot(coefficients(hourly_wage_model))
 
 ```
 
-# Stated Preferences
-
-## Contingent Valuation
-
-## Discrete Choice Experiments
-
-# Revealed Preferences
-
-## Hedonic Method
-
-## Travel Cost Method
+# 
