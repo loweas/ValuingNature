@@ -8,7 +8,7 @@
 
 <meta name="author" content="LoweMackenzie">
 
-<title>Valuing Nature – Spreadsheet Modeling Econ/Nrem</title>
+<title>Valuing Nature – Valuing Nature NREM 691</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -147,7 +147,7 @@ window.Quarto = {
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
     </a>
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Spreadsheet Modeling Econ/Nrem</span>
+    <span class="navbar-title">Valuing Nature NREM 691</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -207,9 +207,9 @@ window.Quarto = {
   </ul></li>
   <li><a href="#simple-linear-regression" id="toc-simple-linear-regression" class="nav-link" data-scroll-target="#simple-linear-regression">Simple Linear Regression</a>
   <ul class="collapse">
-  <li><a href="#wage-example-ols-model" id="toc-wage-example-ols-model" class="nav-link" data-scroll-target="#wage-example-ols-model"><strong>Wage Example OLS model</strong></a></li>
+  <li><a href="#wage-example-ols-model" id="toc-wage-example-ols-model" class="nav-link" data-scroll-target="#wage-example-ols-model">Wage Example OLS model</a></li>
   </ul></li>
-  <li><a href="#multiple-regression-analysis-estimation" id="toc-multiple-regression-analysis-estimation" class="nav-link" data-scroll-target="#multiple-regression-analysis-estimation"><strong>Multiple Regression Analysis: Estimation</strong></a></li>
+  <li><a href="#multiple-regression-analysis-estimation" id="toc-multiple-regression-analysis-estimation" class="nav-link" data-scroll-target="#multiple-regression-analysis-estimation">Multiple Regression Analysis: Estimation</a></li>
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   </ul>
 </nav>
@@ -278,8 +278,8 @@ window.Quarto = {
 <p>We will cover a basic example in linear regression which reproduces a well known example of the wage pay gap. This example can be found in</p>
 <p><em>Introductory Econometrics: A Modern Approach, 7e</em> by Jeffrey M. Wooldridge.</p>
 <p>This is a finding that is more of interest to the broader field of economics than our focus of valuing nature. However, I find this is really helpful to illustrate the power of regression analysis and what the they can tell us about the world.</p>
-<p>Each example illustrates how to load data, build econometric models, and compute estimates with <strong>R</strong>.</p>
-<p><strong>Lets Begin</strong> Install and load the <code>wooldridge</code> package and lets get started!</p>
+<p>Each example illustrates how to load data, build econometric models, and compute estimates with R.</p>
+<p>Lets Begin Install and load the <code>wooldridge</code> package and lets get started!</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("wooldridge")</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wooldridge)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -288,7 +288,7 @@ window.Quarto = {
 </div>
 </div>
 <section id="wage-example-ols-model" class="level3">
-<h3 class="anchored" data-anchor-id="wage-example-ols-model"><strong>Wage Example OLS model</strong></h3>
+<h3 class="anchored" data-anchor-id="wage-example-ols-model">Wage Example OLS model</h3>
 <p>Load the <code>wage1</code> data and check out the documentation.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"wage1"</span>)</span>
@@ -375,7 +375,7 @@ F-statistic: 119.6 on 1 and 524 DF,  p-value: &lt; 2.2e-16</code></pre>
 </section>
 </section>
 <section id="multiple-regression-analysis-estimation" class="level1">
-<h1><strong>Multiple Regression Analysis: Estimation</strong></h1>
+<h1>Multiple Regression Analysis: Estimation</h1>
 <p>Check the documentation for variable information</p>
 <p>Interpret the coefficient. What does</p>
 <div class="cell">
