@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>sp – Spreadsheet Modeling Econ/Nrem</title>
+<title>sp – Valuing Nature NREM 691</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -146,7 +146,7 @@ window.Quarto = {
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
     </a>
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Spreadsheet Modeling Econ/Nrem</span>
+    <span class="navbar-title">Valuing Nature NREM 691</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -246,83 +246,27 @@ window.Quarto = {
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("DCchoice",repos = c("http://www.bioconductor.org/packages/release/bioc","https://cran.rstudio.com/"), dep = TRUE)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(ggplot2)</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(ddplyr)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(dplyr)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>After installing the necessary packages, the next step is to load <code>DCchoice</code>, <code>Ecdat</code>, and <code>lmtest</code> into your current R session. The <code>DCchoice</code> package provides the core functions used in our analysis. Additionally, <code>lmtest</code> offers essential tools for model testing. The <code>Ecdat</code> package includes publicly available real-world datasets.</p>
 <p><em>For this example, we’ll use the <code>NaturalParks</code> dataset to demonstrate how contingent valuation (CV) study data can be analyzed.</em></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DCchoice)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'DCchoice' was built under R version 4.3.3</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Ecdat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: Ecfun</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'Ecfun' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'Ecfun'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:base':
-
-    sign</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'Ecdat'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:datasets':
-
-    Orange</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: zoo</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'zoo'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    as.Date, as.Date.numeric</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'ggplot2' was built under R version 4.3.3</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DCchoice)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Ecdat)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="load-data" class="level3">
 <h3 class="anchored" data-anchor-id="load-data">Load Data</h3>
 <p>We will use a built-in sample dataset from the <code>Ecdat</code> package. After loading the dataset, you can use the <code>head()</code> function to preview its contents. By default, <code>head()</code> displays the first six rows along with the column names, but you can adjust the number of rows shown by using the <code>n</code> argument. This function is a quick way to get an overview of the dataset’s structure.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data from Ecdat package</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(NaturalPark, <span class="at">package =</span> <span class="st">"Ecdat"</span>) </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first three rows of data          </span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(NaturalPark, <span class="at">n =</span> <span class="dv">5</span>)                     </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data from Ecdat package</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(NaturalPark, <span class="at">package =</span> <span class="st">"Ecdat"</span>) </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first three rows of data          </span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(NaturalPark, <span class="at">n =</span> <span class="dv">5</span>)                     </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  bid1 bidh bidl answers age    sex income
 1    6   18    3      yy   1 female      2
@@ -358,10 +302,10 @@ Attaching package: 'dplyr'</code></pre>
 <h3 class="anchored" data-anchor-id="data-manipulation">Data Manipulation</h3>
 <p>The decision identifies what each individual prefers. This is indicated by the “yes” and “no.” The variable needs to be converted into a numerical representation. To do this you will need to write a loop and create a binary indicator for when the individuals says yes to the first bid. This is indicated by the first letter of the variable starting with “y”</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>NaturalPark<span class="sc">$</span>ans1 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(NaturalPark<span class="sc">$</span>answers <span class="sc">==</span> <span class="st">"yy"</span> <span class="sc">|</span> NaturalPark<span class="sc">$</span>answers <span class="sc">==</span> <span class="st">"yn"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first three rows of data          </span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(NaturalPark, <span class="at">n =</span> <span class="dv">5</span>)   </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>NaturalPark<span class="sc">$</span>ans1 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(NaturalPark<span class="sc">$</span>answers <span class="sc">==</span> <span class="st">"yy"</span> <span class="sc">|</span> NaturalPark<span class="sc">$</span>answers <span class="sc">==</span> <span class="st">"yn"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first three rows of data          </span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(NaturalPark, <span class="at">n =</span> <span class="dv">5</span>)   </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  bid1 bidh bidl answers age    sex income ans1
 1    6   18    3      yy   1 female      2    1
@@ -373,7 +317,7 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 <p>Now we want to count the number of individuals who said yes for each price. This table shows the rows as yes or no for first bid and all the prices.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(NaturalPark<span class="sc">$</span>ans1, NaturalPark<span class="sc">$</span>bid1) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(NaturalPark<span class="sc">$</span>ans1, NaturalPark<span class="sc">$</span>bid1) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   
      6 12 24 48
@@ -394,13 +338,13 @@ Attaching package: 'dplyr'</code></pre>
 <h3 class="anchored" data-anchor-id="data-visualization">Data Visualization</h3>
 <p>To create our demand line, we will first have to convert the data in the right shape form.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>yes_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(NaturalPark<span class="sc">$</span>ans1, NaturalPark<span class="sc">$</span>bid1)) <span class="sc">%&gt;%</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Answer =</span> Var1, <span class="at">Bid =</span> Var2, <span class="at">Count =</span> Freq) <span class="sc">%&gt;%</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Answer <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Bid =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(Bid)))</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first three rows of data          </span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(yes_data, <span class="at">n =</span> <span class="dv">5</span>)  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>yes_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(NaturalPark<span class="sc">$</span>ans1, NaturalPark<span class="sc">$</span>bid1)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Answer =</span> Var1, <span class="at">Bid =</span> Var2, <span class="at">Count =</span> Freq) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Answer <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Bid =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(Bid)))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first three rows of data          </span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(yes_data, <span class="at">n =</span> <span class="dv">5</span>)  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Answer Bid Count
 1      1   6    50
@@ -411,16 +355,16 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 <p>Now we will use ggplot and visually show how people respond to bid prices:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(yes_data, <span class="fu">aes</span>(<span class="at">x =</span> Count, <span class="at">y =</span> Bid)) <span class="sc">+</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> yes_data<span class="sc">$</span>Bid) <span class="sc">+</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Decline in 'Yes' Responses with Higher Bid Prices"</span>,</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Number of 'Yes' Responses"</span>,</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Bid Amount (€)"</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(yes_data, <span class="fu">aes</span>(<span class="at">x =</span> Count, <span class="at">y =</span> Bid)) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> yes_data<span class="sc">$</span>Bid) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Decline in 'Yes' Responses with Higher Bid Prices"</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Number of 'Yes' Responses"</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Bid Amount (€)"</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ℹ Please use `linewidth` instead.</code></pre>
@@ -460,9 +404,9 @@ Attaching package: 'dplyr'</code></pre>
 </ul>
 <p>After fitting the model, we usually check the results with the <code>summary()</code> function. To focus on the coefficient estimates, we can use <code>coeftest()</code> from the <strong>lmtest</strong> package.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A very simple model</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>sb1 <span class="ot">&lt;-</span> <span class="fu">sbchoice</span>(ans1 <span class="sc">~</span> <span class="dv">1</span> <span class="sc">|</span> bid1,  <span class="at">dist =</span> <span class="st">"logistic"</span>, <span class="at">data =</span> NaturalPark)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(sb1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A very simple model</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>sb1 <span class="ot">&lt;-</span> <span class="fu">sbchoice</span>(ans1 <span class="sc">~</span> <span class="dv">1</span> <span class="sc">|</span> bid1,  <span class="at">dist =</span> <span class="st">"logistic"</span>, <span class="at">data =</span> NaturalPark)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(sb1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 z test of coefficients:
@@ -474,15 +418,15 @@ BID         -0.0157223  0.0071807 -2.1895 0.028560 *
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<p>The most important thing to notice in the model's coefficients is the <strong>negative sign</strong> on the bid variable. No matter how the original data is coded, the bid will always show up as <strong>BID</strong> in the results. This negative sign means that as the bid price goes up, fewer people say "yes" they are less willing to pay that amount!</p>
-<p>The results also show that this relationship is <strong>statistically significant</strong>, meaning it's unlikely to be due to chance.</p>
-<p>Lets see these results visually by using the <code>plot()</code> function. This plot shows the willingness-to-pay data along with a horizontal line marking the point where 50% of people say "yes." From the plot, you can see that this 50% support happens at about <strong>€35</strong>.</p>
+<p>The most important thing to notice in the model’s coefficients is the <strong>negative sign</strong> on the bid variable. No matter how the original data is coded, the bid will always show up as <strong>BID</strong> in the results. This negative sign means that as the bid price goes up, fewer people say “yes” they are less willing to pay that amount!</p>
+<p>The results also show that this relationship is <strong>statistically significant</strong>, meaning it’s unlikely to be due to chance.</p>
+<p>Lets see these results visually by using the <code>plot()</code> function. This plot shows the willingness-to-pay data along with a horizontal line marking the point where 50% of people say “yes.” From the plot, you can see that this 50% support happens at about <strong>€35</strong>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plots the predicted support at each bid value </span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sb1, <span class="at">las =</span> <span class="dv">1</span>)  </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># adds a horizontal line to the plot </span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.5</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"red"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plots the predicted support at each bid value </span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sb1, <span class="at">las =</span> <span class="dv">1</span>)  </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># adds a horizontal line to the plot </span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.5</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"red"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -496,8 +440,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <h3 class="anchored" data-anchor-id="full-estimation">Full Estimation</h3>
 <p>We now look at the full model summary output we get when we use the <code>sbchoice()</code> function:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Model summary</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sb1) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Model summary</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sb1) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -542,14 +486,14 @@ Coefficients:
 BID         -0.015722   0.007181  -2.190  0.02856 * 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</code></pre></li>
-<li><p>The second part shows the model's coefficients and whether they are statistically significant.</p>
+<li><p>The second part shows the model’s coefficients and whether they are statistically significant.</p>
 <pre><code>Distribution: logistic 
 Number of Obs.: 312  
 log-likelihood: -212.3968 
 pseudo-R^2: 0.0113 , adjusted pseudo-R^2: 0.0020 
 LR statistic: 4.841 on 1 DF, p-value: 0.028 
 AIC: 428.793653 , BIC: 436.279659 </code></pre></li>
-<li><p>The third part shows how well the model fits the data. This helps us compare different models. It's important to see "Convergence: TRUE," which means the model worked properly. If not, you'll get an error.</p>
+<li><p>The third part shows how well the model fits the data. This helps us compare different models. It’s important to see “Convergence: TRUE,” which means the model worked properly. If not, you’ll get an error.</p>
 <pre><code>Iterations: 4  
 Convergence: TRUE </code></pre></li>
 <li><p>The fourth part shows the estimated average and median willingness to pay (WTP). Lets take a moment here</p>
@@ -565,14 +509,14 @@ Convergence: TRUE </code></pre></li>
 <p>This estimate can be calculated by taking the coefficient of the estimation on bid:</p>
 <p><span class="math inline">\(1/\beta_{bid} = 1/-0.015722=63.95\)</span></p>
 <p>This is the <strong>unbounded mean</strong> and its calculated using the full range of the estimated distribution of WTP, even beyond your maximum bid.</p>
-<p><strong>How it's calculated:</strong></p>
+<p><strong>How it’s calculated:</strong></p>
 <ul>
-<li><p>Uses the model's estimated coefficients to integrate the WTP distribution from 0 to infinity (or theoretically negative infinity to positive infinity depending on the model).</p></li>
+<li><p>Uses the model’s estimated coefficients to integrate the WTP distribution from 0 to infinity (or theoretically negative infinity to positive infinity depending on the model).</p></li>
 <li><p><strong>Issue:</strong> May overestimate WTP, especially if the upper tail is long (which it often is).</p></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>medianWTP<span class="ot">=</span><span class="dv">1</span><span class="sc">/</span>sb1<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>medianWTP</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>medianWTP<span class="ot">=</span><span class="dv">1</span><span class="sc">/</span>sb1<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>medianWTP</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     BID 
 -63.6041 </code></pre>
@@ -585,13 +529,13 @@ Convergence: TRUE </code></pre></li>
 </p>
 <p>This is the mean WTP <strong>truncated at the maximum bid</strong> in your data.</p>
 <p><span class="math inline">\(1/\beta_{bid}(1+exp(\beta_0+\sum(\beta_nZ_n)))\)</span></p>
-<p><strong>How it's calculated:</strong></p>
+<p><strong>How it’s calculated:</strong></p>
 <ul>
 <li><p>Integration is limited from 0 up to the <strong>highest bid amount</strong> offered in your survey.</p></li>
 <li><p><strong>Why:</strong> This avoids overestimating WTP from extrapolating too far beyond your data.</p></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>medianWTP <span class="sc">*</span> (<span class="fu">log</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(sb1<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> sb1<span class="sc">$</span>coefficients[<span class="dv">2</span>] <span class="sc">*</span> <span class="fu">max</span>(NaturalPark<span class="sc">$</span>bid1))) <span class="sc">-</span> <span class="fu">log</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(sb1<span class="sc">$</span>coefficients[<span class="dv">1</span>])))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>medianWTP <span class="sc">*</span> (<span class="fu">log</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(sb1<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> sb1<span class="sc">$</span>coefficients[<span class="dv">2</span>] <span class="sc">*</span> <span class="fu">max</span>(NaturalPark<span class="sc">$</span>bid1))) <span class="sc">-</span> <span class="fu">log</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(sb1<span class="sc">$</span>coefficients[<span class="dv">1</span>])))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     BID 
 26.04338 </code></pre>
@@ -603,7 +547,7 @@ Convergence: TRUE </code></pre></li>
 <p><strong>Value:</strong> <code>47.27</code><br>
 </p>
 <p>This is the <strong>same as #2</strong> but with a <strong>correction</strong> applied to adjust for truncation bias.</p>
-<p><strong>How it's calculated:</strong></p>
+<p><strong>How it’s calculated:</strong></p>
 <ul>
 <li><p>Still truncated at the max bid, but includes a <strong>bias-correction factor</strong> based on the distribution. the truncated mean WTP with the adjustment of Boyle et~al.(1988)</p></li>
 <li><p><strong>Why:</strong> Balances realism (truncation) with statistical accuracy (adjustment).</p></li>
@@ -614,14 +558,14 @@ Convergence: TRUE </code></pre></li>
 <p><strong>Value:</strong> <code>34.99</code><br>
 </p>
 <p>This is the <strong>bid level at which 50% of respondents are predicted to say “yes”</strong>.</p>
-<p><strong>How it's calculated:</strong></p>
+<p><strong>How it’s calculated:</strong></p>
 <p><span class="math inline">\(-(\alpha/\beta_{bid})\)</span></p>
 <ul>
-<li><p>It's the bid where the predicted probability of saying "yes" is 0.5, based on your model.</p></li>
-<li><p><strong>Why:</strong> Commonly used because it's less sensitive to skewed data than the mean.</p></li>
+<li><p>It’s the bid where the predicted probability of saying “yes” is 0.5, based on your model.</p></li>
+<li><p><strong>Why:</strong> Commonly used because it’s less sensitive to skewed data than the mean.</p></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span>sb1<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">/</span>sb1<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span>sb1<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">/</span>sb1<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept) 
    34.98512 </code></pre>
@@ -711,7 +655,7 @@ Convergence: TRUE </code></pre></li>
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/loweas\.github\.io\/ValuingNature\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
