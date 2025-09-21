@@ -1,0 +1,12 @@
+---
+title: "Hedonic"
+format: html
+editor: visual
+---
+
+## This page will populate after:
+
+1.  CV
+2.  DCE
+
+![](https://www.reactiongifs.us/wp-content/uploads/2016/08/we_have_to_go_back_lost.gif)

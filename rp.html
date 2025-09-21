@@ -104,11 +104,11 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Discrete Choice</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./hd.qmd"> 
+    <a class="nav-link" href="./hm.html"> 
 <span class="menu-text">Hedonic</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./tc.qmd"> 
+    <a class="nav-link" href="./tc.html"> 
 <span class="menu-text">Travel Cost</span></a>
   </li>  
 </ul>
@@ -256,7 +256,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/loweas\.github\.io\/ValuingNature\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

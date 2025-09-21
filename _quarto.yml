@@ -13,7 +13,7 @@ website:
         text: Contingent Valuation
       - href: dce.qmd
         text: Discrete Choice
-      - href: hd.qmd
+      - href: hm.qmd
         text: Hedonic
       - href: tc.qmd
         text: Travel Cost
