@@ -1,0 +1,31 @@
+project:
+  type: website
+
+website:
+  title: "Spreadsheet Modeling Econ/Nrem"
+  search: true
+  
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: sp.qmd
+        text: Stated Preference
+      - href: rp.qmd
+        text: Revealed Preference
+
+    tools:
+      - icon: youtube
+        href: https://www.youtube.com/@Prof.Iguana
+      - icon: github
+        menu:
+          - text: Source Code
+            href:  https://github.com/loweas/ValuingNature
+          - text: Report a Bug
+            href:  https://github.com/loweas/ValuingNature/issues
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+
