@@ -227,9 +227,9 @@ window.Quarto = {
 <h1>Stated Preference</h1>
 <p><strong>Core Stated Preference Methods:</strong></p>
 <ul>
-<li><p>[<strong>Contingent Valuation</strong>]</p>
+<li><p><strong>Contingent Valuation</strong></p>
 <p>This method directly asks individuals about their willingness to pay for a good or service, or their willingness to accept compensation for its loss. In R, packages can be used to analyze responses from single-bounded or double-bounded dichotomous choice CV surveys, employing both parametric and nonparametric approaches.</p></li>
-<li><p>[<strong>Discrete Choice</strong>]</p>
+<li><p><strong>Discrete Choice</strong></p>
 <p>DCEs present respondents with several choice scenarios, each containing multiple alternatives described by various attributes and their levels. Respondents choose their preferred alternative in each scenario. R packages facilitate the design of DCEs (e.g., using orthogonal main-effect designs) and the analysis of choice data using models like conditional and binary logit.</p></li>
 </ul>
 </section>
@@ -505,7 +505,7 @@ Convergence: TRUE </code></pre></li>
 </ul>
 <section id="mean-wtp" class="level4">
 <h4 class="anchored" data-anchor-id="mean-wtp">1. Mean WTP</h4>
-<p><strong>Value:</strong> <strong>Value:</strong> <code>26.04</code></p>
+<p><strong>Value:</strong> <strong>Value:</strong> <code>63.95</code></p>
 <p>This estimate can be calculated by taking the coefficient of the estimation on bid:</p>
 <p><span class="math inline">\(1/\beta_{bid} = 1/-0.015722=63.95\)</span></p>
 <p>This is the <strong>unbounded mean</strong> and its calculated using the full range of the estimated distribution of WTP, even beyond your maximum bid.</p>
@@ -655,7 +655,7 @@ Convergence: TRUE </code></pre></li>
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/loweas\.github\.io\/ValuingNature\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
