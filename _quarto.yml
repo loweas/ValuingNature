@@ -9,10 +9,14 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: sp.qmd
-        text: Stated Preference
-      - href: rp.qmd
-        text: Revealed Preference
+      - href: cv.qmd
+        text: Contingent Valuation
+      - href: dce.qmd
+        text: Discrete Choice
+      - href: hd.qmd
+        text: Hedonic
+      - href: tc.qmd
+        text: Travel Cost
 
     tools:
       - icon: youtube
@@ -28,4 +32,3 @@ format:
   html:
     theme: cosmo
     toc: true
-
