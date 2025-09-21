@@ -55,7 +55,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -218,9 +238,9 @@ window.Quarto = {
   <li><a href="#full-estimation" id="toc-full-estimation" class="nav-link" data-scroll-target="#full-estimation">Full Estimation</a>
   <ul class="collapse">
   <li><a href="#mean-wtp" id="toc-mean-wtp" class="nav-link" data-scroll-target="#mean-wtp">1. Mean WTP</a></li>
-  <li><a href="#mean-wtp-truncated-at-max-bid" id="toc-mean-wtp-truncated-at-max-bid" class="nav-link" data-scroll-target="#mean-wtp-truncated-at-max-bid">2. <strong>Mean WTP (truncated at max bid)</strong></a></li>
-  <li><a href="#mean-wtp-truncated-with-adjustment" id="toc-mean-wtp-truncated-with-adjustment" class="nav-link" data-scroll-target="#mean-wtp-truncated-with-adjustment">3. <strong>Mean WTP (truncated with adjustment)</strong></a></li>
-  <li><a href="#median-wtp" id="toc-median-wtp" class="nav-link" data-scroll-target="#median-wtp">4. <strong>Median WTP</strong></a></li>
+  <li><a href="#mean-wtp-truncated-at-max-bid" id="toc-mean-wtp-truncated-at-max-bid" class="nav-link" data-scroll-target="#mean-wtp-truncated-at-max-bid">2. Mean WTP (truncated at max bid)</a></li>
+  <li><a href="#mean-wtp-truncated-with-adjustment" id="toc-mean-wtp-truncated-with-adjustment" class="nav-link" data-scroll-target="#mean-wtp-truncated-with-adjustment">3. Mean WTP (truncated with adjustment)</a></li>
+  <li><a href="#median-wtp" id="toc-median-wtp" class="nav-link" data-scroll-target="#median-wtp">4. Median WTP</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
@@ -254,7 +274,12 @@ window.Quarto = {
 <p>The contingent valuation method involves directly asking people, in a survey, how much they would be willing to pay for specific environmental services.&nbsp; In some cases, people are asked for the amount of compensation they would be willing to accept to give up specific environmental services.&nbsp; It is called <strong>contingent valuation</strong>, because people are asked to state their willingness to pay, <em>contingent</em> on a specific hypothetical scenario and description of the environmental service. This page will go through an adapted version based on <a href="https://nmvr.skr.jp/01-cv1.html#ref-ecdat">James Fogarty and Hideo Aizaki</a></p>
 <section id="packages" class="level2">
 <h2 class="anchored" data-anchor-id="packages">Packages</h2>
-<p>Open R. You will need additional packages <strong>DCchoice</strong>, <strong>Ecdat</strong> (<a href="#0">Croissant and Graves 2020</a>) and <strong>lmtest</strong> (<a href="#0">Zeileis and Hothorn 2002</a>).</p>
+<p>Open R. You will need additional packages</p>
+<ul>
+<li><p><strong>DCchoice</strong> <span class="citation" data-cites="nakatani">(<a href="#ref-nakatani" role="doc-biblioref">Nakatani and Aizaki, n.d.</a>)</span>Functions for analyzing dichotomous choice contingent valuation (CV) data. It provides functions for estimating parametric and nonparametric models for single-, one-and-one-half-, and double-bounded CV data. For details, see <span class="citation" data-cites="aizaki2022">(<a href="#ref-aizaki2022" role="doc-biblioref">Aizaki et al. 2022</a>)</span></p></li>
+<li><p><strong>Ecdat</strong> <span class="citation" data-cites="croissant">(<a href="#ref-croissant" role="doc-biblioref">Croissant and Graves, n.d.</a>)</span> For the dataset NationalPark: Willingness to Pay for the Preservation of the Alentejo Natural Park</p></li>
+<li><p><strong>lmtest</strong> <span class="citation" data-cites="hothorn">(<a href="#ref-hothorn" role="doc-biblioref">Hothorn et al., n.d.</a>)</span></p></li>
+</ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("DCchoice",repos = c("http://www.bioconductor.org/packages/release/bioc","https://cran.rstudio.com/"), dep = TRUE)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -340,12 +365,12 @@ window.Quarto = {
 </div>
 <p>The table can be interpreted as follows:</p>
 <ul>
-<li><p>For a bid price of <strong>€6</strong>, there are <strong>76 survey responses</strong>. Out of these, <strong>50 respondents</strong> said they would be willing to pay €6, while <strong>26 said they would not</strong>.</p></li>
+<li><p>For a bid price of €6, there are 76 survey responses. Out of these, 50 respondents said they would be willing to pay €6, while 26 said they would not.</p></li>
 <li><p>And so on for higher bid amounts.</p></li>
 </ul>
-<p>As the <strong>bid price increases</strong>, we expect rationally (from law of demand) there will be a <strong>decline in the proportion of “yes” responses</strong>, since fewer people are likely to be willing to pay higher amounts for the same environmental improvement.<br>
+<p>As the bid price increases, we expect rationally (from law of demand) there will be a decline in the proportion of “yes” responses, since fewer people are likely to be willing to pay higher amounts for the same environmental improvement.<br>
 </p>
-<p>This pattern is visible in the table, particularly when reading across the row representing “yes” responses (often coded as <code>1</code>), where the number of affirmative answers drops from <strong>50 to 36</strong>, and continues decreasing with higher bids. Lets look at this in a graph.</p>
+<p>This pattern is visible in the table, particularly when reading across the row representing “yes” responses (often coded as <code>1</code>), where the number of affirmative answers drops from 50 to 36, and continues decreasing with higher bids. Lets look at this in a graph.</p>
 </section>
 <section id="data-visualization" class="level2">
 <h2 class="anchored" data-anchor-id="data-visualization">Data Visualization</h2>
@@ -399,10 +424,10 @@ window.Quarto = {
 <p>For now, we’ll ignore gender, income, and age. The model assumes that a person’s response :</p>
 <ul>
 <li><p><em><strong>0</strong> (“no, not willing to pay”)</em></p></li>
-<li><p><em><strong>1</strong> (“yes, willing to pay”) depends only on the <strong>bid amount</strong> (or “price”).</em></p></li>
+<li><p><em><strong>1</strong> (“yes, willing to pay”) depends only on the bid amount (or “price”).</em></p></li>
 </ul>
 <p>So this model includes just one explanatory variable which is the bid.</p>
-<p>Using <strong>DCchoice</strong> the formula for this type of model is as follows:</p>
+<p>Using <strong><code>DCchoice</code></strong> the formula for this type of model is as follows:</p>
 <p><code>model1 &lt;- sbchoice(dep var ~ exp var | bid, dist = "", data = my.data)</code></p>
 <p>Here’s what each part means:</p>
 <ul>
@@ -431,9 +456,9 @@ BID         -0.0157223  0.0071807 -2.1895 0.028560 *
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<p>The most important thing to notice in the model’s coefficients is the <strong>negative sign</strong> on the bid variable. No matter how the original data is coded, the bid will always show up as <strong>BID</strong> in the results. This negative sign means that as the bid price goes up, fewer people say “yes” they are less willing to pay that amount!</p>
-<p>The results also show that this relationship is <strong>statistically significant</strong>, meaning it’s unlikely to be due to chance.</p>
-<p>Lets see these results visually by using the <code>plot()</code> function. This plot shows the willingness-to-pay data along with a horizontal line marking the point where 50% of people say “yes.” From the plot, you can see that this 50% support happens at about <strong>€35</strong>.</p>
+<p>The most important thing to notice in the model’s coefficients is the negative sign on the bid variable. No matter how the original data is coded, the bid will always show up as BID in the results. This negative sign means that as the bid price goes up, fewer people say “yes” they are less willing to pay that amount!</p>
+<p>The results also show that this relationship is statistically significant, meaning it’s unlikely to be due to chance.</p>
+<p>Lets see these results visually by using the <code>plot()</code> function. This plot shows the willingness-to-pay data along with a horizontal line marking the point where 50% of people say “yes.” From the plot, you can see that this 50% support happens at about €35.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plots the predicted support at each bid value </span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sb1, <span class="at">las =</span> <span class="dv">1</span>)  </span>
@@ -520,8 +545,10 @@ Convergence: TRUE </code></pre></li>
 <h3 class="anchored" data-anchor-id="mean-wtp">1. Mean WTP</h3>
 <p><strong>Value:</strong> <strong>Value:</strong> <code>63.95</code></p>
 <p>This estimate can be calculated by taking the coefficient of the estimation on bid:</p>
-<p><span class="math inline">\(1/\beta_{bid} = 1/-0.015722=63.95\)</span></p>
-<p>This is the <strong>unbounded mean</strong> and its calculated using the full range of the estimated distribution of WTP, even beyond your maximum bid.</p>
+<p><span class="math display">\[
+1/\beta_{bid} = 1/-0.015722=63.95
+\]</span></p>
+<p>This is the unbounded mean and its calculated using the full range of the estimated distribution of WTP, even beyond your maximum bid. The adjustment for the truncated mean WTP is implemented by the method of <span class="citation" data-cites="boyle1988">(<a href="#ref-boyle1988" role="doc-biblioref">Boyle, Welsh, and Bishop 1988</a>)</span></p>
 <p><strong>How it’s calculated:</strong></p>
 <ul>
 <li><p>Uses the model’s estimated coefficients to integrate the WTP distribution from 0 to infinity (or theoretically negative infinity to positive infinity depending on the model).</p></li>
@@ -537,14 +564,16 @@ Convergence: TRUE </code></pre></li>
 </div>
 </section>
 <section id="mean-wtp-truncated-at-max-bid" class="level3">
-<h3 class="anchored" data-anchor-id="mean-wtp-truncated-at-max-bid">2. <strong>Mean WTP (truncated at max bid)</strong></h3>
-<p><strong>Value:</strong> <code>26.04</code><br>
+<h3 class="anchored" data-anchor-id="mean-wtp-truncated-at-max-bid">2. Mean WTP (truncated at max bid)</h3>
+<p><strong>sValue:</strong> <code>26.04</code><br>
 </p>
-<p>This is the mean WTP <strong>truncated at the maximum bid</strong> in your data.</p>
-<p><span class="math inline">\(1/\beta_{bid}(1+exp(\beta_0+\sum(\beta_nZ_n)))\)</span></p>
+<p>This is the mean WTP truncated at the maximum bid in your data.</p>
+<p><span class="math display">\[
+1/\beta_{bid}(1+exp(\beta_0+\sum(\beta_nZ_n)))
+\]</span></p>
 <p><strong>How it’s calculated:</strong></p>
 <ul>
-<li><p>Integration is limited from 0 up to the <strong>highest bid amount</strong> offered in your survey.</p></li>
+<li><p>Integration is limited from 0 up to the highest bid amount offered in your survey.</p></li>
 <li><p><strong>Why:</strong> This avoids overestimating WTP from extrapolating too far beyond your data.</p></li>
 </ul>
 <div class="cell">
@@ -556,23 +585,24 @@ Convergence: TRUE </code></pre></li>
 </div>
 </section>
 <section id="mean-wtp-truncated-with-adjustment" class="level3">
-<h3 class="anchored" data-anchor-id="mean-wtp-truncated-with-adjustment">3. <strong>Mean WTP (truncated with adjustment)</strong></h3>
+<h3 class="anchored" data-anchor-id="mean-wtp-truncated-with-adjustment">3. Mean WTP (truncated with adjustment)</h3>
 <p><strong>#Value:</strong> <code>47.27</code><br>
 </p>
-<p>This is the <strong>same as #2</strong> but with a <strong>correction</strong> applied to adjust for truncation bias.</p>
+<p>This is the same as #2 but with a correction applied to adjust for truncation bias.</p>
 <p><strong>How it’s calculated:</strong></p>
 <ul>
-<li><p>Still truncated at the max bid, but includes a <strong>bias-correction factor</strong> based on the distribution. the truncated mean WTP with the adjustment of Boyle et~al.(1988)</p></li>
+<li><p>Still truncated at the max bid, but includes a bias-correction factor based on the distribution.</p></li>
 <li><p><strong>Why:</strong> Balances realism (truncation) with statistical accuracy (adjustment).</p></li>
 </ul>
 </section>
 <section id="median-wtp" class="level3">
-<h3 class="anchored" data-anchor-id="median-wtp">4. <strong>Median WTP</strong></h3>
-<p><strong>Value:</strong> <code>34.99</code><br>
-</p>
-<p>This is the <strong>bid level at which 50% of respondents are predicted to say “yes”</strong>.</p>
+<h3 class="anchored" data-anchor-id="median-wtp">4. Median WTP</h3>
+<p><strong>Value:</strong> <code>34.99</code></p>
+<p>This is the bid level at which 50% of respondents are predicted to say “yes”.</p>
 <p><strong>How it’s calculated:</strong></p>
-<p><span class="math inline">\(-(\alpha/\beta_{bid})\)</span></p>
+<p><span class="math display">\[
+-(\alpha/\beta_{bid})
+\]</span></p>
 <ul>
 <li><p>It’s the bid where the predicted probability of saying “yes” is 0.5, based on your model.</p></li>
 <li><p><strong>Why:</strong> Commonly used because it’s less sensitive to skewed data than the mean.</p></li>
@@ -588,12 +618,29 @@ Convergence: TRUE </code></pre></li>
 </section>
 </section>
 <section id="section" class="level1">
-<h1></h1>
+
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-aizaki2022" class="csl-entry" role="listitem">
+Aizaki, Hideo, Tomoaki Nakatani, Kazuo Sato, and James Fogarty. 2022. <span>“R Package DCchoice for Dichotomous Choice Contingent Valuation: A Contribution to Open Scientific Software and Its Impact.”</span> <em>Japanese Journal of Statistics and Data Science</em> 5 (2): 871–84. <a href="https://doi.org/10.1007/s42081-022-00171-1">https://doi.org/10.1007/s42081-022-00171-1</a>.
+</div>
+<div id="ref-boyle1988" class="csl-entry" role="listitem">
+Boyle, Kevin J., Michael P. Welsh, and Richard C. Bishop. 1988. <span>“Validation of Empirical Measures of Welfare Change: Comment.”</span> <em>Land Economics</em> 64 (1): 94. <a href="https://doi.org/10.2307/3146613">https://doi.org/10.2307/3146613</a>.
+</div>
+<div id="ref-croissant" class="csl-entry" role="listitem">
+Croissant, Yves, and Spencer Graves. n.d. <span>“Ecdat: Data Sets for Econometrics.”</span> <a href="https://doi.org/10.32614/CRAN.package.Ecdat">https://doi.org/10.32614/CRAN.package.Ecdat</a>.
+</div>
+<div id="ref-hothorn" class="csl-entry" role="listitem">
+Hothorn, Torsten, Achim Zeileis, Richard W. Farebrother, and Clint Cummins. n.d. <span>“Lmtest: Testing Linear Regression Models.”</span> <a href="https://doi.org/10.32614/CRAN.package.lmtest">https://doi.org/10.32614/CRAN.package.lmtest</a>.
+</div>
+<div id="ref-nakatani" class="csl-entry" role="listitem">
+Nakatani, Tomoaki, and Hideo Aizaki. n.d. <span>“DCchoice: Analyzing Dichotomous Choice Contingent Valuation Data.”</span> <a href="https://doi.org/10.32614/CRAN.package.DCchoice">https://doi.org/10.32614/CRAN.package.DCchoice</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
