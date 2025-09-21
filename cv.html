@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>sp – Valuing Nature NREM 691</title>
+<title>cv – Valuing Nature NREM 691</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -160,7 +160,7 @@ window.Quarto = {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./cv.html"> 
+    <a class="nav-link active" href="./cv.html" aria-current="page"> 
 <span class="menu-text">Contingent Valuation</span></a>
   </li>  
   <li class="nav-item">
@@ -210,32 +210,21 @@ window.Quarto = {
   <li><a href="#stated-preference" id="toc-stated-preference" class="nav-link active" data-scroll-target="#stated-preference">Stated Preference</a></li>
   <li><a href="#contingent-valuation" id="toc-contingent-valuation" class="nav-link" data-scroll-target="#contingent-valuation">Contingent Valuation</a>
   <ul class="collapse">
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a>
-  <ul class="collapse">
   <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
   <li><a href="#load-data" id="toc-load-data" class="nav-link" data-scroll-target="#load-data">Load Data</a></li>
   <li><a href="#data-variables" id="toc-data-variables" class="nav-link" data-scroll-target="#data-variables">Data Variables</a></li>
   <li><a href="#data-manipulation" id="toc-data-manipulation" class="nav-link" data-scroll-target="#data-manipulation">Data Manipulation</a></li>
   <li><a href="#data-visualization" id="toc-data-visualization" class="nav-link" data-scroll-target="#data-visualization">Data Visualization</a></li>
   <li><a href="#model-estimation" id="toc-model-estimation" class="nav-link" data-scroll-target="#model-estimation">Model Estimation</a></li>
-  <li><a href="#full-estimation" id="toc-full-estimation" class="nav-link" data-scroll-target="#full-estimation">Full Estimation</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#discrete-choice" id="toc-discrete-choice" class="nav-link" data-scroll-target="#discrete-choice">Discrete Choice</a>
+  <li><a href="#full-estimation" id="toc-full-estimation" class="nav-link" data-scroll-target="#full-estimation">Full Estimation</a>
   <ul class="collapse">
-  <li><a href="#attribute-levels" id="toc-attribute-levels" class="nav-link" data-scroll-target="#attribute-levels">Attribute &amp; Levels</a></li>
-  <li><a href="#choice-set" id="toc-choice-set" class="nav-link" data-scroll-target="#choice-set">Choice Set</a></li>
-  <li><a href="#experiential-design" id="toc-experiential-design" class="nav-link" data-scroll-target="#experiential-design">Experiential Design</a>
-  <ul class="collapse">
-  <li><a href="#logical-operators" id="toc-logical-operators" class="nav-link" data-scroll-target="#logical-operators">Logical Operators</a></li>
-  <li><a href="#d-efficient-design" id="toc-d-efficient-design" class="nav-link" data-scroll-target="#d-efficient-design">D-efficient Design</a></li>
-  <li><a href="#utility-function" id="toc-utility-function" class="nav-link" data-scroll-target="#utility-function">Utility Function</a></li>
-  <li><a href="#generating-design" id="toc-generating-design" class="nav-link" data-scroll-target="#generating-design">Generating Design</a></li>
-  <li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation">Correlation</a></li>
-  <li><a href="#attribute-balance" id="toc-attribute-balance" class="nav-link" data-scroll-target="#attribute-balance">Attribute Balance</a></li>
-  <li><a href="#dominated-strategy-check" id="toc-dominated-strategy-check" class="nav-link" data-scroll-target="#dominated-strategy-check">Dominated Strategy Check</a></li>
+  <li><a href="#mean-wtp" id="toc-mean-wtp" class="nav-link" data-scroll-target="#mean-wtp">1. Mean WTP</a></li>
+  <li><a href="#mean-wtp-truncated-at-max-bid" id="toc-mean-wtp-truncated-at-max-bid" class="nav-link" data-scroll-target="#mean-wtp-truncated-at-max-bid">2. <strong>Mean WTP (truncated at max bid)</strong></a></li>
+  <li><a href="#mean-wtp-truncated-with-adjustment" id="toc-mean-wtp-truncated-with-adjustment" class="nav-link" data-scroll-target="#mean-wtp-truncated-with-adjustment">3. <strong>Mean WTP (truncated with adjustment)</strong></a></li>
+  <li><a href="#median-wtp" id="toc-median-wtp" class="nav-link" data-scroll-target="#median-wtp">4. <strong>Median WTP</strong></a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   </ul>
 </nav>
     </div>
@@ -247,22 +236,12 @@ window.Quarto = {
 
 <section id="stated-preference" class="level1">
 <h1>Stated Preference</h1>
-<p><strong>Core Stated Preference Methods:</strong></p>
-<ul>
-<li><p><strong>Contingent Valuation</strong></p>
-<p>This method directly asks individuals about their willingness to pay for a good or service, or their willingness to accept compensation for its loss. In R, packages can be used to analyze responses from single-bounded or double-bounded dichotomous choice CV surveys, employing both parametric and nonparametric approaches.</p></li>
-<li><p><strong>Discrete Choice</strong></p>
-<p>DCEs present respondents with several choice scenarios, each containing multiple alternatives described by various attributes and their levels. Respondents choose their preferred alternative in each scenario. R packages facilitate the design of DCEs (e.g., using orthogonal main-effect designs) and the analysis of choice data using models like conditional and binary logit.</p></li>
-</ul>
 </section>
 <section id="contingent-valuation" class="level1">
 <h1>Contingent Valuation</h1>
-<p>The contingent valuation method involves directly asking people, in a survey, how much they would be willing to pay for specific environmental services.&nbsp; In some cases, people are asked for the amount of compensation they would be willing to accept to give up specific environmental services.&nbsp; It is called <strong>contingent valuation</strong>, because people are asked to state their willingness to pay, <em>contingent</em> on a specific hypothetical scenario and description of the environmental service.</p>
-<section id="example" class="level2">
-<h2 class="anchored" data-anchor-id="example">Example</h2>
-<p>Based on <a href="https://nmvr.skr.jp/01-cv1.html#ref-ecdat">James Fogarty and Hideo Aizaki</a></p>
-<section id="packages" class="level3">
-<h3 class="anchored" data-anchor-id="packages">Packages</h3>
+<p>The contingent valuation method involves directly asking people, in a survey, how much they would be willing to pay for specific environmental services.&nbsp; In some cases, people are asked for the amount of compensation they would be willing to accept to give up specific environmental services.&nbsp; It is called <strong>contingent valuation</strong>, because people are asked to state their willingness to pay, <em>contingent</em> on a specific hypothetical scenario and description of the environmental service. This page will go through an adapted version based on <a href="https://nmvr.skr.jp/01-cv1.html#ref-ecdat">James Fogarty and Hideo Aizaki</a></p>
+<section id="packages" class="level2">
+<h2 class="anchored" data-anchor-id="packages">Packages</h2>
 <p>Open R. You will need additional packages <strong>DCchoice</strong>, <strong>Ecdat</strong> (<a href="#0">Croissant and Graves 2020</a>) and <strong>lmtest</strong> (<a href="#0">Zeileis and Hothorn 2002</a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("DCchoice",repos = c("http://www.bioconductor.org/packages/release/bioc","https://cran.rstudio.com/"), dep = TRUE)</span></span>
@@ -280,8 +259,8 @@ window.Quarto = {
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="load-data" class="level3">
-<h3 class="anchored" data-anchor-id="load-data">Load Data</h3>
+<section id="load-data" class="level2">
+<h2 class="anchored" data-anchor-id="load-data">Load Data</h2>
 <p>We will use a built-in sample dataset from the <code>Ecdat</code> package. After loading the dataset, you can use the <code>head()</code> function to preview its contents. By default, <code>head()</code> displays the first six rows along with the column names, but you can adjust the number of rows shown by using the <code>n</code> argument. This function is a quick way to get an overview of the dataset’s structure.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data from Ecdat package</span></span>
@@ -299,8 +278,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="data-variables" class="level3">
-<h3 class="anchored" data-anchor-id="data-variables">Data Variables</h3>
+<section id="data-variables" class="level2">
+<h2 class="anchored" data-anchor-id="data-variables">Data Variables</h2>
 <p>The <strong>NaturalParks (NP)</strong> dataset contains seven variables, each representing a specific aspect of the survey responses:</p>
 <ul>
 <li><p><strong><code>bid1</code></strong>: The initial bid amount (in euros) presented in the first willingness-to-pay (WTP) question. In this dataset, there are four possible bid amounts: 6, 12, 24, and 48.</p></li>
@@ -320,8 +299,8 @@ window.Quarto = {
 <li><p><strong><code>income</code></strong>: Income is also grouped into eight brackets. As with age, higher numbers represent higher income levels.</p></li>
 </ul>
 </section>
-<section id="data-manipulation" class="level3">
-<h3 class="anchored" data-anchor-id="data-manipulation">Data Manipulation</h3>
+<section id="data-manipulation" class="level2">
+<h2 class="anchored" data-anchor-id="data-manipulation">Data Manipulation</h2>
 <p>The decision identifies what each individual prefers. This is indicated by the “yes” and “no.” The variable needs to be converted into a numerical representation. To do this you will need to write a loop and create a binary indicator for when the individuals says yes to the first bid. This is indicated by the first letter of the variable starting with “y”</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>NaturalPark<span class="sc">$</span>ans1 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(NaturalPark<span class="sc">$</span>answers <span class="sc">==</span> <span class="st">"yy"</span> <span class="sc">|</span> NaturalPark<span class="sc">$</span>answers <span class="sc">==</span> <span class="st">"yn"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
@@ -356,8 +335,8 @@ window.Quarto = {
 </p>
 <p>This pattern is visible in the table, particularly when reading across the row representing “yes” responses (often coded as <code>1</code>), where the number of affirmative answers drops from <strong>50 to 36</strong>, and continues decreasing with higher bids. Lets look at this in a graph.</p>
 </section>
-<section id="data-visualization" class="level3">
-<h3 class="anchored" data-anchor-id="data-visualization">Data Visualization</h3>
+<section id="data-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="data-visualization">Data Visualization</h2>
 <p>To create our demand line, we will first have to convert the data in the right shape form.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>yes_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(NaturalPark<span class="sc">$</span>ans1, NaturalPark<span class="sc">$</span>bid1)) <span class="sc">%&gt;%</span></span>
@@ -394,7 +373,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="sp_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="cv_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -402,8 +381,8 @@ window.Quarto = {
 <p>And voilà! There we have a downward sloping demand curve!</p>
 <p>People respond to prices which makes sense and suggest that people are responding in a way that they do in reality.</p>
 </section>
-<section id="model-estimation" class="level3">
-<h3 class="anchored" data-anchor-id="model-estimation">Model Estimation</h3>
+<section id="model-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="model-estimation">Model Estimation</h2>
 <p>Now that we have explored the data and tested peoples rational. We are going to estimate the willingness to pay for the contingent valuation question.</p>
 <p>For now, we’ll ignore gender, income, and age. The model assumes that a person’s response :</p>
 <ul>
@@ -452,14 +431,14 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="sp_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="cv_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="full-estimation" class="level3">
-<h3 class="anchored" data-anchor-id="full-estimation">Full Estimation</h3>
+<section id="full-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="full-estimation">Full Estimation</h2>
 <p>We now look at the full model summary output we get when we use the <code>sbchoice()</code> function:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Model summary</span></span>
@@ -525,8 +504,8 @@ Convergence: TRUE </code></pre></li>
  Mean : 47.26755 (truncated at the maximum bid with adjustment)
  Median : 34.98512 </code></pre></li>
 </ul>
-<section id="mean-wtp" class="level4">
-<h4 class="anchored" data-anchor-id="mean-wtp">1. Mean WTP</h4>
+<section id="mean-wtp" class="level3">
+<h3 class="anchored" data-anchor-id="mean-wtp">1. Mean WTP</h3>
 <p><strong>Value:</strong> <strong>Value:</strong> <code>63.95</code></p>
 <p>This estimate can be calculated by taking the coefficient of the estimation on bid:</p>
 <p><span class="math inline">\(1/\beta_{bid} = 1/-0.015722=63.95\)</span></p>
@@ -545,8 +524,8 @@ Convergence: TRUE </code></pre></li>
 </div>
 </div>
 </section>
-<section id="mean-wtp-truncated-at-max-bid" class="level4">
-<h4 class="anchored" data-anchor-id="mean-wtp-truncated-at-max-bid">2. <strong>Mean WTP (truncated at max bid)</strong></h4>
+<section id="mean-wtp-truncated-at-max-bid" class="level3">
+<h3 class="anchored" data-anchor-id="mean-wtp-truncated-at-max-bid">2. <strong>Mean WTP (truncated at max bid)</strong></h3>
 <p><strong>Value:</strong> <code>26.04</code><br>
 </p>
 <p>This is the mean WTP <strong>truncated at the maximum bid</strong> in your data.</p>
@@ -564,9 +543,9 @@ Convergence: TRUE </code></pre></li>
 </div>
 </div>
 </section>
-<section id="mean-wtp-truncated-with-adjustment" class="level4">
-<h4 class="anchored" data-anchor-id="mean-wtp-truncated-with-adjustment">3. <strong>Mean WTP (truncated with adjustment)</strong></h4>
-<p><strong>Value:</strong> <code>47.27</code><br>
+<section id="mean-wtp-truncated-with-adjustment" class="level3">
+<h3 class="anchored" data-anchor-id="mean-wtp-truncated-with-adjustment">3. <strong>Mean WTP (truncated with adjustment)</strong></h3>
+<p><strong>#Value:</strong> <code>47.27</code><br>
 </p>
 <p>This is the <strong>same as #2</strong> but with a <strong>correction</strong> applied to adjust for truncation bias.</p>
 <p><strong>How it’s calculated:</strong></p>
@@ -575,8 +554,8 @@ Convergence: TRUE </code></pre></li>
 <li><p><strong>Why:</strong> Balances realism (truncation) with statistical accuracy (adjustment).</p></li>
 </ul>
 </section>
-<section id="median-wtp" class="level4">
-<h4 class="anchored" data-anchor-id="median-wtp">4. <strong>Median WTP</strong></h4>
+<section id="median-wtp" class="level3">
+<h3 class="anchored" data-anchor-id="median-wtp">4. <strong>Median WTP</strong></h3>
 <p><strong>Value:</strong> <code>34.99</code><br>
 </p>
 <p>This is the <strong>bid level at which 50% of respondents are predicted to say “yes”</strong>.</p>
@@ -596,556 +575,10 @@ Convergence: TRUE </code></pre></li>
 </section>
 </section>
 </section>
-</section>
-<section id="discrete-choice" class="level1">
-<h1>Discrete Choice</h1>
-<p>For this example we will be using this book</p>
-<p><a href="https://library.oapen.org/bitstream/handle/20.500.12657/104194/1/9783031893384.pdf">Environmental Valuation with Discrete Choice Experiments in R</a></p>
-<p>These are the libraries you need to run the code below:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spdesign)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'spdesign' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: stringr</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>┌────────────────────────────────────────────────────────────────────────────────────┐
-│                                                                                    │
-│                                  THANK YOU FOR USING SPDESIGN!                     │
-│                                                                                    │
-│   You are currently using version: 0.0.5                                           │
-│   The latest stable version is:    0.0.5                                           │
-│   Package website with documentation and examples: https://spdesign.edsandorf.me   │
-│   To cite the package:             utils::citation('spdesign')                     │
-│                                                                                    │
-└────────────────────────────────────────────────────────────────────────────────────┘</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'spdesign'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:stats':
-
-    cor</code></pre>
-</div>
-</div>
-<p>We will use the example the above book uses through out the chapters.</p>
-<section id="attribute-levels" class="level2">
-<h2 class="anchored" data-anchor-id="attribute-levels">Attribute &amp; Levels</h2>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 48%">
-<col style="width: 24%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Attributes</th>
-<th>Labels</th>
-<th>Levels</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Size of Wind Farm (discrete)</td>
-<td>Small Farms</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td><strong><em>Note reference is LargeFarm</em></strong></td>
-<td></td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>MediumFarms</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td>Max. Height Turbine (discrete)</td>
-<td>Low Height</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td><strong><em>Note reference is HighHeight</em></strong></td>
-<td></td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Medium Height</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td>Reduction in Red Kite (continous)</td>
-<td>Red Kite</td>
-<td>5</td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td>7.5</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td>10</td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td>12.5</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td>15</td>
-</tr>
-<tr class="even">
-<td>Distance to residents (continous)</td>
-<td>MinDistance</td>
-<td>750</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td>1000</td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td>1250</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td>1500</td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td>1750</td>
-</tr>
-<tr class="odd">
-<td><p>MonthlyCost</p>
-<p>(Continous)</p></td>
-<td>Cost</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td>2</td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td>3</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td>4</td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td>…..</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td>….</td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td>10</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="choice-set" class="level2">
-<h2 class="anchored" data-anchor-id="choice-set">Choice Set</h2>
-<p>Lets first consider this example</p>
-<p><img src="images/Screenshot 2025-09-20 at 5.35.39 PM.png" class="img-fluid"></p>
-<p>This choice card has 3 alternatives and thus 3 different utility functions you are estimating:</p>
-<ul>
-<li>The status quo or the opting out and keeping things the way they are. The utility function would look something like this:</li>
-</ul>
-<p><span class="math display">\[
-U_{n1t}=
-\beta_{mf}Med.Farms_{n1t}+\beta_{sf}SmallFarms_{n1t} \\
-+\beta_{mh}Med.Height_{n1t}+\beta_{lh}LowHeight_{n1t} \\
-+\beta_{rk}redKite_{n|t}+\beta_{md}MinDistance_{n1t} \\
-\beta_{cost}Cost_{n1t}+ \epsilon_{n1t}
-\]</span></p>
-<ul>
-<li>Program B will be alternative 2 and thus is indexed by 2</li>
-</ul>
-<p><span class="math display">\[
-U_{n2t}= \beta_{mf}Med.Farms_{n2t}+\beta_{sf}SmallFarms_{n2t} \\
-+\beta_{mh}Med.Height_{n2t}+\beta_{lh}LowHeight_{n2t} \\
-+\beta_{rk}redKite_{n2t}+\beta_{md}MinDistance_{n2t} \\
-\beta_{cost}Cost_{n2t}+ \epsilon_{n2t}
-\]</span></p>
-<ul>
-<li><p>Program C will be alternative 3 and thus is indexed by 3</p>
-<p><span class="math display">\[
-U_{n3t}= \beta_{mf}Med.Farms_{n3t}+\beta_{sf}SmallFarms_{n3t} \\
-+\beta_{mh}Med.Height_{n3t}+\beta_{lh}LowHeight_{n3t} \\
-+\beta_{rk}redKite_{n3t}+\beta_{md}MinDistance_{n3t} \\
-\beta_{cost}Cost_{n3t}+ \epsilon_{n3t}
-\]</span></p></li>
-</ul>
-</section>
-<section id="experiential-design" class="level2">
-<h2 class="anchored" data-anchor-id="experiential-design">Experiential Design</h2>
-<p>We will now look at a full factorial design for the entire choice set and all the levels. Given the choices above the amount of possible combinations balloons to 5mil+ observations!</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the full factorial using a named list of attributes and levels in the wide format</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>full_fact <span class="ot">&lt;-</span> <span class="fu">full_factorial</span>( <span class="fu">list</span>( <span class="at">alt1_sq =</span> <span class="dv">1</span>,</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="at">alt1_farm =</span> <span class="dv">0</span>,</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="at">alt1_height =</span> <span class="dv">0</span>,</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="at">alt1_redkite =</span> <span class="dv">0</span>,</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="at">alt1_distance =</span> <span class="dv">0</span>,</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="at">alt1_cost =</span> <span class="dv">0</span>,</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="at">alt2_sq =</span> <span class="dv">0</span>,</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="at">alt2_farm =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="at">alt2_height =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="at">alt2_redkite =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="sc">-</span><span class="fl">2.5</span>, <span class="dv">0</span>, <span class="fl">2.5</span>, <span class="dv">5</span>), <span class="at">alt2_distance =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>), <span class="at">alt2_cost =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="at">alt3_sq =</span> <span class="dv">0</span>,</span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="at">alt3_farm =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="at">alt3_height =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="at">alt3_redkite =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="sc">-</span><span class="fl">2.5</span>, <span class="dv">0</span>, <span class="fl">2.5</span>, <span class="dv">5</span>), <span class="at">alt3_distance =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>), <span class="at">alt3_cost =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>) )</span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the first six rows and 8th to 12th columns of the design matrix</span></span>
-<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>full_fact[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">8</span><span class="sc">:</span><span class="dv">12</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  alt1_sq alt2_farm alt2_height alt2_redkite alt2_distance alt2_cost
-1       1         1           1           -5             0         1
-2       1         2           1           -5             0         1
-3       1         3           1           -5             0         1
-4       1         1           2           -5             0         1
-5       1         2           2           -5             0         1
-6       1         3           2           -5             0         1</code></pre>
-</div>
-</div>
-<p>As the number of attributes, levels, and alternatives increases, full factorial designs become less practical for several reasons:</p>
-<ol type="1">
-<li><p><strong>Duplicate alternatives</strong>: Some choice tasks may repeat the same alternative, which doesn’t help us learn anything new about preferences.</p></li>
-<li><p><strong>Dominated alternatives</strong>: Some options in a choice task might be clearly worse (or better) than others in every way. These don’t help reveal trade-offs because people will always pick the best one, making the data less useful.</p></li>
-<li><p><strong>Lack of control</strong>: The full factorial includes all possible combinations, even unrealistic ones. For example, we might want to prevent small wind farms from showing up with the highest red kite impact.</p></li>
-</ol>
-<section id="logical-operators" class="level3">
-<h3 class="anchored" data-anchor-id="logical-operators">Logical Operators</h3>
-<p>Lets say we want to put restriction by putting logical restrictions. For example, the tall windmills cannot be placed too close to residential areas (this could already be a law and thus is a more accurate reflection of reality).</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>candidate_set <span class="ot">&lt;-</span> full_fact[<span class="sc">!</span>((full_fact<span class="sc">$</span>alt2_height <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> full_fact<span class="sc">$</span>alt2_distance <span class="sc">&lt;</span> <span class="fl">0.75</span>) <span class="sc">|</span> (full_fact<span class="sc">$</span>alt3_height <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> full_fact<span class="sc">$</span>alt3_distance <span class="sc">&lt;</span> <span class="fl">0.75</span>)), ]</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>candidate_set[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">8</span><span class="sc">:</span><span class="dv">12</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     alt1_sq alt2_farm alt2_height alt2_redkite alt2_distance alt2_cost
-6754       1         1           2           -5             0         1
-6755       1         2           2           -5             0         1
-6756       1         3           2           -5             0         1
-6757       1         1           3           -5             0         1
-6758       1         2           3           -5             0         1
-6759       1         3           3           -5             0         1</code></pre>
-</div>
-</div>
-<p>This reduces the number of observations to 3.2million+ but does not make our choice set reasonable for population sampling. There for we move onto the next approach D-efficient</p>
-</section>
-<section id="d-efficient-design" class="level3">
-<h3 class="anchored" data-anchor-id="d-efficient-design">D-efficient Design</h3>
-<p>In statistics, we often try to reduce standard errors to improve the precision of our estimates. The same idea applies in Discrete Choice Experiments (DCEs). We want to design choice tasks that give us the most precise information.</p>
-<p>Think of it this way:</p>
-<ul>
-<li><p>When <strong>fitting a model</strong>, we already have the data and estimate the parameters that best explain it.</p></li>
-<li><p>When <strong>designing a DCE</strong>, we do the reverse: we assume values for the parameters (called <em>priors</em>) and then search for the combination of attributes and levels that will give us the most information — that is, the <strong>lowest standard errors</strong> or <strong>lowest D-error</strong>.</p></li>
-</ul>
-</section>
-<section id="utility-function" class="level3">
-<h3 class="anchored" data-anchor-id="utility-function">Utility Function</h3>
-<p>For our example we need to design a utility function to estimate the best set of potential choice cards. The utility function was written out within choice set section. So here we are going to use the library <code>spdesign</code> to write out each alternative.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>utility <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="at">alt1 =</span> <span class="st">"b_sq[0] * sq[1]"</span>,</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="at">alt2 =</span> <span class="st">"b_farm_dummy[c(0.25, 0.5)] * farm[c(1, 2, 3)] +</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="st">b_height_dummy[c(0.25, 0.5)] * height[c(1, 2, 3)] + b_redkite[-0.05] * redkite[c(-5, -2.5, 0, 2.5, 5)] + b_distance[0.5] * distance[c(0, 0.25, 0.5, 0.75, 1)] + b_cost[-0.05] * cost[seq(1, 10)]"</span>,</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="at">alt3 =</span> <span class="st">"b_farm_dummy * farm + b_height_dummy * height +</span></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="st">b_redkite * redkite + b_distance * distance + b_cost * cost"</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="generating-design" class="level3">
-<h3 class="anchored" data-anchor-id="generating-design">Generating Design</h3>
-<p>In library <strong>spdesign</strong> <code>generate_design</code>is a function that generates efficient experimental designs. The function takes a set of indirect utility functions and generates efficient experimental designs assuming that people are maximizing utility.</p>
-<p>Here are the arguments needed for our example:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 8%">
-<col style="width: 91%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><code>utility</code></td>
-<td>A named list of utility functions. See the examples and the vignette for examples of how to define these correctly for different types of experimental designs.</td>
-</tr>
-<tr class="even">
-<td><code>rows</code></td>
-<td>An integer giving the number of rows in the final design</td>
-</tr>
-<tr class="odd">
-<td><code>model</code></td>
-<td>A character string indicating the model to optimize the design for. Currently the only model programmed is the ‘mnl’ model and this is also set as the default.</td>
-</tr>
-<tr class="even">
-<td><code>efficiency_criteria</code></td>
-<td>A character string giving the efficiency criteria to optimize for. One of ‘a-error’, ‘c-error’, ‘d-error’ or ‘s-error’. No default is set and argument must be specified. Optimizing for multiple criteria is not yet implemented and will result in an error.</td>
-</tr>
-<tr class="odd">
-<td><code>algorithm</code></td>
-<td>A character string giving the optimization algorithm to use. No default is set and the argument must be specified to be one of ‘rsc’, ‘federov’ or ‘random’.</td>
-</tr>
-</tbody>
-</table>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate design ----</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">generate_design</span>(utility, <span class="at">rows =</span> <span class="dv">100</span>,</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="at">model =</span> <span class="st">"mnl"</span>, <span class="at">efficiency_criteria =</span> <span class="st">"d-error"</span>, <span class="at">algorithm =</span> <span class="st">"rsc"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Checking function arguments ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ The cycling part of the algorithm is not used. It only applies to a
-small subset of designs. The algorithm swithes between relabeling of
-attribute levels and swapping of attributes.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Preparing the list of priors ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ Priors prepared successfully</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating designs ──────────────────────────────────────────────────────────</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-──────────────────────────────────────────────────────────────────────────────── 
- Iteration   A-error   C-error   D-error   S-error               Time stamp
-──────────────────────────────────────────────────────────────────────────────── 
-         1    0.1313       N/A    0.0428       Inf2025-09-20 21:00:40.962659
-──────────────────────────────────────────────────────────────────────────── </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ Efficiency criteria is less than threshhold.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Cleaning up design environment ──────────────────────────────────────────────</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Time spent searching for designs:  0.04609799 </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(design)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>---------------------------------------------------------------------
-An 'spdesign' object
-
-Utility functions:
-alt1 : b_sq * alt1_sq 
-alt2 : b_farm_dummy * alt2_farm + b_height_dummy * alt2_height + b_redkite * alt2_redkite + b_distance * alt2_distance + b_cost * alt2_cost 
-alt3 : b_farm_dummy * alt3_farm + b_height_dummy * alt3_height + b_redkite * alt3_redkite + b_distance * alt3_distance + b_cost * alt3_cost 
+<section id="section" class="level1">
+<h1></h1>
 
 
-   a-error    c-error    d-error    s-error 
-0.13126413        NaN 0.04275802        Inf 
-
----------------------------------------------------------------------
-
-Printing the first few rows of the design 
-# A tibble: 6 × 15
-  alt1_sq alt2_farm2 alt2_farm3 alt2_height2 alt2_height3 alt2_redkite
-    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-1       1          0          0            1            0          5  
-2       1          0          1            0            0          0  
-3       1          1          0            0            1          2.5
-4       1          0          0            0            0          2.5
-5       1          1          0            0            1         -5  
-6       1          0          1            0            1          5  
-# ℹ 9 more variables: alt2_distance &lt;dbl&gt;, alt2_cost &lt;dbl&gt;, alt3_farm2 &lt;dbl&gt;,
-#   alt3_farm3 &lt;dbl&gt;, alt3_height2 &lt;dbl&gt;, alt3_height3 &lt;dbl&gt;,
-#   alt3_redkite &lt;dbl&gt;, alt3_distance &lt;dbl&gt;, alt3_cost &lt;dbl&gt;
-
----------------------------------------------------------------------</code></pre>
-</div>
-</div>
-</section>
-<section id="correlation" class="level3">
-<h3 class="anchored" data-anchor-id="correlation">Correlation</h3>
-<p>Next step check correlation</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation matrix</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(design)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stats::cor(x[["design"]], y = NULL, use = "everything", method =
-c("pearson", : the standard deviation is zero</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>              alt1_sq  alt2_farm2  alt2_farm3 alt2_height2 alt2_height3
-alt1_sq             1          NA          NA           NA           NA
-alt2_farm2         NA  1.00000000 -0.50371752  -0.04025328   0.12480702
-alt2_farm3         NA -0.50371752  1.00000000  -0.14456064   0.01960784
-alt2_height2       NA -0.04025328 -0.14456064   1.00000000  -0.50371752
-alt2_height3       NA  0.12480702  0.01960784  -0.50371752   1.00000000
-alt2_redkite       NA  0.16541821 -0.07463518  -0.01503802   0.07463518
-alt2_distance      NA  0.10526613 -0.25375961   0.04511406   0.05970814
-alt2_cost          NA -0.15919049  0.11024347   0.11476524   0.02204869
-alt3_farm2         NA -0.09966603 -0.02495544   0.12480702  -0.11408200
-alt3_farm3         NA  0.18588874  0.03501780  -0.22116689   0.12480702
-alt3_height2       NA -0.08548168 -0.05477142  -0.08548168   0.07991241
-alt3_height3       NA -0.05477142  0.06417112   0.03501780  -0.02495544
-alt3_redkite       NA  0.04511406  0.04478111  -0.13534217   0.04478111
-alt3_distance      NA -0.09022811 -0.02985407   0.06015208  -0.01492704
-alt3_cost          NA -0.07033998 -0.30868170  -0.09995682   0.11024347
-               alt2_redkite alt2_distance    alt2_cost   alt3_farm2
-alt1_sq                  NA            NA           NA           NA
-alt2_farm2     1.654182e-01  1.052661e-01 -0.159190488 -0.099666034
-alt2_farm3    -7.463518e-02 -2.537596e-01  0.110243466 -0.024955437
-alt2_height2  -1.503802e-02  4.511406e-02  0.114765236  0.124807016
-alt2_height3   7.463518e-02  5.970814e-02  0.022048693 -0.114081996
-alt2_redkite   1.000000e+00 -4.000000e-02 -0.039389277 -0.029854072
-alt2_distance -4.000000e-02  1.000000e+00 -0.157557108  0.044781108
-alt2_cost     -3.938928e-02 -1.575571e-01  1.000000000 -0.007349564
-alt3_farm2    -2.985407e-02  4.478111e-02 -0.007349564  1.000000000
-alt3_farm3    -2.137031e-17  2.671289e-17 -0.218424158 -0.503717523
-alt3_height2  -1.503802e-01 -3.007604e-02  0.011106313  0.169701625
-alt3_height3  -1.492704e-02  1.492704e-02  0.095544337 -0.114081996
-alt3_redkite   1.550000e-01  0.000000e+00 -0.123091491  0.044781108
-alt3_distance -6.000000e-02  2.500000e-02 -0.014770979  0.134343323
-alt3_cost     -4.923660e-02  8.124038e-02  0.050909091  0.044097386
-                 alt3_farm3 alt3_height2 alt3_height3 alt3_redkite
-alt1_sq                  NA           NA           NA           NA
-alt2_farm2     1.858887e-01 -0.085481682  -0.05477142   0.04511406
-alt2_farm3     3.501780e-02 -0.054771424   0.06417112   0.04478111
-alt2_height2  -2.211669e-01 -0.085481682   0.03501780  -0.13534217
-alt2_height3   1.248070e-01  0.079912406  -0.02495544   0.04478111
-alt2_redkite  -2.137031e-17 -0.150380191  -0.01492704   0.15500000
-alt2_distance  2.671289e-17 -0.030076038   0.01492704   0.00000000
-alt2_cost     -2.184242e-01  0.011106313   0.09554434  -0.12309149
-alt3_farm2    -5.037175e-01  0.169701625  -0.11408200   0.04478111
-alt3_farm3     1.000000e+00 -0.085481682   0.03501780   0.04511406
-alt3_height2  -8.548168e-02  1.000000000  -0.50371752  -0.19549425
-alt3_height3   3.501780e-02 -0.503717523   1.00000000   0.02985407
-alt3_redkite   4.511406e-02 -0.195494248   0.02985407   1.00000000
-alt3_distance -2.255703e-01  0.180456229   0.10448925   0.06500000
-alt3_cost     -1.814031e-01 -0.003702104   0.03674782   0.06893123
-              alt3_distance    alt3_cost
-alt1_sq                  NA           NA
-alt2_farm2      -0.09022811 -0.070339983
-alt2_farm3      -0.02985407 -0.308681705
-alt2_height2     0.06015208 -0.099956818
-alt2_height3    -0.01492704  0.110243466
-alt2_redkite    -0.06000000 -0.049236596
-alt2_distance    0.02500000  0.081240384
-alt2_cost       -0.01477098  0.050909091
-alt3_farm2       0.13434332  0.044097386
-alt3_farm3      -0.22557029 -0.181403114
-alt3_height2     0.18045623 -0.003702104
-alt3_height3     0.10448925  0.036747822
-alt3_redkite     0.06500000  0.068931235
-alt3_distance    1.00000000  0.115706002
-alt3_cost        0.11570600  1.000000000</code></pre>
-</div>
-</div>
-</section>
-<section id="attribute-balance" class="level3">
-<h3 class="anchored" data-anchor-id="attribute-balance">Attribute Balance</h3>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print only the first three list elements</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">level_balance</span>(design)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$alt1_sq
-
-  1 
-100 
-
-$alt2_farm2
-
- 0  1 
-67 33 
-
-$alt2_farm3
-
- 0  1 
-66 34 </code></pre>
-</div>
-</div>
-<p>First, we can see that the constant for the status quo alternative appears in all 100 rows of the design. Next, the medium and small wind farm sizes each occur 33 times, meaning the large size appears 34 times. This suggests the design is nearly balanced across attribute levels.</p>
-</section>
-<section id="dominated-strategy-check" class="level3">
-<h3 class="anchored" data-anchor-id="dominated-strategy-check">Dominated Strategy Check</h3>
-<p><strong>Dominant</strong> or <strong>dominated</strong> alternatives should be avoided because they don't provide useful information about trade-offs and can bias your results.</p>
-<p>To check for this, we can look at the <strong>choice probabilities</strong> for each alternative. If one option has a probability close to <strong>1</strong>, it likely dominates the others. If it's close to <strong>0</strong>, it's probably dominated.</p>
-<p>The <code>spdesign</code> package includes a <code>probabilities()</code> function that calculates these values based on your design and priors. It shows the probability of choosing each alternative in every choice task. Each row of the output adds up to 1.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the utility balance by inspecting the probabilities. We use head() to avoid printing all 100 rows in the book.</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">probabilities</span>(design) <span class="sc">|&gt;</span></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>          alt1      alt2      alt3
-[1,] 0.3649558 0.4347522 0.2002920
-[2,] 0.2426849 0.4533952 0.3039199
-[3,] 0.2377471 0.4332035 0.3290493
-[4,] 0.3729933 0.2978412 0.3291655
-[5,] 0.1893993 0.5549385 0.2556623
-[6,] 0.1857210 0.3219015 0.4923775</code></pre>
-</div>
-</div>
-
-
-</section>
-</section>
 </section>
 
 </main> <!-- /main -->
