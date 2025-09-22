@@ -1,12 +1,17 @@
 ---
 title: "Valuing Nature"
 author: "LoweMackenzie"
+date: "2025-09-21"
 format:
   html:
+    code-fold: true        # Enables dropdown for code
+    code-tools: true       # (Optional) Adds buttons like "Show Code"
+    code-summary: "Show code"  # (Optional) Custom label for dropdown
     toc: true
     toc-location: left
-    toc-expand: true
+    page-layout: full
 editor: visual
+
 bibliography: references.bib
 ---
 
