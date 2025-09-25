@@ -219,10 +219,10 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active">
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -251,16 +251,16 @@ window.Quarto = {
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Contingent Valuation</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<h1 class="title">Contingent Valuation</h1>
 </div>
 
 
 
-<div class="quarto-title-meta column-page-right">
+<div class="quarto-title-meta">
 
     
   
@@ -284,39 +284,30 @@ window.Quarto = {
 <li><p><strong>lmtest</strong> <span class="citation" data-cites="hothorn">(<a href="#ref-hothorn" role="doc-biblioref">Hothorn et al., n.d.</a>)</span></p></li>
 </ul>
 <div class="cell">
-<details class="code-fold">
-<summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("DCchoice",repos = c("http://www.bioconductor.org/packages/release/bioc","https://cran.rstudio.com/"), dep = TRUE)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(ggplot2)</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(dplyr)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>After installing the necessary packages, the next step is to load <code>DCchoice</code>, <code>Ecdat</code>, and <code>lmtest</code> into your current R session. The <code>DCchoice</code> package provides the core functions used in our analysis. Additionally, <code>lmtest</code> offers essential tools for model testing. The <code>Ecdat</code> package includes publicly available real-world datasets.</p>
 <p><em>For this example, we’ll use the <code>NaturalParks</code> dataset to demonstrate how contingent valuation (CV) study data can be analyzed.</em></p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DCchoice)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Ecdat)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 </section>
 <section id="load-data" class="level2">
 <h2 class="anchored" data-anchor-id="load-data">Load Data</h2>
 <p>We will use a built-in sample dataset from the <code>Ecdat</code> package. After loading the dataset, you can use the <code>head()</code> function to preview its contents. By default, <code>head()</code> displays the first six rows along with the column names, but you can adjust the number of rows shown by using the <code>n</code> argument. This function is a quick way to get an overview of the dataset’s structure.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data from Ecdat package</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(NaturalPark, <span class="at">package =</span> <span class="st">"Ecdat"</span>) </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first three rows of data          </span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(NaturalPark, <span class="at">n =</span> <span class="dv">5</span>)                     </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  bid1 bidh bidl answers age    sex income
 1    6   18    3      yy   1 female      2
@@ -352,13 +343,10 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="data-manipulation">Data Manipulation</h2>
 <p>The decision identifies what each individual prefers. This is indicated by the “yes” and “no.” The variable needs to be converted into a numerical representation. To do this you will need to write a loop and create a binary indicator for when the individuals says yes to the first bid. This is indicated by the first letter of the variable starting with “y”</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>NaturalPark<span class="sc">$</span>ans1 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(NaturalPark<span class="sc">$</span>answers <span class="sc">==</span> <span class="st">"yy"</span> <span class="sc">|</span> NaturalPark<span class="sc">$</span>answers <span class="sc">==</span> <span class="st">"yn"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first three rows of data          </span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(NaturalPark, <span class="at">n =</span> <span class="dv">5</span>)   </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  bid1 bidh bidl answers age    sex income ans1
 1    6   18    3      yy   1 female      2    1
@@ -370,10 +358,7 @@ window.Quarto = {
 </div>
 <p>Now we want to count the number of individuals who said yes for each price. This table shows the rows as yes or no for first bid and all the prices.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(NaturalPark<span class="sc">$</span>ans1, NaturalPark<span class="sc">$</span>bid1) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>   
      6 12 24 48
@@ -394,8 +379,6 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="data-visualization">Data Visualization</h2>
 <p>To create our demand line, we will first have to convert the data in the right shape form.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>yes_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(NaturalPark<span class="sc">$</span>ans1, NaturalPark<span class="sc">$</span>bid1)) <span class="sc">%&gt;%</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Answer =</span> Var1, <span class="at">Bid =</span> Var2, <span class="at">Count =</span> Freq) <span class="sc">%&gt;%</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Answer <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
@@ -403,7 +386,6 @@ window.Quarto = {
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first three rows of data          </span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(yes_data, <span class="at">n =</span> <span class="dv">5</span>)  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Answer Bid Count
 1      1   6    50
@@ -414,8 +396,6 @@ window.Quarto = {
 </div>
 <p>Now we will use ggplot and visually show how people respond to bid prices:</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(yes_data, <span class="fu">aes</span>(<span class="at">x =</span> Count, <span class="at">y =</span> Bid)) <span class="sc">+</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
@@ -426,7 +406,6 @@ window.Quarto = {
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Bid Amount (€)"</span></span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ℹ Please use `linewidth` instead.</code></pre>
@@ -466,12 +445,9 @@ window.Quarto = {
 </ul>
 <p>After fitting the model, we usually check the results with the <code>summary()</code> function. To focus on the coefficient estimates, we can use <code>coeftest()</code> from the <strong>lmtest</strong> package.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A very simple model</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>sb1 <span class="ot">&lt;-</span> <span class="fu">sbchoice</span>(ans1 <span class="sc">~</span> <span class="dv">1</span> <span class="sc">|</span> bid1,  <span class="at">dist =</span> <span class="st">"logistic"</span>, <span class="at">data =</span> NaturalPark)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(sb1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 z test of coefficients:
@@ -487,14 +463,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>The results also show that this relationship is statistically significant, meaning it’s unlikely to be due to chance.</p>
 <p>Lets see these results visually by using the <code>plot()</code> function. This plot shows the willingness-to-pay data along with a horizontal line marking the point where 50% of people say “yes.” From the plot, you can see that this 50% support happens at about €35.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plots the predicted support at each bid value </span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sb1, <span class="at">las =</span> <span class="dv">1</span>)  </span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># adds a horizontal line to the plot </span></span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.5</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"red"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -508,11 +481,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <h2 class="anchored" data-anchor-id="full-estimation">Full Estimation</h2>
 <p>We now look at the full model summary output we get when we use the <code>sbchoice()</code> function:</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Model summary</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sb1) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -588,11 +558,8 @@ Convergence: TRUE </code></pre></li>
 <li><p><strong>Issue:</strong> May overestimate WTP, especially if the upper tail is long (which it often is).</p></li>
 </ul>
 <div class="cell">
-<details class="code-fold">
-<summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>medianWTP<span class="ot">=</span><span class="dv">1</span><span class="sc">/</span>sb1<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>medianWTP</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>     BID 
 -63.6041 </code></pre>
@@ -613,10 +580,7 @@ Convergence: TRUE </code></pre></li>
 <li><p><strong>Why:</strong> This avoids overestimating WTP from extrapolating too far beyond your data.</p></li>
 </ul>
 <div class="cell">
-<details class="code-fold">
-<summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>medianWTP <span class="sc">*</span> (<span class="fu">log</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(sb1<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> sb1<span class="sc">$</span>coefficients[<span class="dv">2</span>] <span class="sc">*</span> <span class="fu">max</span>(NaturalPark<span class="sc">$</span>bid1))) <span class="sc">-</span> <span class="fu">log</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(sb1<span class="sc">$</span>coefficients[<span class="dv">1</span>])))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>     BID 
 26.04338 </code></pre>
@@ -647,10 +611,7 @@ Convergence: TRUE </code></pre></li>
 <li><p><strong>Why:</strong> Commonly used because it’s less sensitive to skewed data than the mean.</p></li>
 </ul>
 <div class="cell">
-<details class="code-fold">
-<summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span>sb1<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">/</span>sb1<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept) 
    34.98512 </code></pre>
@@ -662,8 +623,6 @@ Convergence: TRUE </code></pre></li>
 <section id="section" class="level1">
 
 
-
-<!-- -->
 
 
 </section>
@@ -756,60 +715,9 @@ Nakatani, Tomoaki, and Hideo Aizaki. n.d. <span>“DCchoice: Analyzing Dichotomo
       });
       clipboardModal.on('success', onCopySuccess);
     }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
-    }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/loweas\.github\.io\/ValuingNature\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -1135,347 +1043,7 @@ Nakatani, Tomoaki, and Hideo Aizaki. n.d. <span>“DCchoice: Analyzing Dichotomo
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Contingent Valuation"</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true        # Enables dropdown for code</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true       # (Optional) Adds buttons like "Show Code"</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">    code-summary: "Show code"  # (Optional) Custom label for dropdown</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-location: left</span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co">    page-layout: full</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="an">editor:</span><span class="co"> visual</span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="an">bibliography:</span><span class="co"> references.bib</span></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stated Preference: CV</span></span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>The contingent valuation method involves directly asking people, in a survey, how much they would be willing to pay for specific environmental services.&nbsp; In some cases, people are asked for the amount of compensation they would be willing to accept to give up specific environmental services.&nbsp; It is called **contingent valuation**, because people are asked to state their willingness to pay, *contingent* on a specific hypothetical scenario and description of the environmental service. This page will go through an adapted version based on <span class="co">[</span><span class="ot">James Fogarty and Hideo Aizaki</span><span class="co">](https://nmvr.skr.jp/01-cv1.html#ref-ecdat)</span></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Packages</span></span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>Open R. You will need additional packages</span>
-<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**DCchoice** <span class="co">[</span><span class="ot">@nakatani</span><span class="co">]</span>Functions for analyzing dichotomous choice contingent valuation (CV) data. It provides functions for estimating parametric and nonparametric models for single-, one-and-one-half-, and double-bounded CV data. For details, see <span class="co">[</span><span class="ot">@aizaki2022</span><span class="co">]</span></span>
-<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Ecdat** <span class="co">[</span><span class="ot">@croissant</span><span class="co">]</span> For the dataset NationalPark: Willingness to Pay for the Preservation of the Alentejo Natural Park</span>
-<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a><span class="ss">-    </span>**lmtest** <span class="co">[</span><span class="ot">@hothorn</span><span class="co">]</span></span>
-<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("DCchoice",repos = c("http://www.bioconductor.org/packages/release/bioc","https://cran.rstudio.com/"), dep = TRUE)</span></span>
-<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(ggplot2)</span></span>
-<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(dplyr)</span></span>
-<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a>After installing the necessary packages, the next step is to load <span class="in">`DCchoice`</span>, <span class="in">`Ecdat`</span>, and <span class="in">`lmtest`</span> into your current R session. The <span class="in">`DCchoice`</span> package provides the core functions used in our analysis. Additionally, <span class="in">`lmtest`</span> offers essential tools for model testing. The <span class="in">`Ecdat`</span> package includes publicly available real-world datasets.</span>
-<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a>*For this example, we'll use the `NaturalParks` dataset to demonstrate how contingent valuation (CV) study data can be analyzed.*</span>
-<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE, message=FALSE, warning=FALSE, results='hide'}</span></span>
-<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DCchoice)</span>
-<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Ecdat)</span>
-<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb28-46"><a href="#cb28-46" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb28-47"><a href="#cb28-47" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb28-48"><a href="#cb28-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-49"><a href="#cb28-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-50"><a href="#cb28-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## Load Data</span></span>
-<span id="cb28-51"><a href="#cb28-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-52"><a href="#cb28-52" aria-hidden="true" tabindex="-1"></a>We will use a built-in sample dataset from the <span class="in">`Ecdat`</span> package. After loading the dataset, you can use the <span class="in">`head()`</span> function to preview its contents. By default, <span class="in">`head()`</span> displays the first six rows along with the column names, but you can adjust the number of rows shown by using the <span class="in">`n`</span> argument. This function is a quick way to get an overview of the dataset's structure.</span>
-<span id="cb28-53"><a href="#cb28-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-56"><a href="#cb28-56" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-57"><a href="#cb28-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data from Ecdat package</span></span>
-<span id="cb28-58"><a href="#cb28-58" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(NaturalPark, <span class="at">package =</span> <span class="st">"Ecdat"</span>) </span>
-<span id="cb28-59"><a href="#cb28-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-60"><a href="#cb28-60" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first three rows of data          </span></span>
-<span id="cb28-61"><a href="#cb28-61" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(NaturalPark, <span class="at">n =</span> <span class="dv">5</span>)                     </span>
-<span id="cb28-62"><a href="#cb28-62" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-63"><a href="#cb28-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-64"><a href="#cb28-64" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Variables</span></span>
-<span id="cb28-65"><a href="#cb28-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-66"><a href="#cb28-66" aria-hidden="true" tabindex="-1"></a>The **NaturalParks (NP)** dataset contains seven variables, each representing a specific aspect of the survey responses:</span>
-<span id="cb28-67"><a href="#cb28-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-68"><a href="#cb28-68" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**`bid1`**: The initial bid amount (in euros) presented in the first willingness-to-pay (WTP) question. In this dataset, there are four possible bid amounts: 6, 12, 24, and 48.</span>
-<span id="cb28-69"><a href="#cb28-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-70"><a href="#cb28-70" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**`bidh`**: The higher follow-up bid amount, shown only if the respondent answered "yes" to the initial WTP question.</span>
-<span id="cb28-71"><a href="#cb28-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-72"><a href="#cb28-72" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**`bidl`**: The lower follow-up bid amount, shown only if the respondent answered "no" to the initial WTP question.</span>
-<span id="cb28-73"><a href="#cb28-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-74"><a href="#cb28-74" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**`answers`**: A factor variable representing the respondent's answers to the two WTP questions. The four possible combinations are:</span>
-<span id="cb28-75"><a href="#cb28-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-76"><a href="#cb28-76" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="in">`nn`</span>: no to both</span>
-<span id="cb28-77"><a href="#cb28-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-78"><a href="#cb28-78" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="in">`ny`</span>: no to first, yes to second</span>
-<span id="cb28-79"><a href="#cb28-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-80"><a href="#cb28-80" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="in">`yn`</span>: yes to first, no to second</span>
-<span id="cb28-81"><a href="#cb28-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-82"><a href="#cb28-82" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="in">`yy`</span>: yes to both\</span>
-<span id="cb28-83"><a href="#cb28-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-84"><a href="#cb28-84" aria-hidden="true" tabindex="-1"></a>        Since there are four combinations, this factor variable has four levels.</span>
-<span id="cb28-85"><a href="#cb28-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-86"><a href="#cb28-86" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**`age`**: Age is grouped into six brackets rather than exact values. Higher bracket numbers correspond to older respondents.</span>
-<span id="cb28-87"><a href="#cb28-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-88"><a href="#cb28-88" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**`sex`**: A factor variable with two levels: "male" and "female."</span>
-<span id="cb28-89"><a href="#cb28-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-90"><a href="#cb28-90" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**`income`**: Income is also grouped into eight brackets. As with age, higher numbers represent higher income levels.</span>
-<span id="cb28-91"><a href="#cb28-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-92"><a href="#cb28-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Manipulation</span></span>
-<span id="cb28-93"><a href="#cb28-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-94"><a href="#cb28-94" aria-hidden="true" tabindex="-1"></a>The decision identifies what each individual prefers. This is indicated by the "yes" and "no." The variable needs to be converted into a numerical representation. To do this you will need to write a loop and create a binary indicator for when the individuals says yes to the first bid. This is indicated by the first letter of the variable starting with "y"</span>
-<span id="cb28-95"><a href="#cb28-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-98"><a href="#cb28-98" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-99"><a href="#cb28-99" aria-hidden="true" tabindex="-1"></a>NaturalPark<span class="sc">$</span>ans1 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(NaturalPark<span class="sc">$</span>answers <span class="sc">==</span> <span class="st">"yy"</span> <span class="sc">|</span> NaturalPark<span class="sc">$</span>answers <span class="sc">==</span> <span class="st">"yn"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb28-100"><a href="#cb28-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-101"><a href="#cb28-101" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first three rows of data          </span></span>
-<span id="cb28-102"><a href="#cb28-102" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(NaturalPark, <span class="at">n =</span> <span class="dv">5</span>)   </span>
-<span id="cb28-103"><a href="#cb28-103" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-104"><a href="#cb28-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-105"><a href="#cb28-105" aria-hidden="true" tabindex="-1"></a>Now we want to count the number of individuals who said yes for each price. This table shows the rows as yes or no for first bid and all the prices.</span>
-<span id="cb28-106"><a href="#cb28-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-109"><a href="#cb28-109" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-110"><a href="#cb28-110" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(NaturalPark<span class="sc">$</span>ans1, NaturalPark<span class="sc">$</span>bid1) </span>
-<span id="cb28-111"><a href="#cb28-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-112"><a href="#cb28-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-113"><a href="#cb28-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-114"><a href="#cb28-114" aria-hidden="true" tabindex="-1"></a>The table can be interpreted as follows:</span>
-<span id="cb28-115"><a href="#cb28-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-116"><a href="#cb28-116" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>For a bid price of €6, there are 76 survey responses. Out of these, 50 respondents said they would be willing to pay €6, while 26 said they would not.</span>
-<span id="cb28-117"><a href="#cb28-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-118"><a href="#cb28-118" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>And so on for higher bid amounts.</span>
-<span id="cb28-119"><a href="#cb28-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-120"><a href="#cb28-120" aria-hidden="true" tabindex="-1"></a>As the bid price increases, we expect rationally (from law of demand) there will be a decline in the proportion of "yes" responses, since fewer people are likely to be willing to pay higher amounts for the same environmental improvement.\</span>
-<span id="cb28-121"><a href="#cb28-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-122"><a href="#cb28-122" aria-hidden="true" tabindex="-1"></a>This pattern is visible in the table, particularly when reading across the row representing "yes" responses (often coded as <span class="in">`1`</span>), where the number of affirmative answers drops from 50 to 36, and continues decreasing with higher bids. Lets look at this in a graph.</span>
-<span id="cb28-123"><a href="#cb28-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-124"><a href="#cb28-124" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Visualization</span></span>
-<span id="cb28-125"><a href="#cb28-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-126"><a href="#cb28-126" aria-hidden="true" tabindex="-1"></a>To create our demand line, we will first have to convert the data in the right shape form.</span>
-<span id="cb28-127"><a href="#cb28-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-130"><a href="#cb28-130" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-131"><a href="#cb28-131" aria-hidden="true" tabindex="-1"></a>yes_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(NaturalPark<span class="sc">$</span>ans1, NaturalPark<span class="sc">$</span>bid1)) <span class="sc">%&gt;%</span></span>
-<span id="cb28-132"><a href="#cb28-132" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Answer =</span> Var1, <span class="at">Bid =</span> Var2, <span class="at">Count =</span> Freq) <span class="sc">%&gt;%</span></span>
-<span id="cb28-133"><a href="#cb28-133" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Answer <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb28-134"><a href="#cb28-134" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Bid =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(Bid)))</span>
-<span id="cb28-135"><a href="#cb28-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-136"><a href="#cb28-136" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first three rows of data          </span></span>
-<span id="cb28-137"><a href="#cb28-137" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(yes_data, <span class="at">n =</span> <span class="dv">5</span>)  </span>
-<span id="cb28-138"><a href="#cb28-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-139"><a href="#cb28-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-140"><a href="#cb28-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-141"><a href="#cb28-141" aria-hidden="true" tabindex="-1"></a>Now we will use ggplot and visually show how people respond to bid prices:</span>
-<span id="cb28-142"><a href="#cb28-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-145"><a href="#cb28-145" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-146"><a href="#cb28-146" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(yes_data, <span class="fu">aes</span>(<span class="at">x =</span> Count, <span class="at">y =</span> Bid)) <span class="sc">+</span></span>
-<span id="cb28-147"><a href="#cb28-147" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb28-148"><a href="#cb28-148" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb28-149"><a href="#cb28-149" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> yes_data<span class="sc">$</span>Bid) <span class="sc">+</span></span>
-<span id="cb28-150"><a href="#cb28-150" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb28-151"><a href="#cb28-151" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Decline in 'Yes' Responses with Higher Bid Prices"</span>,</span>
-<span id="cb28-152"><a href="#cb28-152" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Number of 'Yes' Responses"</span>,</span>
-<span id="cb28-153"><a href="#cb28-153" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Bid Amount (€)"</span></span>
-<span id="cb28-154"><a href="#cb28-154" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb28-155"><a href="#cb28-155" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb28-156"><a href="#cb28-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-157"><a href="#cb28-157" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-158"><a href="#cb28-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-159"><a href="#cb28-159" aria-hidden="true" tabindex="-1"></a>And voilà! There we have a downward sloping demand curve!</span>
-<span id="cb28-160"><a href="#cb28-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-161"><a href="#cb28-161" aria-hidden="true" tabindex="-1"></a>People respond to prices which makes sense and suggest that people are responding in a way that they do in reality.</span>
-<span id="cb28-162"><a href="#cb28-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-163"><a href="#cb28-163" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model Estimation</span></span>
-<span id="cb28-164"><a href="#cb28-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-165"><a href="#cb28-165" aria-hidden="true" tabindex="-1"></a>Now that we have explored the data and tested peoples rational. We are going to estimate the willingness to pay for the contingent valuation question.</span>
-<span id="cb28-166"><a href="#cb28-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-167"><a href="#cb28-167" aria-hidden="true" tabindex="-1"></a>For now, we'll ignore gender, income, and age. The model assumes that a person's response :</span>
-<span id="cb28-168"><a href="#cb28-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-169"><a href="#cb28-169" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>***0** ("no, not willing to pay")*</span>
-<span id="cb28-170"><a href="#cb28-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-171"><a href="#cb28-171" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>***1** ("yes, willing to pay") depends only on the bid amount (or "price").*</span>
-<span id="cb28-172"><a href="#cb28-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-173"><a href="#cb28-173" aria-hidden="true" tabindex="-1"></a>So this model includes just one explanatory variable which is the bid.</span>
-<span id="cb28-174"><a href="#cb28-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-175"><a href="#cb28-175" aria-hidden="true" tabindex="-1"></a>Using **`DCchoice`** the formula for this type of model is as follows:</span>
-<span id="cb28-176"><a href="#cb28-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-177"><a href="#cb28-177" aria-hidden="true" tabindex="-1"></a><span class="in">`model1 &lt;- sbchoice(dep var ~ exp var | bid, dist = "", data = my.data)`</span></span>
-<span id="cb28-178"><a href="#cb28-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-179"><a href="#cb28-179" aria-hidden="true" tabindex="-1"></a>Here's what each part means:</span>
-<span id="cb28-180"><a href="#cb28-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-181"><a href="#cb28-181" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`model1`</span>: The name we give to save the model results (for example, <span class="in">`sb1`</span> for the first model).</span>
-<span id="cb28-182"><a href="#cb28-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-183"><a href="#cb28-183" aria-hidden="true" tabindex="-1"></a>    <span class="in">`&lt;-`</span>: The assignment symbol that stores the model in <span class="in">`model1`</span>.</span>
-<span id="cb28-184"><a href="#cb28-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-185"><a href="#cb28-185" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`sbchoice`</span>: The function that runs the model.</span>
-<span id="cb28-186"><a href="#cb28-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-187"><a href="#cb28-187" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`dep_var`</span>: The dependent variable (the responses coded as 0 = no, 1 = yes). For our first model this is <span class="in">`ans1`</span>.</span>
-<span id="cb28-188"><a href="#cb28-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-189"><a href="#cb28-189" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`exp_var`</span>: The explanatory variables *other than* the bid amount. Since we don't have any for the first model, we just use <span class="in">`1`</span> for the intercept.</span>
-<span id="cb28-190"><a href="#cb28-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-191"><a href="#cb28-191" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`| bid`</span>: This part specifies the bid amount variable, which is <span class="in">`bid1`</span> in our example.</span>
-<span id="cb28-192"><a href="#cb28-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-193"><a href="#cb28-193" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`dist = ""`</span>: Specifies the distribution used; we'll always use logistic, so it will be <span class="in">`dist = "logistic"`</span></span>
-<span id="cb28-194"><a href="#cb28-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-195"><a href="#cb28-195" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`data = my.data`</span>: The data frame that contains the data which in our case is <span class="in">`NaturalPark`</span>.</span>
-<span id="cb28-196"><a href="#cb28-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-197"><a href="#cb28-197" aria-hidden="true" tabindex="-1"></a>After fitting the model, we usually check the results with the <span class="in">`summary()`</span> function. To focus on the coefficient estimates, we can use <span class="in">`coeftest()`</span> from the **lmtest** package.</span>
-<span id="cb28-198"><a href="#cb28-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-201"><a href="#cb28-201" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-202"><a href="#cb28-202" aria-hidden="true" tabindex="-1"></a><span class="co"># A very simple model</span></span>
-<span id="cb28-203"><a href="#cb28-203" aria-hidden="true" tabindex="-1"></a>sb1 <span class="ot">&lt;-</span> <span class="fu">sbchoice</span>(ans1 <span class="sc">~</span> <span class="dv">1</span> <span class="sc">|</span> bid1,  <span class="at">dist =</span> <span class="st">"logistic"</span>, <span class="at">data =</span> NaturalPark)</span>
-<span id="cb28-204"><a href="#cb28-204" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(sb1)</span>
-<span id="cb28-205"><a href="#cb28-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-206"><a href="#cb28-206" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-207"><a href="#cb28-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-208"><a href="#cb28-208" aria-hidden="true" tabindex="-1"></a>The most important thing to notice in the model's coefficients is the negative sign on the bid variable. No matter how the original data is coded, the bid will always show up as BID in the results. This negative sign means that as the bid price goes up, fewer people say "yes" they are less willing to pay that amount!</span>
-<span id="cb28-209"><a href="#cb28-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-210"><a href="#cb28-210" aria-hidden="true" tabindex="-1"></a>The results also show that this relationship is statistically significant, meaning it's unlikely to be due to chance.</span>
-<span id="cb28-211"><a href="#cb28-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-212"><a href="#cb28-212" aria-hidden="true" tabindex="-1"></a>Lets see these results visually by using the <span class="in">`plot()`</span> function. This plot shows the willingness-to-pay data along with a horizontal line marking the point where 50% of people say "yes." From the plot, you can see that this 50% support happens at about €35.</span>
-<span id="cb28-213"><a href="#cb28-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-216"><a href="#cb28-216" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-217"><a href="#cb28-217" aria-hidden="true" tabindex="-1"></a><span class="co"># plots the predicted support at each bid value </span></span>
-<span id="cb28-218"><a href="#cb28-218" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sb1, <span class="at">las =</span> <span class="dv">1</span>)  </span>
-<span id="cb28-219"><a href="#cb28-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-220"><a href="#cb28-220" aria-hidden="true" tabindex="-1"></a><span class="co"># adds a horizontal line to the plot </span></span>
-<span id="cb28-221"><a href="#cb28-221" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.5</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"red"</span>) </span>
-<span id="cb28-222"><a href="#cb28-222" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-223"><a href="#cb28-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-224"><a href="#cb28-224" aria-hidden="true" tabindex="-1"></a><span class="fu">## Full Estimation</span></span>
-<span id="cb28-225"><a href="#cb28-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-226"><a href="#cb28-226" aria-hidden="true" tabindex="-1"></a>We now look at the full model summary output we get when we use the <span class="in">`sbchoice()`</span> function:</span>
-<span id="cb28-227"><a href="#cb28-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-230"><a href="#cb28-230" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-231"><a href="#cb28-231" aria-hidden="true" tabindex="-1"></a><span class="co">#  Model summary</span></span>
-<span id="cb28-232"><a href="#cb28-232" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sb1) </span>
-<span id="cb28-233"><a href="#cb28-233" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-234"><a href="#cb28-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-235"><a href="#cb28-235" aria-hidden="true" tabindex="-1"></a>The summary output has several parts:</span>
-<span id="cb28-236"><a href="#cb28-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-237"><a href="#cb28-237" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The model we estimated:</span>
-<span id="cb28-238"><a href="#cb28-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-239"><a href="#cb28-239" aria-hidden="true" tabindex="-1"></a>    <span class="in">```         </span></span>
-<span id="cb28-240"><a href="#cb28-240" aria-hidden="true" tabindex="-1"></a><span class="in">    Formula:</span></span>
-<span id="cb28-241"><a href="#cb28-241" aria-hidden="true" tabindex="-1"></a><span class="in">    ans1 ~ 1 | bid1</span></span>
-<span id="cb28-242"><a href="#cb28-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-243"><a href="#cb28-243" aria-hidden="true" tabindex="-1"></a><span class="in">    Coefficients: </span></span>
-<span id="cb28-244"><a href="#cb28-244" aria-hidden="true" tabindex="-1"></a><span class="in">                 Estimate Std. Error z value Pr(&gt;|z|)   </span></span>
-<span id="cb28-245"><a href="#cb28-245" aria-hidden="true" tabindex="-1"></a><span class="in">    (Intercept)  0.550045   0.199874   2.752  0.00592 **</span></span>
-<span id="cb28-246"><a href="#cb28-246" aria-hidden="true" tabindex="-1"></a><span class="in">    BID         -0.015722   0.007181  -2.190  0.02856 * </span></span>
-<span id="cb28-247"><a href="#cb28-247" aria-hidden="true" tabindex="-1"></a><span class="in">    ---</span></span>
-<span id="cb28-248"><a href="#cb28-248" aria-hidden="true" tabindex="-1"></a><span class="in">    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span></span>
-<span id="cb28-249"><a href="#cb28-249" aria-hidden="true" tabindex="-1"></a><span class="in">    ```</span></span>
-<span id="cb28-250"><a href="#cb28-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-251"><a href="#cb28-251" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The second part shows the model's coefficients and whether they are statistically significant.</span>
-<span id="cb28-252"><a href="#cb28-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-253"><a href="#cb28-253" aria-hidden="true" tabindex="-1"></a>    <span class="in">```         </span></span>
-<span id="cb28-254"><a href="#cb28-254" aria-hidden="true" tabindex="-1"></a><span class="in">    Distribution: logistic </span></span>
-<span id="cb28-255"><a href="#cb28-255" aria-hidden="true" tabindex="-1"></a><span class="in">    Number of Obs.: 312  </span></span>
-<span id="cb28-256"><a href="#cb28-256" aria-hidden="true" tabindex="-1"></a><span class="in">    log-likelihood: -212.3968 </span></span>
-<span id="cb28-257"><a href="#cb28-257" aria-hidden="true" tabindex="-1"></a><span class="in">    pseudo-R^2: 0.0113 , adjusted pseudo-R^2: 0.0020 </span></span>
-<span id="cb28-258"><a href="#cb28-258" aria-hidden="true" tabindex="-1"></a><span class="in">    LR statistic: 4.841 on 1 DF, p-value: 0.028 </span></span>
-<span id="cb28-259"><a href="#cb28-259" aria-hidden="true" tabindex="-1"></a><span class="in">    AIC: 428.793653 , BIC: 436.279659 </span></span>
-<span id="cb28-260"><a href="#cb28-260" aria-hidden="true" tabindex="-1"></a><span class="in">    ```</span></span>
-<span id="cb28-261"><a href="#cb28-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-262"><a href="#cb28-262" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The third part shows how well the model fits the data. This helps us compare different models. It's important to see "Convergence: TRUE," which means the model worked properly. If not, you'll get an error.</span>
-<span id="cb28-263"><a href="#cb28-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-264"><a href="#cb28-264" aria-hidden="true" tabindex="-1"></a>    <span class="in">```         </span></span>
-<span id="cb28-265"><a href="#cb28-265" aria-hidden="true" tabindex="-1"></a><span class="in">    Iterations: 4  </span></span>
-<span id="cb28-266"><a href="#cb28-266" aria-hidden="true" tabindex="-1"></a><span class="in">    Convergence: TRUE </span></span>
-<span id="cb28-267"><a href="#cb28-267" aria-hidden="true" tabindex="-1"></a><span class="in">    ```</span></span>
-<span id="cb28-268"><a href="#cb28-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-269"><a href="#cb28-269" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The fourth part shows the estimated average and median willingness to pay (WTP). Lets take a moment here</span>
-<span id="cb28-270"><a href="#cb28-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-271"><a href="#cb28-271" aria-hidden="true" tabindex="-1"></a>    <span class="in">```         </span></span>
-<span id="cb28-272"><a href="#cb28-272" aria-hidden="true" tabindex="-1"></a><span class="in">    WTP estimates:</span></span>
-<span id="cb28-273"><a href="#cb28-273" aria-hidden="true" tabindex="-1"></a><span class="in">     Mean : 63.95526 </span></span>
-<span id="cb28-274"><a href="#cb28-274" aria-hidden="true" tabindex="-1"></a><span class="in">     Mean : 26.04338 (truncated at the maximum bid)</span></span>
-<span id="cb28-275"><a href="#cb28-275" aria-hidden="true" tabindex="-1"></a><span class="in">     Mean : 47.26755 (truncated at the maximum bid with adjustment)</span></span>
-<span id="cb28-276"><a href="#cb28-276" aria-hidden="true" tabindex="-1"></a><span class="in">     Median : 34.98512 </span></span>
-<span id="cb28-277"><a href="#cb28-277" aria-hidden="true" tabindex="-1"></a><span class="in">    ```</span></span>
-<span id="cb28-278"><a href="#cb28-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-279"><a href="#cb28-279" aria-hidden="true" tabindex="-1"></a><span class="fu">### 1. Mean WTP</span></span>
-<span id="cb28-280"><a href="#cb28-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-281"><a href="#cb28-281" aria-hidden="true" tabindex="-1"></a>**Value:** **Value:** <span class="in">`63.95`</span></span>
-<span id="cb28-282"><a href="#cb28-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-283"><a href="#cb28-283" aria-hidden="true" tabindex="-1"></a>This estimate can be calculated by taking the coefficient of the estimation on bid:</span>
-<span id="cb28-284"><a href="#cb28-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-285"><a href="#cb28-285" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb28-286"><a href="#cb28-286" aria-hidden="true" tabindex="-1"></a>1/\beta_{bid} = 1/-0.015722=63.95</span>
-<span id="cb28-287"><a href="#cb28-287" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb28-288"><a href="#cb28-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-289"><a href="#cb28-289" aria-hidden="true" tabindex="-1"></a>This is the unbounded mean and its calculated using the full range of the estimated distribution of WTP, even beyond your maximum bid. The adjustment for the truncated mean WTP is implemented by the method of <span class="co">[</span><span class="ot">@boyle1988</span><span class="co">]</span></span>
-<span id="cb28-290"><a href="#cb28-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-291"><a href="#cb28-291" aria-hidden="true" tabindex="-1"></a>**How it's calculated:**</span>
-<span id="cb28-292"><a href="#cb28-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-293"><a href="#cb28-293" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Uses the model's estimated coefficients to integrate the WTP distribution from 0 to infinity (or theoretically negative infinity to positive infinity depending on the model).</span>
-<span id="cb28-294"><a href="#cb28-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-295"><a href="#cb28-295" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Issue:** May overestimate WTP, especially if the upper tail is long (which it often is).</span>
-<span id="cb28-296"><a href="#cb28-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-299"><a href="#cb28-299" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-300"><a href="#cb28-300" aria-hidden="true" tabindex="-1"></a>medianWTP<span class="ot">=</span><span class="dv">1</span><span class="sc">/</span>sb1<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
-<span id="cb28-301"><a href="#cb28-301" aria-hidden="true" tabindex="-1"></a>medianWTP</span>
-<span id="cb28-302"><a href="#cb28-302" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-303"><a href="#cb28-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-304"><a href="#cb28-304" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2. Mean WTP (truncated at max bid)</span></span>
-<span id="cb28-305"><a href="#cb28-305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-306"><a href="#cb28-306" aria-hidden="true" tabindex="-1"></a>**sValue:** <span class="in">`26.04`</span>\</span>
-<span id="cb28-307"><a href="#cb28-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-308"><a href="#cb28-308" aria-hidden="true" tabindex="-1"></a>This is the mean WTP truncated at the maximum bid in your data.</span>
-<span id="cb28-309"><a href="#cb28-309" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-310"><a href="#cb28-310" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb28-311"><a href="#cb28-311" aria-hidden="true" tabindex="-1"></a>1/\beta_{bid}(1+exp(\beta_0+\sum(\beta_nZ_n)))</span>
-<span id="cb28-312"><a href="#cb28-312" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb28-313"><a href="#cb28-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-314"><a href="#cb28-314" aria-hidden="true" tabindex="-1"></a>**How it's calculated:**</span>
-<span id="cb28-315"><a href="#cb28-315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-316"><a href="#cb28-316" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Integration is limited from 0 up to the highest bid amount offered in your survey.</span>
-<span id="cb28-317"><a href="#cb28-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-318"><a href="#cb28-318" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Why:** This avoids overestimating WTP from extrapolating too far beyond your data.</span>
-<span id="cb28-319"><a href="#cb28-319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-322"><a href="#cb28-322" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-323"><a href="#cb28-323" aria-hidden="true" tabindex="-1"></a>medianWTP <span class="sc">*</span> (<span class="fu">log</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(sb1<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> sb1<span class="sc">$</span>coefficients[<span class="dv">2</span>] <span class="sc">*</span> <span class="fu">max</span>(NaturalPark<span class="sc">$</span>bid1))) <span class="sc">-</span> <span class="fu">log</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(sb1<span class="sc">$</span>coefficients[<span class="dv">1</span>])))</span>
-<span id="cb28-324"><a href="#cb28-324" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-325"><a href="#cb28-325" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-326"><a href="#cb28-326" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-327"><a href="#cb28-327" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3. Mean WTP (truncated with adjustment)</span></span>
-<span id="cb28-328"><a href="#cb28-328" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-329"><a href="#cb28-329" aria-hidden="true" tabindex="-1"></a>**#Value:** <span class="in">`47.27`</span>\</span>
-<span id="cb28-330"><a href="#cb28-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-331"><a href="#cb28-331" aria-hidden="true" tabindex="-1"></a>This is the same as #2 but with a correction applied to adjust for truncation bias.</span>
-<span id="cb28-332"><a href="#cb28-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-333"><a href="#cb28-333" aria-hidden="true" tabindex="-1"></a>**How it's calculated:**</span>
-<span id="cb28-334"><a href="#cb28-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-335"><a href="#cb28-335" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Still truncated at the max bid, but includes a bias-correction factor based on the distribution.</span>
-<span id="cb28-336"><a href="#cb28-336" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-337"><a href="#cb28-337" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Why:** Balances realism (truncation) with statistical accuracy (adjustment).</span>
-<span id="cb28-338"><a href="#cb28-338" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-339"><a href="#cb28-339" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4. Median WTP</span></span>
-<span id="cb28-340"><a href="#cb28-340" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-341"><a href="#cb28-341" aria-hidden="true" tabindex="-1"></a>**Value:** <span class="in">`34.99`</span></span>
-<span id="cb28-342"><a href="#cb28-342" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-343"><a href="#cb28-343" aria-hidden="true" tabindex="-1"></a>This is the bid level at which 50% of respondents are predicted to say "yes".</span>
-<span id="cb28-344"><a href="#cb28-344" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-345"><a href="#cb28-345" aria-hidden="true" tabindex="-1"></a>**How it's calculated:**</span>
-<span id="cb28-346"><a href="#cb28-346" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-347"><a href="#cb28-347" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb28-348"><a href="#cb28-348" aria-hidden="true" tabindex="-1"></a>-(\alpha/\beta_{bid})</span>
-<span id="cb28-349"><a href="#cb28-349" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb28-350"><a href="#cb28-350" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-351"><a href="#cb28-351" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>It's the bid where the predicted probability of saying "yes" is 0.5, based on your model.</span>
-<span id="cb28-352"><a href="#cb28-352" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-353"><a href="#cb28-353" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Why:** Commonly used because it's less sensitive to skewed data than the mean.</span>
-<span id="cb28-354"><a href="#cb28-354" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-357"><a href="#cb28-357" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-358"><a href="#cb28-358" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span>sb1<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">/</span>sb1<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
-<span id="cb28-359"><a href="#cb28-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-360"><a href="#cb28-360" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-361"><a href="#cb28-361" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-362"><a href="#cb28-362" aria-hidden="true" tabindex="-1"></a><span class="fu"># </span></span>
-</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 
