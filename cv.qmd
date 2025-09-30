@@ -24,7 +24,7 @@ Open R. You will need additional packages
 
 -   **Ecdat** [@croissant] For the dataset NationalPark: Willingness to Pay for the Preservation of the Alentejo Natural Park
 
--    **lmtest** [@hothorn]
+-   **lmtest** [@hothorn]
 
 ```{r}
 #install.packages("DCchoice",repos = c("http://www.bioconductor.org/packages/release/bioc","https://cran.rstudio.com/"), dep = TRUE)
