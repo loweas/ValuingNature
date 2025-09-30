@@ -375,6 +375,12 @@ window.Quarto = {
 <p>Our hypothesis is that houses close to the incinerator would drop in value compared to those farther away.</p>
 <p>For this example, a house is considered “near” the incinerator if it’s within three miles. (In another exercise, you'll use the exact distance, like Kiel and McClain did.)</p>
 <p>To measure the impact, we'll look at house prices in terms of 1978 dollars, adjusting for inflation using the Boston housing price index. We’ll call this inflation-adjusted price <strong>rprice</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNJQ4DZRsrRpXPvBVUpPLDDSOIOfXxhybjPw&amp;s.png" class="img-fluid figure-img"></p>
+<figcaption>Incineration Waste Disposal</figcaption>
+</figure>
+</div>
 <p>A dataframe containing 321 observations on 25 variables:</p>
 <ul>
 <li><p><code>year</code>: 1978 or 1981</p></li>
@@ -471,7 +477,8 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(rprice<span class="sc">~</span>nearinc, <span class="at">data=</span><span class="fu">subset</span>(kielmc, y81<span class="sc">==</span><span class="dv">1</span> )))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>model0<span class="ot">=</span><span class="fu">lm</span>(rprice<span class="sc">~</span>nearinc, <span class="at">data=</span><span class="fu">subset</span>(kielmc, y81<span class="sc">==</span><span class="dv">1</span> ))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -500,7 +507,7 @@ F-statistic: 27.73 on 1 and 140 DF,  p-value: 5.139e-07</code></pre>
 \]</span></p>
 <p>Since this is a simple regression with just one dummy variable, the intercept represents the average house price for homes not near the incinerator. The coefficient on the variable <code>nearinc</code> shows how much the average price changes for homes near the incinerator.</p>
 <p>The result shows that, on average, homes near the incinerator sold for <u>$30,688.27 less</u> than homes farther away.</p>
-<p>But if we example the prices <u><em>before 1981</em></u></p>
+<p>BUT it does not imply that the siting of the incinerator is causing the lower housing values. In fact if we look at the value at those houses <em>before 1981</em> (like we see in the boxplots above) we obtain this</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
@@ -528,11 +535,12 @@ Multiple R-squared:  0.08167,   Adjusted R-squared:  0.07648
 F-statistic: 15.74 on 1 and 177 DF,  p-value: 0.0001054</code></pre>
 </div>
 </div>
-<p>We can see that those close to the incinerator were less than the average value of a home not near the site. This comes back to the issue mentioned above in the bias introduced. <em>Note we will talk about equity issues in the environmental justice section.</em></p>
+<p>We can see that those close to the incinerator were less than the average value of a home not near the site. This comes back to the issue mentioned above in the biases in data. The area of where the incinerator was built appears to be in a poorer neighborhood based on housing prices.</p>
+<p>** <em>Note we will talk about equity issues in the environmental justice section. **</em></p>
 </section>
 <section id="difference-in-difference" class="level3">
 <h3 class="anchored" data-anchor-id="difference-in-difference">Difference-in-Difference</h3>
-<p>Difference-in-Difference modeling (Diff-n-Diff for short). Is often how economist will try to control for the issue presented above.</p>
+<p>Difference-in-Difference modeling (DiffNDiff for short). Is often how economist will try to control for the issue presented above.</p>
 <p>First we will both control for the estimation for being near the incinerator (<code>nearinc</code>), the year the data is collected (<code>y81)</code> and the difference of the price for houses near construction of the incinerator began construction in 1981 (<code>y81nrinc</code>).</p>
 <div class="cell">
 <details class="code-fold">
@@ -599,60 +607,69 @@ Please cite as: </code></pre>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>model5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(lrprice <span class="sc">~</span> y81 <span class="sc">+</span> nearinc <span class="sc">+</span> y81nrinc <span class="sc">+</span> age <span class="sc">+</span> agesq <span class="sc">+</span> intst <span class="sc">+</span> land <span class="sc">+</span> area <span class="sc">+</span> rooms <span class="sc">+</span> baths, <span class="at">data =</span> kielmc)</span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the table</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(model1, model2, model3, model4,model5,<span class="at">type =</span> <span class="st">"text"</span>, <span class="at">title =</span> <span class="st">"Regression Results"</span>, <span class="at">column.labels =</span> <span class="fu">c</span>(<span class="st">"Simple"</span>, <span class="st">"DiffNDiff"</span>, <span class="st">"Age"</span>, <span class="st">"Full"</span>, <span class="st">"LogPrice"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(model0,model1, model2, model3, model4,model5,<span class="at">type =</span> <span class="st">"text"</span>, <span class="at">title =</span> <span class="st">"Regression Results"</span>, <span class="at">column.labels =</span> <span class="fu">c</span>(<span class="st">"Simple81"</span>,<span class="st">"Simple78"</span>, <span class="st">"DiffNDiff"</span>, <span class="st">"Age"</span>, <span class="st">"Full"</span>, <span class="st">"LogPrice"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Regression Results
-=============================================================================================================================================
-                                                                       Dependent variable:                                                   
-                    -------------------------------------------------------------------------------------------------------------------------
-                                                                 rprice                                                      lrprice        
-                            Simple                 DiffNDiff                  Age                     Full                   LogPrice        
-                              (1)                     (2)                     (3)                     (4)                      (5)           
----------------------------------------------------------------------------------------------------------------------------------------------
-y81                                              18,790.290***           21,321.040***           13,928.480***               0.139***        
-                                                  (4,050.065)             (3,443.631)             (2,798.747)                (0.029)         
-                                                                                                                                             
-nearinc                 -18,824.370***          -18,824.370***            9,397.936*               3,780.337                  -0.035         
-                          (4,744.594)             (4,875.322)             (4,812.222)             (4,453.415)                (0.046)         
-                                                                                                                                             
-y81nrinc                                          -11,863.900           -21,920.270***           -14,177.930***              -0.093*         
-                                                  (7,456.646)             (6,359.745)             (4,987.267)                (0.052)         
-                                                                                                                                             
-age                                                                      -1,494.424***            -739.451***               -0.009***        
-                                                                           (131.860)               (131.127)                 (0.001)         
-                                                                                                                                             
-agesq                                                                      8.691***                 3.453***                0.00004***       
-                                                                            (0.848)                 (0.813)                 (0.00001)        
-                                                                                                                                             
-intst                                                                                              -0.539***                -0.00000*        
-                                                                                                    (0.196)                 (0.00000)        
-                                                                                                                                             
-land                                                                                                0.141***                0.00000***       
-                                                                                                    (0.031)                 (0.00000)        
-                                                                                                                                             
-area                                                                                               18.086***                0.0002***        
-                                                                                                    (2.306)                 (0.00002)        
-                                                                                                                                             
-rooms                                                                                             3,304.227**                0.053***        
-                                                                                                  (1,661.248)                (0.017)         
-                                                                                                                                             
-baths                                                                                             6,977.317***               0.103***        
-                                                                                                  (2,581.321)                (0.027)         
-                                                                                                                                             
-Constant                 82,517.230***           82,517.230***           89,116.540***             13,807.670               10.371***        
-                          (2,653.790)             (2,726.910)             (2,406.051)             (11,166.590)               (0.117)         
-                                                                                                                                             
----------------------------------------------------------------------------------------------------------------------------------------------
-Observations                  179                     321                     321                     321                      321           
-R2                           0.082                   0.174                   0.414                   0.660                    0.730          
-Adjusted R2                  0.076                   0.166                   0.405                   0.649                    0.721          
-Residual Std. Error  29,431.960 (df = 177)   30,242.900 (df = 317)   25,543.290 (df = 315)   19,619.020 (df = 310)       0.205 (df = 310)    
-F Statistic         15.741*** (df = 1; 177) 22.251*** (df = 3; 317) 44.591*** (df = 5; 315) 60.189*** (df = 10; 310) 83.880*** (df = 10; 310)
-=============================================================================================================================================
-Note:                                                                                                             *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+=====================================================================================================================================================================
+                                                                                   Dependent variable:                                                               
+                    -------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                             rprice                                                                  lrprice        
+                           Simple81                Simple78                DiffNDiff                  Age                     Full                   LogPrice        
+                              (1)                     (2)                     (3)                     (4)                     (5)                      (6)           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+y81                                                                      18,790.290***           21,321.040***           13,928.480***               0.139***        
+                                                                          (4,050.065)             (3,443.631)             (2,798.747)                (0.029)         
+                                                                                                                                                                     
+nearinc                 -30,688.270***          -18,824.370***          -18,824.370***            9,397.936*               3,780.337                  -0.035         
+                          (5,827.709)             (4,744.594)             (4,875.322)             (4,812.222)             (4,453.415)                (0.046)         
+                                                                                                                                                                     
+y81nrinc                                                                  -11,863.900           -21,920.270***           -14,177.930***              -0.093*         
+                                                                          (7,456.646)             (6,359.745)             (4,987.267)                (0.052)         
+                                                                                                                                                                     
+age                                                                                              -1,494.424***            -739.451***               -0.009***        
+                                                                                                   (131.860)               (131.127)                 (0.001)         
+                                                                                                                                                                     
+agesq                                                                                              8.691***                 3.453***                0.00004***       
+                                                                                                    (0.848)                 (0.813)                 (0.00001)        
+                                                                                                                                                                     
+intst                                                                                                                      -0.539***                -0.00000*        
+                                                                                                                            (0.196)                 (0.00000)        
+                                                                                                                                                                     
+land                                                                                                                        0.141***                0.00000***       
+                                                                                                                            (0.031)                 (0.00000)        
+                                                                                                                                                                     
+area                                                                                                                       18.086***                0.0002***        
+                                                                                                                            (2.306)                 (0.00002)        
+                                                                                                                                                                     
+rooms                                                                                                                     3,304.227**                0.053***        
+                                                                                                                          (1,661.248)                (0.017)         
+                                                                                                                                                                     
+baths                                                                                                                     6,977.317***               0.103***        
+                                                                                                                          (2,581.321)                (0.027)         
+                                                                                                                                                                     
+Constant                101,307.500***           82,517.230***           82,517.230***           89,116.540***             13,807.670               10.371***        
+                          (3,093.027)             (2,653.790)             (2,726.910)             (2,406.051)             (11,166.590)               (0.117)         
+                                                                                                                                                                     
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Observations                  142                     179                     321                     321                     321                      321           
+R2                           0.165                   0.082                   0.174                   0.414                   0.660                    0.730          
+Adjusted R2                  0.159                   0.076                   0.166                   0.405                   0.649                    0.721          
+Residual Std. Error  31,238.040 (df = 140)   29,431.960 (df = 177)   30,242.900 (df = 317)   25,543.290 (df = 315)   19,619.020 (df = 310)       0.205 (df = 310)    
+F Statistic         27.730*** (df = 1; 140) 15.741*** (df = 1; 177) 22.251*** (df = 3; 317) 44.591*** (df = 5; 315) 60.189*** (df = 10; 310) 83.880*** (df = 10; 310)
+=====================================================================================================================================================================
+Note:                                                                                                                                     *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
+</div>
+<p>What we can see in the above regressions, at first we see in columns 1-3 the location of the house to the incinerator is highly significant. The incinerator construction location was built in a poorer neighborhood.</p>
+<p>Once we control for the housing characteristics (columns 4-6), we find that the construction of the incinerator decreased housing prices by 14 to 21K or more intuitively housing prices dropped by 9.3%.</p>
+<p>This all suggest that undesirable facilities known to impact many aspects of the quality of environment greatly impacts the overall assets of the <u><em>people chosen to bear the change!!</em></u></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://thegrio.com/cdn-cgi/image/width=1048,height=590,fit=crop,quality=80,format=auto,onerror=redirect,metadata=none/wp-content/uploads/2025/01/AdobeStock_1070980392-e1735858160837.jpeg" class="img-fluid figure-img"></p>
+<figcaption>Trash incinerators disproportionately harm Black and Hispanic people - TheGrio</figcaption>
+</figure>
 </div>
 
 
@@ -1204,158 +1221,171 @@ Kiel, Katherine A., and Katherine T. McClain. 1995. <span>“The Effect of an In
 <span id="cb24-85"><a href="#cb24-85" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-86"><a href="#cb24-86" aria-hidden="true" tabindex="-1"></a>To measure the impact, we\'ll look at house prices in terms of 1978 dollars, adjusting for inflation using the Boston housing price index. We'll call this inflation-adjusted price **rprice**.</span>
 <span id="cb24-87"><a href="#cb24-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-88"><a href="#cb24-88" aria-hidden="true" tabindex="-1"></a>A dataframe containing 321 observations on 25 variables:</span>
+<span id="cb24-88"><a href="#cb24-88" aria-hidden="true" tabindex="-1"></a><span class="al">![Incineration Waste Disposal](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNJQ4DZRsrRpXPvBVUpPLDDSOIOfXxhybjPw&amp;s)</span>{alt="Incineration Waste Disposal"}</span>
 <span id="cb24-89"><a href="#cb24-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-90"><a href="#cb24-90" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`year`</span>: 1978 or 1981</span>
+<span id="cb24-90"><a href="#cb24-90" aria-hidden="true" tabindex="-1"></a>A dataframe containing 321 observations on 25 variables:</span>
 <span id="cb24-91"><a href="#cb24-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-92"><a href="#cb24-92" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`age`</span>: age of house</span>
+<span id="cb24-92"><a href="#cb24-92" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`year`</span>: 1978 or 1981</span>
 <span id="cb24-93"><a href="#cb24-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-94"><a href="#cb24-94" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`agesq`</span>: age\^2</span>
+<span id="cb24-94"><a href="#cb24-94" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`age`</span>: age of house</span>
 <span id="cb24-95"><a href="#cb24-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-96"><a href="#cb24-96" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`nbh`</span>: neighborhood, 1-6</span>
+<span id="cb24-96"><a href="#cb24-96" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`agesq`</span>: age\^2</span>
 <span id="cb24-97"><a href="#cb24-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-98"><a href="#cb24-98" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`cbd`</span>: dist. to cent. bus. dstrct, ft.</span>
+<span id="cb24-98"><a href="#cb24-98" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`nbh`</span>: neighborhood, 1-6</span>
 <span id="cb24-99"><a href="#cb24-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-100"><a href="#cb24-100" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`intst`</span>: dist. to interstate, ft.</span>
+<span id="cb24-100"><a href="#cb24-100" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`cbd`</span>: dist. to cent. bus. dstrct, ft.</span>
 <span id="cb24-101"><a href="#cb24-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-102"><a href="#cb24-102" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`lintst`</span>: log(intst)</span>
+<span id="cb24-102"><a href="#cb24-102" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`intst`</span>: dist. to interstate, ft.</span>
 <span id="cb24-103"><a href="#cb24-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-104"><a href="#cb24-104" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`price`</span>: selling price</span>
+<span id="cb24-104"><a href="#cb24-104" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`lintst`</span>: log(intst)</span>
 <span id="cb24-105"><a href="#cb24-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-106"><a href="#cb24-106" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`rooms`</span>: <span class="sc">\#</span> rooms in house</span>
+<span id="cb24-106"><a href="#cb24-106" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`price`</span>: selling price</span>
 <span id="cb24-107"><a href="#cb24-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-108"><a href="#cb24-108" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`area`</span>: square footage of house</span>
+<span id="cb24-108"><a href="#cb24-108" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`rooms`</span>: <span class="sc">\#</span> rooms in house</span>
 <span id="cb24-109"><a href="#cb24-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-110"><a href="#cb24-110" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`land`</span>: square footage lot</span>
+<span id="cb24-110"><a href="#cb24-110" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`area`</span>: square footage of house</span>
 <span id="cb24-111"><a href="#cb24-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-112"><a href="#cb24-112" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`baths`</span>: <span class="sc">\#</span> bathrooms</span>
+<span id="cb24-112"><a href="#cb24-112" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`land`</span>: square footage lot</span>
 <span id="cb24-113"><a href="#cb24-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-114"><a href="#cb24-114" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`dist`</span>: dist. from house to incin., ft.</span>
+<span id="cb24-114"><a href="#cb24-114" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`baths`</span>: <span class="sc">\#</span> bathrooms</span>
 <span id="cb24-115"><a href="#cb24-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-116"><a href="#cb24-116" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`ldist`</span>: log(dist)</span>
+<span id="cb24-116"><a href="#cb24-116" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`dist`</span>: dist. from house to incin., ft.</span>
 <span id="cb24-117"><a href="#cb24-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-118"><a href="#cb24-118" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`wind`</span>: prc. time wind incin. to house</span>
+<span id="cb24-118"><a href="#cb24-118" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`ldist`</span>: log(dist)</span>
 <span id="cb24-119"><a href="#cb24-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-120"><a href="#cb24-120" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`lprice`</span>: log(price)</span>
+<span id="cb24-120"><a href="#cb24-120" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`wind`</span>: prc. time wind incin. to house</span>
 <span id="cb24-121"><a href="#cb24-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-122"><a href="#cb24-122" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`y81`</span>: =1 if year == 1981</span>
+<span id="cb24-122"><a href="#cb24-122" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`lprice`</span>: log(price)</span>
 <span id="cb24-123"><a href="#cb24-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-124"><a href="#cb24-124" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`larea`</span>: log(area)</span>
+<span id="cb24-124"><a href="#cb24-124" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`y81`</span>: =1 if year == 1981</span>
 <span id="cb24-125"><a href="#cb24-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-126"><a href="#cb24-126" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`lland`</span>: log(land)</span>
+<span id="cb24-126"><a href="#cb24-126" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`larea`</span>: log(area)</span>
 <span id="cb24-127"><a href="#cb24-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-128"><a href="#cb24-128" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`y81ldist`</span>: y81<span class="sc">\*</span>ldist</span>
+<span id="cb24-128"><a href="#cb24-128" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`lland`</span>: log(land)</span>
 <span id="cb24-129"><a href="#cb24-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-130"><a href="#cb24-130" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`lintstsq`</span>: lintst\^2</span>
+<span id="cb24-130"><a href="#cb24-130" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`y81ldist`</span>: y81<span class="sc">\*</span>ldist</span>
 <span id="cb24-131"><a href="#cb24-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-132"><a href="#cb24-132" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`nearinc`</span>: =1 if dist <span class="sc">\&lt;</span>= 15840</span>
+<span id="cb24-132"><a href="#cb24-132" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`lintstsq`</span>: lintst\^2</span>
 <span id="cb24-133"><a href="#cb24-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-134"><a href="#cb24-134" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`y81nrinc`</span>: y81<span class="sc">\*</span>nearinc</span>
+<span id="cb24-134"><a href="#cb24-134" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`nearinc`</span>: =1 if dist <span class="sc">\&lt;</span>= 15840</span>
 <span id="cb24-135"><a href="#cb24-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-136"><a href="#cb24-136" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`rprice`</span>: price, 1978 dollars</span>
+<span id="cb24-136"><a href="#cb24-136" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`y81nrinc`</span>: y81<span class="sc">\*</span>nearinc</span>
 <span id="cb24-137"><a href="#cb24-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-138"><a href="#cb24-138" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`lrprice`</span>: log(rprice)</span>
+<span id="cb24-138"><a href="#cb24-138" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`rprice`</span>: price, 1978 dollars</span>
 <span id="cb24-139"><a href="#cb24-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-142"><a href="#cb24-142" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-143"><a href="#cb24-143" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(rprice<span class="sc">~</span><span class="fu">as.factor</span>(rooms),<span class="at">las =</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">"grey"</span>, <span class="at">outcol =</span><span class="st">"grey"</span>,</span>
-<span id="cb24-144"><a href="#cb24-144" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">xlab =</span> <span class="st">"Number of bedroom"</span>,  </span>
-<span id="cb24-145"><a href="#cb24-145" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Price and bedrooms"</span>, <span class="at">horizontal =</span>F,</span>
-<span id="cb24-146"><a href="#cb24-146" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> kielmc)</span>
-<span id="cb24-147"><a href="#cb24-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-148"><a href="#cb24-148" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(rprice<span class="sc">~</span><span class="fu">as.factor</span>(nearinc),<span class="at">las =</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">"grey"</span>, <span class="at">outcol =</span><span class="st">"grey"</span>,</span>
-<span id="cb24-149"><a href="#cb24-149" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">xlab =</span> <span class="st">"Price"</span>,<span class="at">boxwex =</span><span class="fl">0.6</span>,  </span>
-<span id="cb24-150"><a href="#cb24-150" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Price Near Incinerator"</span>, <span class="at">horizontal =</span>F,</span>
-<span id="cb24-151"><a href="#cb24-151" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> kielmc)</span>
-<span id="cb24-152"><a href="#cb24-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-153"><a href="#cb24-153" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(price<span class="sc">~</span><span class="fu">as.factor</span>(y81),<span class="at">las =</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">"grey"</span>, <span class="at">outcol =</span><span class="st">"grey"</span>,</span>
-<span id="cb24-154"><a href="#cb24-154" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">xlab =</span> <span class="st">"Price"</span>,  <span class="at">boxwex =</span><span class="fl">0.6</span>,</span>
-<span id="cb24-155"><a href="#cb24-155" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Price in 1978 vs 1981"</span>, <span class="at">horizontal =</span>F,</span>
-<span id="cb24-156"><a href="#cb24-156" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> kielmc)</span>
-<span id="cb24-157"><a href="#cb24-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-158"><a href="#cb24-158" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(price<span class="sc">~</span><span class="fu">as.factor</span>(y81nrinc),<span class="at">las =</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">"grey"</span>, <span class="at">outcol =</span><span class="st">"grey"</span>,</span>
-<span id="cb24-159"><a href="#cb24-159" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">xlab =</span> <span class="st">"Price"</span>,  <span class="at">boxwex =</span><span class="fl">0.6</span>,</span>
-<span id="cb24-160"><a href="#cb24-160" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Price and After 1981"</span>, <span class="at">horizontal =</span>F,</span>
-<span id="cb24-161"><a href="#cb24-161" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> kielmc)</span>
-<span id="cb24-162"><a href="#cb24-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-163"><a href="#cb24-163" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-140"><a href="#cb24-140" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`lrprice`</span>: log(rprice)</span>
+<span id="cb24-141"><a href="#cb24-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-144"><a href="#cb24-144" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-145"><a href="#cb24-145" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(rprice<span class="sc">~</span><span class="fu">as.factor</span>(rooms),<span class="at">las =</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">"grey"</span>, <span class="at">outcol =</span><span class="st">"grey"</span>,</span>
+<span id="cb24-146"><a href="#cb24-146" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">xlab =</span> <span class="st">"Number of bedroom"</span>,  </span>
+<span id="cb24-147"><a href="#cb24-147" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Price and bedrooms"</span>, <span class="at">horizontal =</span>F,</span>
+<span id="cb24-148"><a href="#cb24-148" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> kielmc)</span>
+<span id="cb24-149"><a href="#cb24-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-150"><a href="#cb24-150" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(rprice<span class="sc">~</span><span class="fu">as.factor</span>(nearinc),<span class="at">las =</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">"grey"</span>, <span class="at">outcol =</span><span class="st">"grey"</span>,</span>
+<span id="cb24-151"><a href="#cb24-151" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">xlab =</span> <span class="st">"Price"</span>,<span class="at">boxwex =</span><span class="fl">0.6</span>,  </span>
+<span id="cb24-152"><a href="#cb24-152" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Price Near Incinerator"</span>, <span class="at">horizontal =</span>F,</span>
+<span id="cb24-153"><a href="#cb24-153" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> kielmc)</span>
+<span id="cb24-154"><a href="#cb24-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-155"><a href="#cb24-155" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(price<span class="sc">~</span><span class="fu">as.factor</span>(y81),<span class="at">las =</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">"grey"</span>, <span class="at">outcol =</span><span class="st">"grey"</span>,</span>
+<span id="cb24-156"><a href="#cb24-156" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">xlab =</span> <span class="st">"Price"</span>,  <span class="at">boxwex =</span><span class="fl">0.6</span>,</span>
+<span id="cb24-157"><a href="#cb24-157" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Price in 1978 vs 1981"</span>, <span class="at">horizontal =</span>F,</span>
+<span id="cb24-158"><a href="#cb24-158" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> kielmc)</span>
+<span id="cb24-159"><a href="#cb24-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-160"><a href="#cb24-160" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(price<span class="sc">~</span><span class="fu">as.factor</span>(y81nrinc),<span class="at">las =</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">"grey"</span>, <span class="at">outcol =</span><span class="st">"grey"</span>,</span>
+<span id="cb24-161"><a href="#cb24-161" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">xlab =</span> <span class="st">"Price"</span>,  <span class="at">boxwex =</span><span class="fl">0.6</span>,</span>
+<span id="cb24-162"><a href="#cb24-162" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Price and After 1981"</span>, <span class="at">horizontal =</span>F,</span>
+<span id="cb24-163"><a href="#cb24-163" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> kielmc)</span>
 <span id="cb24-164"><a href="#cb24-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-165"><a href="#cb24-165" aria-hidden="true" tabindex="-1"></a><span class="fu">### Simple Model</span></span>
+<span id="cb24-165"><a href="#cb24-165" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb24-166"><a href="#cb24-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-167"><a href="#cb24-167" aria-hidden="true" tabindex="-1"></a>A very naive model would look at the change in price in the change in price over the two time periods</span>
+<span id="cb24-167"><a href="#cb24-167" aria-hidden="true" tabindex="-1"></a><span class="fu">### Simple Model</span></span>
 <span id="cb24-168"><a href="#cb24-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-169"><a href="#cb24-169" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-170"><a href="#cb24-170" aria-hidden="true" tabindex="-1"></a>\hat{rprice} =  \beta_0 + \beta_1nearinc+u</span>
+<span id="cb24-169"><a href="#cb24-169" aria-hidden="true" tabindex="-1"></a>A very naive model would look at the change in price in the change in price over the two time periods</span>
+<span id="cb24-170"><a href="#cb24-170" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-171"><a href="#cb24-171" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-172"><a href="#cb24-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-173"><a href="#cb24-173" aria-hidden="true" tabindex="-1"></a>To run this in r simply run the following equation</span>
+<span id="cb24-172"><a href="#cb24-172" aria-hidden="true" tabindex="-1"></a>\hat{rprice} =  \beta_0 + \beta_1nearinc+u</span>
+<span id="cb24-173"><a href="#cb24-173" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb24-174"><a href="#cb24-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-177"><a href="#cb24-177" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-178"><a href="#cb24-178" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(rprice<span class="sc">~</span>nearinc, <span class="at">data=</span><span class="fu">subset</span>(kielmc, y81<span class="sc">==</span><span class="dv">1</span> )))</span>
-<span id="cb24-179"><a href="#cb24-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-180"><a href="#cb24-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-181"><a href="#cb24-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-175"><a href="#cb24-175" aria-hidden="true" tabindex="-1"></a>To run this in r simply run the following equation</span>
+<span id="cb24-176"><a href="#cb24-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-179"><a href="#cb24-179" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-180"><a href="#cb24-180" aria-hidden="true" tabindex="-1"></a>model0<span class="ot">=</span><span class="fu">lm</span>(rprice<span class="sc">~</span>nearinc, <span class="at">data=</span><span class="fu">subset</span>(kielmc, y81<span class="sc">==</span><span class="dv">1</span> ))</span>
+<span id="cb24-181"><a href="#cb24-181" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model0)</span>
 <span id="cb24-182"><a href="#cb24-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-183"><a href="#cb24-183" aria-hidden="true" tabindex="-1"></a>This binary indicator is equal to one when the year is 1987 and the house is close the the incinerator:</span>
-<span id="cb24-184"><a href="#cb24-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-185"><a href="#cb24-185" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-186"><a href="#cb24-186" aria-hidden="true" tabindex="-1"></a>\hat{rprice} =  101,307.5 + 30,688.27nearinc+u</span>
-<span id="cb24-187"><a href="#cb24-187" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-188"><a href="#cb24-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-189"><a href="#cb24-189" aria-hidden="true" tabindex="-1"></a>Since this is a simple regression with just one dummy variable, the intercept represents the average house price for homes not near the incinerator. The coefficient on the variable <span class="in">`nearinc`</span> shows how much the average price changes for homes near the incinerator.</span>
-<span id="cb24-190"><a href="#cb24-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-191"><a href="#cb24-191" aria-hidden="true" tabindex="-1"></a>The result shows that, on average, homes near the incinerator sold for <span class="co">[</span><span class="ot">\$30,688.27 less</span><span class="co">]</span>{.underline} than homes farther away.</span>
-<span id="cb24-192"><a href="#cb24-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-193"><a href="#cb24-193" aria-hidden="true" tabindex="-1"></a>But if we example the prices <span class="co">[</span><span class="ot">*before 1981*</span><span class="co">]</span>{.underline}</span>
-<span id="cb24-194"><a href="#cb24-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-197"><a href="#cb24-197" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-198"><a href="#cb24-198" aria-hidden="true" tabindex="-1"></a>model1<span class="ot">=</span><span class="fu">lm</span>(rprice<span class="sc">~</span>nearinc, <span class="at">data=</span><span class="fu">subset</span>(kielmc, y81<span class="sc">==</span><span class="dv">0</span> ))</span>
-<span id="cb24-199"><a href="#cb24-199" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span>
-<span id="cb24-200"><a href="#cb24-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-201"><a href="#cb24-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-202"><a href="#cb24-202" aria-hidden="true" tabindex="-1"></a>We can see that those close to the incinerator were less than the average value of a home not near the site. This comes back to the issue mentioned above in the bias introduced. *Note we will talk about equity issues in the environmental justice section.*</span>
-<span id="cb24-203"><a href="#cb24-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-204"><a href="#cb24-204" aria-hidden="true" tabindex="-1"></a><span class="fu">### Difference-in-Difference</span></span>
-<span id="cb24-205"><a href="#cb24-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-206"><a href="#cb24-206" aria-hidden="true" tabindex="-1"></a>Difference-in-Difference modeling (Diff-n-Diff for short). Is often how economist will try to control for the issue presented above.</span>
-<span id="cb24-207"><a href="#cb24-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-208"><a href="#cb24-208" aria-hidden="true" tabindex="-1"></a>First we will both control for the estimation for being near the incinerator (<span class="in">`nearinc`</span>), the year the data is collected (<span class="in">`y81)`</span> and the difference of the price for houses near construction of the incinerator began construction in 1981 (<span class="in">`y81nrinc`</span>).</span>
-<span id="cb24-209"><a href="#cb24-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-212"><a href="#cb24-212" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-213"><a href="#cb24-213" aria-hidden="true" tabindex="-1"></a>model2<span class="ot">=</span><span class="fu">lm</span>(rprice<span class="sc">~</span>y81<span class="sc">+</span>nearinc<span class="sc">+</span>y81nrinc, <span class="at">data=</span>kielmc)</span>
-<span id="cb24-214"><a href="#cb24-214" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span>
-<span id="cb24-215"><a href="#cb24-215" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-216"><a href="#cb24-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-217"><a href="#cb24-217" aria-hidden="true" tabindex="-1"></a>From here we can see houses located near the incinerator were valued less in 1978 (-\$18.8K). After construction in 1981, the variable estimated is not significant.</span>
-<span id="cb24-218"><a href="#cb24-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-219"><a href="#cb24-219" aria-hidden="true" tabindex="-1"></a><span class="fu">### Omitted Variables</span></span>
-<span id="cb24-220"><a href="#cb24-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-221"><a href="#cb24-221" aria-hidden="true" tabindex="-1"></a>The models we just ran are missing a lot of information. Kiel and McClain (1995)<span class="co">[</span><span class="ot">@kiel1995</span><span class="co">]</span> included housing features in their study for two main reasons:</span>
-<span id="cb24-222"><a href="#cb24-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-223"><a href="#cb24-223" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>The types of homes sold near the incinerator in 1981 might have been different from those sold in 1978. If so, it\'s important to account for those differences.</span>
-<span id="cb24-224"><a href="#cb24-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-225"><a href="#cb24-225" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Even if the homes didn\'t change, including their characteristics helps reduce the amount of unexplained variation (error), which in turn makes the estimates more precise.</span>
-<span id="cb24-226"><a href="#cb24-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-227"><a href="#cb24-227" aria-hidden="true" tabindex="-1"></a>In column (3) of the results, they include the age of the houses (in a quadratic form). This improves the model by increasing the R-squared and reducing error. As a result, the effect of being near the incinerator in 1981 (y81·nearinc) becomes larger in size and more precisely estimated (lower standard error).</span>
-<span id="cb24-228"><a href="#cb24-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-229"><a href="#cb24-229" aria-hidden="true" tabindex="-1"></a>In column (4) we additionally control for distance to the</span>
-<span id="cb24-230"><a href="#cb24-230" aria-hidden="true" tabindex="-1"></a>interstate in feet (<span class="in">`intst`</span>), land area in feet (<span class="in">`land`</span>), house area in feet (<span class="in">`area`</span>), number of rooms (<span class="in">`rooms`</span>), and number of baths (<span class="in">`baths`</span>).</span>
+<span id="cb24-183"><a href="#cb24-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-184"><a href="#cb24-184" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-185"><a href="#cb24-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-186"><a href="#cb24-186" aria-hidden="true" tabindex="-1"></a>This binary indicator is equal to one when the year is 1987 and the house is close the the incinerator:</span>
+<span id="cb24-187"><a href="#cb24-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-188"><a href="#cb24-188" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb24-189"><a href="#cb24-189" aria-hidden="true" tabindex="-1"></a>\hat{rprice} =  101,307.5 + 30,688.27nearinc+u</span>
+<span id="cb24-190"><a href="#cb24-190" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb24-191"><a href="#cb24-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-192"><a href="#cb24-192" aria-hidden="true" tabindex="-1"></a>Since this is a simple regression with just one dummy variable, the intercept represents the average house price for homes not near the incinerator. The coefficient on the variable <span class="in">`nearinc`</span> shows how much the average price changes for homes near the incinerator.</span>
+<span id="cb24-193"><a href="#cb24-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-194"><a href="#cb24-194" aria-hidden="true" tabindex="-1"></a>The result shows that, on average, homes near the incinerator sold for <span class="co">[</span><span class="ot">\$30,688.27 less</span><span class="co">]</span>{.underline} than homes farther away.</span>
+<span id="cb24-195"><a href="#cb24-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-196"><a href="#cb24-196" aria-hidden="true" tabindex="-1"></a>BUT it does not imply that the siting of the incinerator is causing the lower housing values. In fact if we look at the value at those houses *before 1981* (like we see in the boxplots above) we obtain this</span>
+<span id="cb24-197"><a href="#cb24-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-200"><a href="#cb24-200" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-201"><a href="#cb24-201" aria-hidden="true" tabindex="-1"></a>model1<span class="ot">=</span><span class="fu">lm</span>(rprice<span class="sc">~</span>nearinc, <span class="at">data=</span><span class="fu">subset</span>(kielmc, y81<span class="sc">==</span><span class="dv">0</span> ))</span>
+<span id="cb24-202"><a href="#cb24-202" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span>
+<span id="cb24-203"><a href="#cb24-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-204"><a href="#cb24-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-205"><a href="#cb24-205" aria-hidden="true" tabindex="-1"></a>We can see that those close to the incinerator were less than the average value of a home not near the site. This comes back to the issue mentioned above in the biases in data. The area of where the incinerator was built appears to be in a poorer neighborhood based on housing prices.</span>
+<span id="cb24-206"><a href="#cb24-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-207"><a href="#cb24-207" aria-hidden="true" tabindex="-1"></a><span class="sc">\*\*</span> *Note we will talk about equity issues in the environmental justice section. \*\**</span>
+<span id="cb24-208"><a href="#cb24-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-209"><a href="#cb24-209" aria-hidden="true" tabindex="-1"></a><span class="fu">### Difference-in-Difference</span></span>
+<span id="cb24-210"><a href="#cb24-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-211"><a href="#cb24-211" aria-hidden="true" tabindex="-1"></a>Difference-in-Difference modeling (DiffNDiff for short). Is often how economist will try to control for the issue presented above.</span>
+<span id="cb24-212"><a href="#cb24-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-213"><a href="#cb24-213" aria-hidden="true" tabindex="-1"></a>First we will both control for the estimation for being near the incinerator (<span class="in">`nearinc`</span>), the year the data is collected (<span class="in">`y81)`</span> and the difference of the price for houses near construction of the incinerator began construction in 1981 (<span class="in">`y81nrinc`</span>).</span>
+<span id="cb24-214"><a href="#cb24-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-217"><a href="#cb24-217" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-218"><a href="#cb24-218" aria-hidden="true" tabindex="-1"></a>model2<span class="ot">=</span><span class="fu">lm</span>(rprice<span class="sc">~</span>y81<span class="sc">+</span>nearinc<span class="sc">+</span>y81nrinc, <span class="at">data=</span>kielmc)</span>
+<span id="cb24-219"><a href="#cb24-219" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span>
+<span id="cb24-220"><a href="#cb24-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-221"><a href="#cb24-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-222"><a href="#cb24-222" aria-hidden="true" tabindex="-1"></a>From here we can see houses located near the incinerator were valued less in 1978 (-\$18.8K). After construction in 1981, the variable estimated is not significant.</span>
+<span id="cb24-223"><a href="#cb24-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-224"><a href="#cb24-224" aria-hidden="true" tabindex="-1"></a><span class="fu">### Omitted Variables</span></span>
+<span id="cb24-225"><a href="#cb24-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-226"><a href="#cb24-226" aria-hidden="true" tabindex="-1"></a>The models we just ran are missing a lot of information. Kiel and McClain (1995)<span class="co">[</span><span class="ot">@kiel1995</span><span class="co">]</span> included housing features in their study for two main reasons:</span>
+<span id="cb24-227"><a href="#cb24-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-228"><a href="#cb24-228" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>The types of homes sold near the incinerator in 1981 might have been different from those sold in 1978. If so, it\'s important to account for those differences.</span>
+<span id="cb24-229"><a href="#cb24-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-230"><a href="#cb24-230" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Even if the homes didn\'t change, including their characteristics helps reduce the amount of unexplained variation (error), which in turn makes the estimates more precise.</span>
 <span id="cb24-231"><a href="#cb24-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-232"><a href="#cb24-232" aria-hidden="true" tabindex="-1"></a>Lastly, column (5) uses <span class="in">`lrprice`</span>: log(rprice) so that we can interpret the entire equation as percentage changes in order to get the effect and address adjusting for inflation.</span>
+<span id="cb24-232"><a href="#cb24-232" aria-hidden="true" tabindex="-1"></a>In column (3) of the results, they include the age of the houses (in a quadratic form). This improves the model by increasing the R-squared and reducing error. As a result, the effect of being near the incinerator in 1981 (y81·nearinc) becomes larger in size and more precisely estimated (lower standard error).</span>
 <span id="cb24-233"><a href="#cb24-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-234"><a href="#cb24-234" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb24-235"><a href="#cb24-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-238"><a href="#cb24-238" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-239"><a href="#cb24-239" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
+<span id="cb24-234"><a href="#cb24-234" aria-hidden="true" tabindex="-1"></a>In column (4) we additionally control for distance to the</span>
+<span id="cb24-235"><a href="#cb24-235" aria-hidden="true" tabindex="-1"></a>interstate in feet (<span class="in">`intst`</span>), land area in feet (<span class="in">`land`</span>), house area in feet (<span class="in">`area`</span>), number of rooms (<span class="in">`rooms`</span>), and number of baths (<span class="in">`baths`</span>).</span>
+<span id="cb24-236"><a href="#cb24-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-237"><a href="#cb24-237" aria-hidden="true" tabindex="-1"></a>Lastly, column (5) uses <span class="in">`lrprice`</span>: log(rprice) so that we can interpret the entire equation as percentage changes in order to get the effect and address adjusting for inflation.</span>
+<span id="cb24-238"><a href="#cb24-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-239"><a href="#cb24-239" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
 <span id="cb24-240"><a href="#cb24-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-241"><a href="#cb24-241" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the models</span></span>
-<span id="cb24-242"><a href="#cb24-242" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(rprice <span class="sc">~</span> y81 <span class="sc">+</span> nearinc <span class="sc">+</span> y81nrinc <span class="sc">+</span> age <span class="sc">+</span> agesq, <span class="at">data =</span> kielmc)</span>
-<span id="cb24-243"><a href="#cb24-243" aria-hidden="true" tabindex="-1"></a>model4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(rprice <span class="sc">~</span> y81 <span class="sc">+</span> nearinc <span class="sc">+</span> y81nrinc <span class="sc">+</span> age <span class="sc">+</span> agesq <span class="sc">+</span> intst <span class="sc">+</span> land <span class="sc">+</span> area <span class="sc">+</span> rooms <span class="sc">+</span> baths, <span class="at">data =</span> kielmc)</span>
-<span id="cb24-244"><a href="#cb24-244" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-245"><a href="#cb24-245" aria-hidden="true" tabindex="-1"></a>model5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(lrprice <span class="sc">~</span> y81 <span class="sc">+</span> nearinc <span class="sc">+</span> y81nrinc <span class="sc">+</span> age <span class="sc">+</span> agesq <span class="sc">+</span> intst <span class="sc">+</span> land <span class="sc">+</span> area <span class="sc">+</span> rooms <span class="sc">+</span> baths, <span class="at">data =</span> kielmc)</span>
-<span id="cb24-246"><a href="#cb24-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-247"><a href="#cb24-247" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the table</span></span>
-<span id="cb24-248"><a href="#cb24-248" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(model1, model2, model3, model4,model5,<span class="at">type =</span> <span class="st">"text"</span>, <span class="at">title =</span> <span class="st">"Regression Results"</span>, <span class="at">column.labels =</span> <span class="fu">c</span>(<span class="st">"Simple"</span>, <span class="st">"DiffNDiff"</span>, <span class="st">"Age"</span>, <span class="st">"Full"</span>, <span class="st">"LogPrice"</span>))</span>
-<span id="cb24-249"><a href="#cb24-249" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-243"><a href="#cb24-243" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-244"><a href="#cb24-244" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
+<span id="cb24-245"><a href="#cb24-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-246"><a href="#cb24-246" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the models</span></span>
+<span id="cb24-247"><a href="#cb24-247" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(rprice <span class="sc">~</span> y81 <span class="sc">+</span> nearinc <span class="sc">+</span> y81nrinc <span class="sc">+</span> age <span class="sc">+</span> agesq, <span class="at">data =</span> kielmc)</span>
+<span id="cb24-248"><a href="#cb24-248" aria-hidden="true" tabindex="-1"></a>model4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(rprice <span class="sc">~</span> y81 <span class="sc">+</span> nearinc <span class="sc">+</span> y81nrinc <span class="sc">+</span> age <span class="sc">+</span> agesq <span class="sc">+</span> intst <span class="sc">+</span> land <span class="sc">+</span> area <span class="sc">+</span> rooms <span class="sc">+</span> baths, <span class="at">data =</span> kielmc)</span>
+<span id="cb24-249"><a href="#cb24-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-250"><a href="#cb24-250" aria-hidden="true" tabindex="-1"></a>model5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(lrprice <span class="sc">~</span> y81 <span class="sc">+</span> nearinc <span class="sc">+</span> y81nrinc <span class="sc">+</span> age <span class="sc">+</span> agesq <span class="sc">+</span> intst <span class="sc">+</span> land <span class="sc">+</span> area <span class="sc">+</span> rooms <span class="sc">+</span> baths, <span class="at">data =</span> kielmc)</span>
+<span id="cb24-251"><a href="#cb24-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-252"><a href="#cb24-252" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the table</span></span>
+<span id="cb24-253"><a href="#cb24-253" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(model0,model1, model2, model3, model4,model5,<span class="at">type =</span> <span class="st">"text"</span>, <span class="at">title =</span> <span class="st">"Regression Results"</span>, <span class="at">column.labels =</span> <span class="fu">c</span>(<span class="st">"Simple81"</span>,<span class="st">"Simple78"</span>, <span class="st">"DiffNDiff"</span>, <span class="st">"Age"</span>, <span class="st">"Full"</span>, <span class="st">"LogPrice"</span>))</span>
+<span id="cb24-254"><a href="#cb24-254" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-255"><a href="#cb24-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-256"><a href="#cb24-256" aria-hidden="true" tabindex="-1"></a>What we can see in the above regressions, at first we see in columns 1-3 the location of the house to the incinerator is highly significant. The incinerator construction location was built in a poorer neighborhood.</span>
+<span id="cb24-257"><a href="#cb24-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-258"><a href="#cb24-258" aria-hidden="true" tabindex="-1"></a>Once we control for the housing characteristics (columns 4-6), we find that the construction of the incinerator decreased housing prices by 14 to 21K or more intuitively housing prices dropped by 9.3%.</span>
+<span id="cb24-259"><a href="#cb24-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-260"><a href="#cb24-260" aria-hidden="true" tabindex="-1"></a>This all suggest that undesirable facilities known to impact many aspects of the quality of environment greatly impacts the overall assets of the <span class="co">[</span><span class="ot">*people chosen to bear the change!!*</span><span class="co">]</span>{.underline}</span>
+<span id="cb24-261"><a href="#cb24-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-262"><a href="#cb24-262" aria-hidden="true" tabindex="-1"></a><span class="al">![Trash incinerators disproportionately harm Black and Hispanic people - TheGrio](https://thegrio.com/cdn-cgi/image/width=1048,height=590,fit=crop,quality=80,format=auto,onerror=redirect,metadata=none/wp-content/uploads/2025/01/AdobeStock_1070980392-e1735858160837.jpeg)</span>{alt="Trash incinerators disproportionately harm Black and Hispanic people -  TheGrio"}</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
