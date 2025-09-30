@@ -1,5 +1,5 @@
 ---
-title: "Hedonic"
+title: "Revealed Preference: Hedonic Modeling"
 format:
   html:
     code-fold: true        # Enables dropdown for code
@@ -9,11 +9,242 @@ format:
     toc-location: left
     page-layout: full
 editor: visual
+bibliography: references.bib
 ---
 
-## This page will populate after:
-
-1.  CV
-2.  DCE
+There might be more questions on CV and DCE but for now we are switching gears and moving on the the Hedonic modeling.
 
 ![](https://www.reactiongifs.us/wp-content/uploads/2016/08/we_have_to_go_back_lost.gif)
+
+# Hedonic Modeling
+
+Revealed Preferences method focuses on data that we find in the world versus asking people about how they behave. The hedonic method is an economic technique that estimates the value of environmental amenities by observing how they affect the price of market goods, most commonly housing. It works on the principle that a good's price is a composite of its various characteristics. By analyzing the price differences of houses with different environmental features, such as proximity to a park or air quality, and using regression analysis, economists can infer the implicit value or "price" of these environmental factor.
+
+So before we asked people what are you willing to pay or accept but now we are observing what they pay or accept in the market place. This process removes some of the biases we saw in the previous method that involved cognitive biases. But now we are concerned with other biases that occur with using only observed data in various markets which we discuss below:
+
+## Bias
+
+### **Removed** 
+
+#### **Hypothetical bias** 
+
+In stated preference methods (like surveys or interviews), people describe what they say they would do in a certain situation. But their answers might not reflect what they'd actually do in real life.
+
+-   Example: A tourist might say in a survey, \"I care a lot about sustainability and would pay extra for an eco-friendly tour,\" but in reality, they might book the cheapest option when the time comes.
+
+-   **Revealed preferences** rely on [**actual behavior**]{.underline} (e.g., trips they take, community lived in, choices made), so they avoid this disconnect.
+
+### Introduced
+
+#### Omitted variable 
+
+People's choices are observed, but the reasons behind them aren\'t. You can't always tell why someone made a particular choice. Maybe they chose an option because it was cheapest, or maybe because of convenience or habit. This brings up equity issues.
+
+#### Confounding factors
+
+External factors (like advertising, social influence, availability) may drive choices, not just personal preferences.
+
+#### Existing Choices
+
+Revealed preferences only capture behavior in the current market or context. If a product or experience doesn't exist yet, revealed preference can't tell you how people would respond to it.
+
+#### Endogeneity
+
+The observed behavior might be influenced by the very thing you're trying to measure (e.g., pricing strategies shaped by demand). This can complicate causal analysis.
+
+# Example
+
+## Libraries
+
+```{r, message=FALSE}
+library(wooldridge)
+library(lmtest)
+library(ggplot2)
+library(dplyr)
+
+```
+
+## Data
+
+```{r}
+# Load the data from Ecdat package
+data(kielmc, package = "wooldridge") 
+# Display the first three rows of data 
+head(kielmc, n = 5)
+```
+
+Kiel and McClain (1995)[@kiel1995] studied how a new garbage incinerator affected house prices in North Andover, Massachusetts. They used many years of data and complex analysis. In our case, we'll use just two years of data and simpler models, but the goal is the same.
+
+Rumors about the incinerator started after 1978, and construction began in 1981. It was expected to start working shortly after construction began, but it actually opened in 1985. We'll compare house prices from 1978 (before construction) and 1981 (when construction began).
+
+Our hypothesis is that houses close to the incinerator would drop in value compared to those farther away.
+
+For this example, a house is considered "near" the incinerator if it's within three miles. (In another exercise, you\'ll use the exact distance, like Kiel and McClain did.)
+
+To measure the impact, we\'ll look at house prices in terms of 1978 dollars, adjusting for inflation using the Boston housing price index. We'll call this inflation-adjusted price **rprice**.
+
+![Incineration Waste Disposal](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNJQ4DZRsrRpXPvBVUpPLDDSOIOfXxhybjPw&s){alt="Incineration Waste Disposal"}
+
+A dataframe containing 321 observations on 25 variables:
+
+-   `year`: 1978 or 1981
+
+-   `age`: age of house
+
+-   `agesq`: age\^2
+
+-   `nbh`: neighborhood, 1-6
+
+-   `cbd`: dist. to cent. bus. dstrct, ft.
+
+-   `intst`: dist. to interstate, ft.
+
+-   `lintst`: log(intst)
+
+-   `price`: selling price
+
+-   `rooms`: \# rooms in house
+
+-   `area`: square footage of house
+
+-   `land`: square footage lot
+
+-   `baths`: \# bathrooms
+
+-   `dist`: dist. from house to incin., ft.
+
+-   `ldist`: log(dist)
+
+-   `wind`: prc. time wind incin. to house
+
+-   `lprice`: log(price)
+
+-   `y81`: =1 if year == 1981
+
+-   `larea`: log(area)
+
+-   `lland`: log(land)
+
+-   `y81ldist`: y81\*ldist
+
+-   `lintstsq`: lintst\^2
+
+-   `nearinc`: =1 if dist \<= 15840
+
+-   `y81nrinc`: y81\*nearinc
+
+-   `rprice`: price, 1978 dollars
+
+-   `lrprice`: log(rprice)
+
+```{r}
+boxplot(rprice~as.factor(rooms),las =1, col="grey", outcol ="grey",
+        ylab = "", xlab = "Number of bedroom",  
+        main = "Price and bedrooms", horizontal =F,
+        data = kielmc)
+
+boxplot(rprice~as.factor(nearinc),las =1, col="grey", outcol ="grey",
+        ylab = "", xlab = "Price",boxwex =0.6,  
+        main = "Price Near Incinerator", horizontal =F,
+        data = kielmc)
+
+boxplot(price~as.factor(y81),las =1, col="grey", outcol ="grey",
+        ylab = "", xlab = "Price",  boxwex =0.6,
+        main = "Price in 1978 vs 1981", horizontal =F,
+        data = kielmc)
+
+boxplot(price~as.factor(y81nrinc),las =1, col="grey", outcol ="grey",
+        ylab = "", xlab = "Price",  boxwex =0.6,
+        main = "Price and After 1981", horizontal =F,
+        data = kielmc)
+
+```
+
+### Simple Model
+
+A very naive model would look at the change in price in the change in price over the two time periods
+
+$$
+\hat{rprice} =  \beta_0 + \beta_1nearinc+u
+$$
+
+To run this in r simply run the following equation
+
+```{r}
+model0=lm(rprice~nearinc, data=subset(kielmc, y81==1 ))
+summary(model0)
+
+
+```
+
+This binary indicator is equal to one when the year is 1987 and the house is close the the incinerator:
+
+$$
+\hat{rprice} =  101,307.5 + 30,688.27nearinc+u
+$$
+
+Since this is a simple regression with just one dummy variable, the intercept represents the average house price for homes not near the incinerator. The coefficient on the variable `nearinc` shows how much the average price changes for homes near the incinerator.
+
+The result shows that, on average, homes near the incinerator sold for [\$30,688.27 less]{.underline} than homes farther away.
+
+BUT it does not imply that the siting of the incinerator is causing the lower housing values. In fact if we look at the value at those houses *before 1981* (like we see in the boxplots above) we obtain this
+
+```{r}
+model1=lm(rprice~nearinc, data=subset(kielmc, y81==0 ))
+summary(model1)
+```
+
+We can see that those close to the incinerator were less than the average value of a home not near the site. This comes back to the issue mentioned above in the biases in data. The area of where the incinerator was built appears to be in a poorer neighborhood based on housing prices.
+
+\*\* *Note we will talk about equity issues in the environmental justice section. \*\**
+
+### Difference-in-Difference
+
+Difference-in-Difference modeling (DiffNDiff for short). Is often how economist will try to control for the issue presented above.
+
+First we will both control for the estimation for being near the incinerator (`nearinc`), the year the data is collected (`y81)` and the difference of the price for houses near construction of the incinerator began construction in 1981 (`y81nrinc`).
+
+```{r}
+model2=lm(rprice~y81+nearinc+y81nrinc, data=kielmc)
+summary(model2)
+```
+
+From here we can see houses located near the incinerator were valued less in 1978 (-\$18.8K). After construction in 1981, the variable estimated is not significant.
+
+### Omitted Variables
+
+The models we just ran are missing a lot of information. Kiel and McClain (1995)[@kiel1995] included housing features in their study for two main reasons:
+
+1.  The types of homes sold near the incinerator in 1981 might have been different from those sold in 1978. If so, it\'s important to account for those differences.
+
+2.  Even if the homes didn\'t change, including their characteristics helps reduce the amount of unexplained variation (error), which in turn makes the estimates more precise.
+
+In column (3) of the results, they include the age of the houses (in a quadratic form). This improves the model by increasing the R-squared and reducing error. As a result, the effect of being near the incinerator in 1981 (y81·nearinc) becomes larger in size and more precisely estimated (lower standard error).
+
+In column (4) we additionally control for distance to the
+interstate in feet (`intst`), land area in feet (`land`), house area in feet (`area`), number of rooms (`rooms`), and number of baths (`baths`).
+
+Lastly, column (5) uses `lrprice`: log(rprice) so that we can interpret the entire equation as percentage changes in order to get the effect and address adjusting for inflation.
+
+	
+
+```{r}
+library(stargazer)
+
+# Run the models
+model3 <- lm(rprice ~ y81 + nearinc + y81nrinc + age + agesq, data = kielmc)
+model4 <- lm(rprice ~ y81 + nearinc + y81nrinc + age + agesq + intst + land + area + rooms + baths, data = kielmc)
+
+model5 <- lm(lrprice ~ y81 + nearinc + y81nrinc + age + agesq + intst + land + area + rooms + baths, data = kielmc)
+
+# Create the table
+stargazer(model0,model1, model2, model3, model4,model5,type = "text", title = "Regression Results", column.labels = c("Simple81","Simple78", "DiffNDiff", "Age", "Full", "LogPrice"))
+```
+
+What we can see in the above regressions, at first we see in columns 1-3 the location of the house to the incinerator is highly significant. The incinerator construction location was built in a poorer neighborhood.
+
+Once we control for the housing characteristics (columns 4-6), we find that the construction of the incinerator decreased housing prices by 14 to 21K or more intuitively housing prices dropped by 9.3%.
+
+This all suggest that undesirable facilities known to impact many aspects of the quality of environment greatly impacts the overall assets of the [*people chosen to bear the change!!*]{.underline}
+
+![Trash incinerators disproportionately harm Black and Hispanic people - TheGrio](https://thegrio.com/cdn-cgi/image/width=1048,height=590,fit=crop,quality=80,format=auto,onerror=redirect,metadata=none/wp-content/uploads/2025/01/AdobeStock_1070980392-e1735858160837.jpeg){alt="Trash incinerators disproportionately harm Black and Hispanic people -  TheGrio"}

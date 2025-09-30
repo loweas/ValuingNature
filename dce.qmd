@@ -26,6 +26,13 @@ These are the libraries you need to run the code below:
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 # Note if you don't have packages install.packages("put library name in here")
+
+#install.packages("Rfast")
+#install.packages("spdesign")
+#install.packages("tidyr")
+#install.packages("tibble")
+
+
 library(Rfast)
 library(spdesign)
 library(ggplot2)
@@ -224,7 +231,7 @@ Here are the arguments needed for our example:
 | `algorithm`           | A character string giving the optimization algorithm to use. No default is set and the argument must be specified to be one of 'rsc', 'federov' or 'random'.                                                                                                   |
 +-----------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-```{r generate-design, cache=TRUE, message=FALSE, warning=FALSE, echo=FALSE}
+```{r}
 # Generate design ----
 design <- generate_design(utility, rows = 100,
 model = "mnl", efficiency_criteria = "d-error", algorithm = "rsc")
