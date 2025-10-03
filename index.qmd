@@ -207,4 +207,4 @@ barplot(coefficients(hourly_wage_model))
 
 ```
 
-# 
+#

@@ -637,9 +637,9 @@ Attaching package: 'spdesign'</code></pre>
 <h2 class="anchored" data-anchor-id="attribute-levels">Attribute &amp; Levels</h2>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 48%">
+<col style="width: 50%">
+<col style="width: 23%">
 <col style="width: 24%">
-<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -970,7 +970,7 @@ attribute levels and swapping of attributes.</code></pre>
 ──────────────────────────────────────────────────────────────────────────────── 
  Iteration   A-error   C-error   D-error   S-error               Time stamp
 ──────────────────────────────────────────────────────────────────────────────── 
-         1    0.1306       N/A    0.0426       Inf2025-09-29 13:59:21.527169
+         1    0.1328       N/A    0.0432       Inf2025-10-02 17:01:56.915915
 ──────────────────────────────────────────────────────────────────────────── </code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
@@ -983,7 +983,7 @@ attribute levels and swapping of attributes.</code></pre>
 <pre><code>── Cleaning up design environment ──────────────────────────────────────────────</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time spent searching for designs:  0.0477922 </code></pre>
+<pre><code>Time spent searching for designs:  0.06812286 </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -999,7 +999,7 @@ alt3 : b_farm_dummy * alt3_farm + b_height_dummy * alt3_height + b_redkite * alt
 
 
    a-error    c-error    d-error    s-error 
-0.13064029        NaN 0.04257096        Inf 
+0.13277967        NaN 0.04315704        Inf 
 
 ---------------------------------------------------------------------
 
@@ -1007,12 +1007,12 @@ Printing the first few rows of the design
 # A tibble: 6 × 15
   alt1_sq alt2_farm2 alt2_farm3 alt2_height2 alt2_height3 alt2_redkite
     &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-1       1          0          1            0            1          5  
-2       1          0          0            1            0          0  
-3       1          0          1            0            1         -5  
-4       1          1          0            1            0         -2.5
-5       1          0          1            0            1         -2.5
-6       1          0          0            0            1          2.5
+1       1          1          0            1            0          5  
+2       1          0          1            1            0          2.5
+3       1          0          0            0            0          2.5
+4       1          0          1            0            1         -2.5
+5       1          0          1            0            1          5  
+6       1          0          0            0            1         -2.5
 # ℹ 9 more variables: alt2_distance &lt;dbl&gt;, alt2_cost &lt;dbl&gt;, alt3_farm2 &lt;dbl&gt;,
 #   alt3_farm3 &lt;dbl&gt;, alt3_height2 &lt;dbl&gt;, alt3_height3 &lt;dbl&gt;,
 #   alt3_redkite &lt;dbl&gt;, alt3_distance &lt;dbl&gt;, alt3_cost &lt;dbl&gt;
@@ -1032,70 +1032,70 @@ Printing the first few rows of the design
 c("pearson", : the standard deviation is zero</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>              alt1_sq    alt2_farm2   alt2_farm3  alt2_height2 alt2_height3
-alt1_sq             1            NA           NA            NA           NA
-alt2_farm2         NA  1.000000e+00 -0.503717523  7.991241e-02 -0.024955437
-alt2_farm3         NA -5.037175e-01  1.000000000  4.975124e-03 -0.009876814
-alt2_height2       NA  7.991241e-02  0.004975124  1.000000e+00 -0.503717523
-alt2_height3       NA -2.495544e-02 -0.009876814 -5.037175e-01  1.000000000
-alt2_redkite       NA -1.492704e-02 -0.105266133 -1.353422e-01  0.074635179
-alt2_distance      NA  2.985407e-02 -0.030076038 -1.502600e-17 -0.089562215
-alt2_cost          NA  5.144695e-02 -0.003702104  1.147652e-01 -0.110243466
-alt3_farm2         NA  1.248070e-01 -0.175938489 -8.548168e-02 -0.009876814
-alt3_farm3         NA -1.586453e-01  0.169701625 -5.477142e-02  0.064171123
-alt3_height2       NA  1.248070e-01  0.004975124  1.406603e-01  0.035017796
-alt3_height3       NA -9.876814e-03 -0.040253279 -4.025328e-02 -0.144560644
-alt3_redkite       NA -2.651574e-18 -0.015038019 -7.519010e-02 -0.014927036
-alt3_distance      NA -8.286169e-18  0.060152076  4.511406e-02  0.074635179
-alt3_cost          NA -2.939826e-02 -0.033318939 -7.033998e-02  0.007349564
-               alt2_redkite alt2_distance    alt2_cost   alt3_farm2
-alt1_sq                  NA            NA           NA           NA
-alt2_farm2    -1.492704e-02  2.985407e-02  0.051446951  0.124807016
-alt2_farm3    -1.052661e-01 -3.007604e-02 -0.003702104 -0.175938489
-alt2_height2  -1.353422e-01 -1.502600e-17  0.114765236 -0.085481682
-alt2_height3   7.463518e-02 -8.956222e-02 -0.110243466 -0.009876814
-alt2_redkite   1.000000e+00  1.150000e-01 -0.039389277 -0.045114057
-alt2_distance  1.150000e-01  1.000000e+00 -0.199408215 -0.075190095
-alt2_cost     -3.938928e-02 -1.994082e-01  1.000000000  0.062935774
-alt3_farm2    -4.511406e-02 -7.519010e-02  0.062935774  1.000000000
-alt3_farm3     1.343433e-01 -1.160064e-17 -0.161690417 -0.503717523
-alt3_height2  -4.511406e-02  1.203042e-01  0.107361027  0.095431931
-alt3_height3  -1.335644e-18 -1.804562e-01 -0.122169444  0.050203528
-alt3_redkite   8.500000e-02  2.050000e-01  0.049236596  0.150380191
-alt3_distance  1.700000e-01 -8.000000e-02  0.054160256 -0.075190095
-alt3_cost     -7.631672e-02 -2.461830e-03 -0.130909091 -0.003702104
-                 alt3_farm3 alt3_height2  alt3_height3  alt3_redkite
-alt1_sq                  NA           NA            NA            NA
-alt2_farm2    -1.586453e-01  0.124807016 -9.876814e-03 -2.651574e-18
-alt2_farm3     1.697016e-01  0.004975124 -4.025328e-02 -1.503802e-02
-alt2_height2  -5.477142e-02  0.140660335 -4.025328e-02 -7.519010e-02
-alt2_height3   6.417112e-02  0.035017796 -1.445606e-01 -1.492704e-02
-alt2_redkite   1.343433e-01 -0.045114057 -1.335644e-18  8.500000e-02
-alt2_distance -1.160064e-17  0.120304152 -1.804562e-01  2.050000e-01
-alt2_cost     -1.616904e-01  0.107361027 -1.221694e-01  4.923660e-02
-alt3_farm2    -5.037175e-01  0.095431931  5.020353e-02  1.503802e-01
-alt3_farm3     1.000000e+00  0.035017796 -9.876814e-03 -1.343433e-01
-alt3_height2   3.501780e-02  1.000000000 -4.925373e-01  7.519010e-02
-alt3_height3  -9.876814e-03 -0.492537313  1.000000e+00  1.353422e-01
-alt3_redkite  -1.343433e-01  0.075190095  1.353422e-01  1.000000e+00
-alt3_distance  7.463518e-02  0.135342172 -1.503802e-02  1.500000e-02
-alt3_cost     -5.144695e-02 -0.225828367  1.851052e-02 -7.385489e-02
-              alt3_distance    alt3_cost
-alt1_sq                  NA           NA
-alt2_farm2    -8.286169e-18 -0.029398258
-alt2_farm3     6.015208e-02 -0.033318939
-alt2_height2   4.511406e-02 -0.070339983
-alt2_height3   7.463518e-02  0.007349564
-alt2_redkite   1.700000e-01 -0.076316724
-alt2_distance -8.000000e-02 -0.002461830
-alt2_cost      5.416026e-02 -0.130909091
-alt3_farm2    -7.519010e-02 -0.003702104
-alt3_farm3     7.463518e-02 -0.051446951
-alt3_height2   1.353422e-01 -0.225828367
-alt3_height3  -1.503802e-02  0.018510522
-alt3_redkite   1.500000e-02 -0.073854895
-alt3_distance  1.000000e+00 -0.076316724
-alt3_cost     -7.631672e-02  1.000000000</code></pre>
+<pre><code>              alt1_sq   alt2_farm2   alt2_farm3 alt2_height2 alt2_height3
+alt1_sq             1           NA           NA           NA           NA
+alt2_farm2         NA  1.000000000 -0.492537313 -0.009876814  -0.04025328
+alt2_farm3         NA -0.492537313  1.000000000 -0.009876814   0.05020353
+alt2_height2       NA -0.009876814 -0.009876814  1.000000000  -0.50371752
+alt2_height3       NA -0.040253279  0.050203528 -0.503717523   1.00000000
+alt2_redkite       NA  0.195494248 -0.180456229  0.059708143  -0.01503802
+alt2_distance      NA  0.180456229 -0.015038019 -0.134343323   0.10526613
+alt2_cost          NA -0.292466246  0.218424158 -0.154340852   0.06293577
+alt3_farm2         NA  0.004975124 -0.085481682 -0.009876814   0.05020353
+alt3_farm3         NA -0.144560644  0.079912406 -0.158645276   0.12480702
+alt3_height2       NA -0.040253279  0.050203528  0.079912406   0.05020353
+alt3_height3       NA  0.140660335 -0.040253279 -0.099666034   0.05020353
+alt3_redkite       NA  0.015038019  0.105266133 -0.119416287   0.03007604
+alt3_distance      NA  0.015038019  0.030076038  0.044781108   0.03007604
+alt3_cost          NA -0.144382071 -0.003702104  0.036747822  -0.04072315
+              alt2_redkite alt2_distance   alt2_cost   alt3_farm2   alt3_farm3
+alt1_sq                 NA            NA          NA           NA           NA
+alt2_farm2      0.19549425    0.18045623 -0.29246625  0.004975124 -0.144560644
+alt2_farm3     -0.18045623   -0.01503802  0.21842416 -0.085481682  0.079912406
+alt2_height2    0.05970814   -0.13434332 -0.15434085 -0.009876814 -0.158645276
+alt2_height3   -0.01503802    0.10526613  0.06293577  0.050203528  0.124807016
+alt2_redkite    1.00000000    0.05000000 -0.06154575  0.015038019 -0.059708143
+alt2_distance   0.05000000    1.00000000 -0.06893123 -0.075190095  0.149270359
+alt2_cost      -0.06154575   -0.06893123  1.00000000  0.018510522 -0.051446951
+alt3_farm2      0.01503802   -0.07519010  0.01851052  1.000000000 -0.503717523
+alt3_farm3     -0.05970814    0.14927036 -0.05144695 -0.503717523  1.000000000
+alt3_height2    0.07519010    0.09022811 -0.01851052 -0.040253279  0.079912406
+alt3_height3   -0.12030415    0.04511406 -0.08514840  0.185888738 -0.009876814
+alt3_redkite    0.02000000    0.03500000  0.02215647 -0.045114057 -0.059708143
+alt3_distance  -0.10000000    0.19500000  0.16494260 -0.075190095  0.119416287
+alt3_cost      -0.21417919   -0.15017162 -0.01696970 -0.085148401  0.007349564
+              alt3_height2  alt3_height3 alt3_redkite alt3_distance
+alt1_sq                 NA            NA           NA            NA
+alt2_farm2     -0.04025328  1.406603e-01   0.01503802  1.503802e-02
+alt2_farm3      0.05020353 -4.025328e-02   0.10526613  3.007604e-02
+alt2_height2    0.07991241 -9.966603e-02  -0.11941629  4.478111e-02
+alt2_height3    0.05020353  5.020353e-02   0.03007604  3.007604e-02
+alt2_redkite    0.07519010 -1.203042e-01   0.02000000 -1.000000e-01
+alt2_distance   0.09022811  4.511406e-02   0.03500000  1.950000e-01
+alt2_cost      -0.01851052 -8.514840e-02   0.02215647  1.649426e-01
+alt3_farm2     -0.04025328  1.858887e-01  -0.04511406 -7.519010e-02
+alt3_farm3      0.07991241 -9.876814e-03  -0.05970814  1.194163e-01
+alt3_height2    1.00000000 -4.925373e-01  -0.09022811  1.654182e-01
+alt3_height3   -0.49253731  1.000000e+00   0.07519010  8.347778e-18
+alt3_redkite   -0.09022811  7.519010e-02   1.00000000  3.500000e-02
+alt3_distance   0.16541821  8.347778e-18   0.03500000  1.000000e+00
+alt3_cost       0.09995682 -1.739989e-01   0.01723281 -8.370221e-02
+                 alt3_cost
+alt1_sq                 NA
+alt2_farm2    -0.144382071
+alt2_farm3    -0.003702104
+alt2_height2   0.036747822
+alt2_height3  -0.040723148
+alt2_redkite  -0.214179194
+alt2_distance -0.150171619
+alt2_cost     -0.016969697
+alt3_farm2    -0.085148401
+alt3_farm3     0.007349564
+alt3_height2   0.099956818
+alt3_height3  -0.173998906
+alt3_redkite   0.017232809
+alt3_distance -0.083702214
+alt3_cost      1.000000000</code></pre>
 </div>
 </div>
 </section>
@@ -1113,7 +1113,7 @@ alt3_cost     -7.631672e-02  1.000000000</code></pre>
 $alt2_farm2
 
  0  1 
-66 34 
+67 33 
 
 $alt2_farm3
 
@@ -1125,8 +1125,8 @@ $alt2_farm3
 </section>
 <section id="dominated-strategy-check" class="level3">
 <h3 class="anchored" data-anchor-id="dominated-strategy-check">Dominated Strategy Check</h3>
-<p><strong>Dominant</strong> or <strong>dominated</strong> alternatives should be avoided because they don't provide useful information about trade-offs and can bias your results.</p>
-<p>To check for this, we can look at the <strong>choice probabilities</strong> for each alternative. If one option has a probability close to <strong>1</strong>, it likely dominates the others. If it's close to <strong>0</strong>, it's probably dominated.</p>
+<p><strong>Dominant</strong> or <strong>dominated</strong> alternatives should be avoided because they don’t provide useful information about trade-offs and can bias your results.</p>
+<p>To check for this, we can look at the <strong>choice probabilities</strong> for each alternative. If one option has a probability close to <strong>1</strong>, it likely dominates the others. If it’s close to <strong>0</strong>, it’s probably dominated.</p>
 <p>The <code>spdesign</code> package includes a <code>probabilities()</code> function that calculates these values based on your design and priors. It shows the probability of choosing each alternative in every choice task. Each row of the output adds up to 1.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the utility balance by inspecting the probabilities. We use head() to avoid printing all 100 rows in the book.</span></span>
@@ -1134,12 +1134,12 @@ $alt2_farm3
 <span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          alt1      alt2      alt3
-[1,] 0.1663734 0.5523792 0.2812474
-[2,] 0.2092660 0.3365028 0.4542312
-[3,] 0.1598331 0.4567472 0.3834197
-[4,] 0.2161889 0.3145531 0.4692580
-[5,] 0.1901437 0.5041026 0.3057537
-[6,] 0.2080101 0.3516325 0.4403574</code></pre>
+[1,] 0.2428786 0.3361514 0.4209700
+[2,] 0.1685474 0.3846051 0.4468474
+[3,] 0.2814080 0.2546285 0.4639634
+[4,] 0.1760329 0.4222810 0.4016861
+[5,] 0.2712556 0.5327549 0.1959896
+[6,] 0.1527730 0.3400026 0.5072243</code></pre>
 </div>
 </div>
 

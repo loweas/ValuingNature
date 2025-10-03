@@ -165,7 +165,7 @@ boxplot(price~as.factor(y81nrinc),las =1, col="grey", outcol ="grey",
 A very naive model would look at the change in price in the change in price over the two time periods
 
 $$
-\hat{rprice} =  \beta_0 + \beta_1nearinc+u
+\hat{rprice} =  \beta_0 - \beta_1nearinc+u
 $$
 
 To run this in r simply run the following equation
