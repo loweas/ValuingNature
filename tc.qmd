@@ -13,12 +13,411 @@ format:
 editor: visual
 ---
 
-## We will be using this after :
+## Revealed Preferences
 
-1.  CV
-2.  DCE
-3.  Hedonic
+![](https://y.yarn.co/c3d73787-78a2-4e9f-b932-e5dfdb46bc3f_text.gif)
 
-![YARN \| Wait! The numbers are bad! The numbers are bad! \| Lost (2004) - S01E24 Drama \| Video gifs by quotes \| c3d73787 \| 紗](https://y.yarn.co/c3d73787-78a2-4e9f-b932-e5dfdb46bc3f_text.gif){alt="YARN | Wait! The numbers are bad! The numbers are bad! | Lost (2004) -  S01E24 Drama | Video gifs by quotes | c3d73787 | 紗"}
+![](https://64.media.tumblr.com/a2d3daadbf45c4d2903f82c5c5383f6b/tumblr_myg0klS5sR1snil4go2_250.gif)
 
-![meet me behind the mall](https://64.media.tumblr.com/a2d3daadbf45c4d2903f82c5c5383f6b/tumblr_myg0klS5sR1snil4go2_250.gif){alt="meet me behind the mall"}
+The **Travel Cost Method (TCM)** is a commonly used survey-based approach to estimate the value of recreation sites. It provides a [**lower-bound estimate**]{.underline} of how much people value a site based on the cost they incur to visit.
+
+There are **two main types** of TCM models:
+
+------------------------------------------------------------------------
+
+#### 1. Single-Site Models
+
+-   Focus on one specific location.
+
+-   Use **Poisson regression** to estimate how many trips people take.
+
+-   From this, you can calculate **consumer surplus** the benefit people get from visiting beyond what they pay.
+
+    ![](images/Picture1.png)
+
+-   The cost of a trip includes actual expenses and the opportunity cost of travel time.
+
+-   These models are best when you want to estimate the total value of a site. For example, if a park is closed due to pollution or budget cuts and you want to estimate the loss in value from that closure.
+
+------------------------------------------------------------------------
+
+#### 2. Multi-Site (or Multi-Attribute) Models
+
+-   Focus on multiple sites or on **different features (attributes)** of sites.
+
+-   Use **random utility models**, typically estimated with a **mixed logit (random parameter logit)** model.
+
+-   These models help estimate how much people value different **features**, like trails, toilets, or accommodation.
+
+-   Useful for **park planning**, as they help managers decide which improvements provide the most value to visitors.
+
+------------------------------------------------------------------------
+
+## The Travel Cost Model (TCM)
+
+
+General Steps in the Travel Cost Modeling Process:
+
+1.  **Define the site** to be evaluated
+
+2.  **Identify the types of recreation** and specify the relevant season
+
+3.  **Develop a sampling strategy** for data collection
+
+4.  **Specify the model**, including functional form and variables
+
+5.  **Determine how to handle multi-purpose trips** (i.e., trips with more than one goal)
+
+6.  **Design and conduct the visitor survey (get data from reservation system/ mobile data)**
+
+7.  **Measure trip costs**, including travel expenses and time value
+
+8.  **Estimate the model** using the collected data
+
+9.  **Calculate the access value** by estimating **consumer surplus**
+
+------------------------------------------------------------------------
+
+### Understanding Consumer Surplus
+
+Consumer Surplus represents the area under the demand curve and above the actual price (travel cost) paid to access the park. This surplus reflects the net benefit or additional value visitors receive from their park experience beyond what they pay to get there. It is a commonly used metric for evaluating net recreational benefits.
+
+------------------------------------------------------------------------
+
+# Single Site
+Also known as a count model. We will work thru the following example
+
+1.  **Define the site**
+We will look at a park that is potentially impacted from a road closer along highway 101. 
+
+2.  **Identify the types of recreation** and specify the relevant season.
+It represents campers at a campground for a popular park on the Oregon Coast. This dataset is specifically looking at the consumer surplus of camping at the park.
+
+3.  **Develop a sampling strategy** for data collection
+For this project we will use the data from the reservation system which gives us information on every camper ovfer the last 4 years.
+
+4.  **Specify the model**, including functional form and variables
+Load in the following data
+
+```{r}
+
+library(readr)
+park <- read_csv("/Users/ashleylowe/Desktop/NREM- Valuing Nature/Data_Examples/ValuingNature/ValuingNature/park.csv")
+
+```
+
+
+Here are the variables
+
+`sitetype` The type of site within the park
+
+`zcta5ce10` zip code
+
+`month` month of reservation
+
+`year` Year of reservation
+
+`trip` number of trips per zip code per month
+
+`cost` average cost per zip per month
+
+`income` medium income for each year at the zipcode level
+
+`temp_avg` average max temperature at the park in the given month
+
+`mdays` the average number of days stayed at the park per zip code.
+
+Lets take a look at the structure
+
+```{r}
+hist(park$trip)
+
+hist(park$cost)
+```
+
+This distribution is clearly a count variable (non negative observations). The pick is close to our near to zero which means that we should consider a count model when dealing with the data.
+
+5.  **Determine how to handle multi-purpose trips** (i.e., trips with more than one goal)
+For this specific example we will first explore the a simple model and then how the number of days spent impacts the overall value of the trip. 
+
+
+6.  **Design and conduct the visitor survey (get data from reservation system/ mobile data)**
+
+7.  **Measure trip costs**, including travel expenses and time value
+
+### Travel Distance
+
+To get a distance measurement you can use online sources like [OSRM](https://project-osrm.org/). We have already calculated it for this example but I have provide a code snippet for consideration.
+
+```{r}
+# --- 1. Load Libraries ---
+# Install these packages if you haven't already:
+# install.packages(c("tidyverse", "httr"))
+library(tidyverse)
+library(httr)
+
+# --- 2. Configuration ---
+# Public OSRM Demo Server URL for the Routing Service
+OSRM_URL <- "http://router.project-osrm.org/route/v1/driving/"
+BATCH_DELAY <- 0.1 # Delay between API calls (in seconds)
+
+# --- 3. Core OSRM API Call Function ---
+
+get_osrm_route <- function(start_lon, start_lat, end_lon, end_lat) {
+  #' Calls the OSRM API to get driving distance (meters) and duration (seconds).
+  #' Note: OSRM requires coordinates in Lon,Lat order (Longitude first).
+  
+  distance_m <- NA_real_
+  duration_s <- NA_real_
+  
+  # Check for missing coordinates
+  if (is.na(start_lon) || is.na(start_lat) || is.na(end_lon) || is.na(end_lat)) {
+    return(list(Distance_m = distance_m, Duration_s = duration_s))
+  }
+  
+  # Construct the request URL (LON,LAT;LON,LAT)
+  coords <- paste0(start_lon, ",", start_lat, ";", end_lon, ",", end_lat)
+  url <- paste0(OSRM_URL, coords, "?overview=false")
+  
+  # Make the API call
+  tryCatch({
+    response <- GET(url, timeout(5))
+    stop_for_status(response) # Check for HTTP errors (like 400)
+    data <- content(response, "parsed")
+    
+    # Check for success and routes
+    if (data$code == 'Ok' && length(data$routes) > 0) {
+      route <- data$routes[[1]]
+      distance_m <- route$distance
+      duration_s <- route$duration
+    } else {
+      # Handle OSRM internal errors (like 'NoRoute')
+      message(paste("  -> OSRM API returned:", data$code, "for coordinates:", coords))
+    }
+  }, error = function(e) {
+    # Catch connection or status errors
+    message(paste("  -> OSRM Request Error:", e))
+  })
+  
+  # Return results as a list
+  return(list(Distance_m = distance_m, Duration_s = duration_s))
+}
+
+# --- 4. Generic Main Function ---
+
+calculate_routes_from_dataframe <- function(df, start_lon_col, start_lat_col, end_lon_col, end_lat_col) {
+  #' Calculates OSRM routes between specified coordinate columns in a dataframe.
+  #'
+  #' @param df The input dataframe.
+  #' @param start_lon_col Name of the start longitude column (string).
+  #' @param start_lat_col Name of the start latitude column (string).
+  #' @param end_lon_col Name of the end longitude column (string).
+  #' @param end_lat_col Name of the end latitude column (string).
+  #' @return The original dataframe with Distance_m and Duration_s columns appended.
+
+  cat(paste0("\nStarting generic OSRM calculations for ", nrow(df), " entries...\n"))
+  
+  # Check if all columns exist
+  required_cols <- c(start_lon_col, start_lat_col, end_lon_col, end_lat_col)
+  if (!all(required_cols %in% names(df))) {
+    stop(paste("Required column(s) not found:", paste(setdiff(required_cols, names(df)), collapse = ", ")))
+  }
+  
+  # 1. Prepare data by selecting relevant columns, ensuring numeric, and removing NAs
+  df_prepared <- df %>%
+    # Select only the relevant coordinate columns for the OSRM processing
+    select(all_of(required_cols)) %>%
+    mutate(original_index = row_number()) %>%
+    # Ensure all are numeric
+    mutate(across(all_of(required_cols), as.numeric)) %>%
+    # Filter only rows with valid coordinates
+    filter(!if_any(all_of(required_cols), is.na))
+    
+  total_processed <- nrow(df_prepared)
+  total_skipped <- nrow(df) - total_processed
+
+  if (total_processed == 0) {
+      cat("No valid coordinate pairs found. Returning original dataframe.\n")
+      # Append NA columns to the original dataframe if no routes were processed
+      return(df %>% mutate(Distance_m = NA_real_, Duration_s = NA_real_))
+  }
+
+  cat(paste0("-> Found ", total_skipped, " entries with missing coordinates that will be skipped.\n"))
+  cat(paste0("-> Processing ", total_processed, " valid entries now.\n"))
+  
+  # 2. Iterate and Call OSRM API
+  
+  # Vectors to store results for the rows being processed
+  distance_vec <- rep(NA_real_, total_processed)
+  duration_vec <- rep(NA_real_, total_processed)
+  
+  for (i in 1:total_processed) {
+    row <- df_prepared[i, ]
+    
+    if (i %% 100 == 0 || i == 1 || i == total_processed) {
+      cat(paste0("Processed row ", i, "/", total_processed, "\n"))
+    }
+    
+    results <- get_osrm_route(
+      row[[start_lon_col]], row[[start_lat_col]], 
+      row[[end_lon_col]], row[[end_lat_col]]
+    )
+    
+    distance_vec[i] <- results$Distance_m
+    duration_vec[i] <- results$Duration_s
+    
+    Sys.sleep(BATCH_DELAY)
+  }
+  
+  # 3. Merge results back to the original full dataframe
+  
+  df_results <- df_prepared %>%
+    select(original_index) %>%
+    mutate(
+      Distance_m = distance_vec,
+      Duration_s = duration_vec
+    )
+  
+  # Perform a left join on the original row index
+  df_final <- df %>%
+    mutate(original_index = row_number()) %>%
+    left_join(df_results, by = "original_index") %>%
+    select(-original_index)
+    
+  cat("\n========================================================================\n")
+  cat("Generic OSRM calculation complete. Returning augmented dataframe.\n")
+  cat("========================================================================\n")
+  
+  return(df_final)
+}
+
+# --- 5. Example Usage ---
+#
+# # 1. Create a dummy dataframe:
+# # my_data <- tibble(
+# #   site_id = 1:3,
+# #   warehouse_lon = c(-157.8, -157.9, -158.0),
+# #   warehouse_lat = c(21.3, 21.4, 21.5),
+# #   customer_lon = c(-157.7, -157.8, NA), # NA added to test skipping
+# #   customer_lat = c(21.4, 21.5, 21.6)
+# # )
+# #
+# # 2. Call the function, specifying your column names:
+# # result_df <- calculate_routes_from_dataframe(
+# #   df = my_data,
+# #   start_lon_col = "warehouse_lon",
+# #   start_lat_col = "warehouse_lat",
+# #   end_lon_col = "customer_lon",
+# #   end_lat_col = "customer_lat"
+# # )
+#
+# # The result will have the original columns plus Distance_m and Duration_s.
+```
+
+Thank for use the data has the travel distance already calculated for each zip code in the dataset.
+
+8.  **Estimate the model** using the collected data
+
+
+We are using a zonal method to calculate the trips. Zonal travel cost means that for each location ID you are measuring the distance to park. The location ID is a zip code case.
+
+
+
+A Poisson model (specifically [Poisson regression]{.underline}) is a type of generalized linear model (GLM) designed to model count data. This is where the response variable represents counts of events (e.g., number of trips, visits, accidents).
+
+This model accounts for the following:
+
+1.  Count outcomes (non-negative integers)
+
+    -   Models outcomes like 0, 1, 2, 3\...
+
+    -   Cannot produce negative predictions.
+
+2.  The fact that the variance equals the mean
+
+    -   In a Poisson distribution, the mean (μ) is equal to the variance (σ²).
+
+    -   This is a key assumption of the model:
+
+        $$ Var(Y)=E(Y) $$
+
+3.  Skewed distribution
+
+    -   Count data are often right-skewed (many small values, few large ones), which the Poisson model handles better than linear regression.
+
+4.  Log-linear relationship between predictors and expected counts
+
+    -   The model assumes a logarithmic link between the mean of the outcome and the predictors:
+
+        $$log⁡(μ)=β0+β1X1+β2X2+…e$$
+
+5.  **Independent events**
+
+    -   Each event (e.g., each person\'s number of trips) is assumed to be **independent** of others.
+
+## Count Model 
+
+Simple cost and the decision of a trip
+
+```{r}
+model1=glm(trip ~ cost, 
+            data = park, 
+            family = poisson())
+summary(model1)
+
+```
+
+9.  **Calculate the access value** by estimating **consumer surplus**
+
+### Simple WTP
+
+```{r}
+
+1/model1$coefficients[2]
+```
+The interpretation suggest that on average the consumer surplus for each person who camps at this park is on average $368. 
+
+## More Controls 
+
+Multiple variable regression: Controlling for more factors in the model
+
+```{r}
+model2=glm(trip ~ cost + income+factor(year)+temp_avg+mdays+factor(sitetype), 
+            data = park, 
+            family = poisson())
+
+summary(model2)
+```
+
+### WTP
+
+```{r}
+
+1/model2$coefficients[2]
+```
+
+We can see with more controls our measurement reduces and is more conservative.
+
+The consumer surplus is now around $302 per person. 
+
+From here you could take the sum of the season or year and calculate the WTP for this specific site. For example, a policy in which the park will impacted the park, funding for park, etc. This is helpful in estimating the total use value (consumer surplus) of one site.
+
+# Multi-Site 
+
+A single site has a lot of caveats, however. You canʻt say much about what the impacts are to other parks. People may just trade-off to go to a different park and look at sites as a package.
+
+In that cause we use a **multi-site approach** by estimating demand systems, comparing multiple sites, and valuing changes in site characteristics or policy scenarios.
+
+Use **multi-site models** when:
+
+-   You want to evaluate relative site quality or rank sites.
+
+-   You have data on multiple alternative sites and want to understand visitor choice behavior.
+
+-   You're interested in estimating marginal values of site attributes (e.g., distance, facilities, congestion).
+
+Common models used:
+
+-   **Random Utility Models (RUMs)** or
+
+-   **Nested Logit Models**
