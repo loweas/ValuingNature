@@ -55,7 +55,6 @@ There are **two main types** of TCM models:
 
 ## The Travel Cost Model (TCM)
 
-
 General Steps in the Travel Cost Modeling Process:
 
 1.  **Define the site** to be evaluated
@@ -85,27 +84,25 @@ Consumer Surplus represents the area under the demand curve and above the actual
 ------------------------------------------------------------------------
 
 # Single Site
+
 Also known as a count model. We will work thru the following example
 
-1.  **Define the site**
-We will look at a park that is potentially impacted from a road closer along highway 101. 
+1.  **Define the site** We will look at a park that is potentially impacted from a road closer along highway 101.
 
-2.  **Identify the types of recreation** and specify the relevant season.
-It represents campers at a campground for a popular park on the Oregon Coast. This dataset is specifically looking at the consumer surplus of camping at the park.
+2.  **Identify the types of recreation** and specify the relevant season. It represents campers at a campground for a popular park on the Oregon Coast. This dataset is specifically looking at the consumer surplus of camping at the park.
 
-3.  **Develop a sampling strategy** for data collection
-For this project we will use the data from the reservation system which gives us information on every camper ovfer the last 4 years.
+3.  **Develop a sampling strategy** for data collection For this project we will use the data from the reservation system which gives us information on every camper ovfer the last 4 years.
 
 4.  **Specify the model**, including functional form and variables
-Load in the following data
+
+Load in the following data. You can download it [here](https://github.com/loweas/ValuingNature/blob/main/park.csv). But the following code should grab it as well.
 
 ```{r}
 
 library(readr)
-park <- read_csv("/Users/ashleylowe/Desktop/NREM- Valuing Nature/Data_Examples/ValuingNature/ValuingNature/park.csv")
+park <- read_csv("http://raw.githubusercontent.com/loweas/ValuingNature/refs/heads/main/park.csv")
 
 ```
-
 
 Here are the variables
 
@@ -137,9 +134,7 @@ hist(park$cost)
 
 This distribution is clearly a count variable (non negative observations). The pick is close to our near to zero which means that we should consider a count model when dealing with the data.
 
-5.  **Determine how to handle multi-purpose trips** (i.e., trips with more than one goal)
-For this specific example we will first explore the a simple model and then how the number of days spent impacts the overall value of the trip. 
-
+5.  **Determine how to handle multi-purpose trips** (i.e., trips with more than one goal) For this specific example we will first explore the a simple model and then how the number of days spent impacts the overall value of the trip.
 
 6.  **Design and conduct the visitor survey (get data from reservation system/ mobile data)**
 
@@ -318,10 +313,7 @@ Thank for use the data has the travel distance already calculated for each zip c
 
 8.  **Estimate the model** using the collected data
 
-
 We are using a zonal method to calculate the trips. Zonal travel cost means that for each location ID you are measuring the distance to park. The location ID is a zip code case.
-
-
 
 A Poisson model (specifically [Poisson regression]{.underline}) is a type of generalized linear model (GLM) designed to model count data. This is where the response variable represents counts of events (e.g., number of trips, visits, accidents).
 
@@ -353,9 +345,9 @@ This model accounts for the following:
 
 5.  **Independent events**
 
-    -   Each event (e.g., each person\'s number of trips) is assumed to be **independent** of others.
+    -   Each event (e.g., each person's number of trips) is assumed to be **independent** of others.
 
-## Count Model 
+## Count Model
 
 Simple cost and the decision of a trip
 
@@ -375,9 +367,10 @@ summary(model1)
 
 1/model1$coefficients[2]
 ```
-The interpretation suggest that on average the consumer surplus for each person who camps at this park is on average $368. 
 
-## More Controls 
+The interpretation suggest that on average the consumer surplus for each person who camps at this park is on average \$368.
+
+## More Controls
 
 Multiple variable regression: Controlling for more factors in the model
 
@@ -398,11 +391,11 @@ summary(model2)
 
 We can see with more controls our measurement reduces and is more conservative.
 
-The consumer surplus is now around $302 per person. 
+The consumer surplus is now around \$302 per person.
 
 From here you could take the sum of the season or year and calculate the WTP for this specific site. For example, a policy in which the park will impacted the park, funding for park, etc. This is helpful in estimating the total use value (consumer surplus) of one site.
 
-# Multi-Site 
+# Multi-Site
 
 A single site has a lot of caveats, however. You canʻt say much about what the impacts are to other parks. People may just trade-off to go to a different park and look at sites as a package.
 
