@@ -302,9 +302,9 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="attribute-levels">Attribute &amp; Levels</h2>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 23%">
-<col style="width: 24%">
+<col style="width: 51%">
+<col style="width: 22%">
+<col style="width: 12%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -650,7 +650,7 @@ attribute levels and swapping of attributes.</code></pre>
 ──────────────────────────────────────────────────────────────────────────────── 
  Iteration   A-error   C-error   D-error   S-error               Time stamp
 ──────────────────────────────────────────────────────────────────────────────── 
-         1    0.1315       N/A    0.0433       Inf2025-10-02 17:02:03.599083
+         1    0.1309       N/A    0.0423       Inf2025-10-05 20:16:24.925518
 ──────────────────────────────────────────────────────────────────────────── </code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
@@ -663,7 +663,7 @@ attribute levels and swapping of attributes.</code></pre>
 <pre><code>── Cleaning up design environment ──────────────────────────────────────────────</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time spent searching for designs:  0.08548403 </code></pre>
+<pre><code>Time spent searching for designs:  0.052176 </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -682,7 +682,7 @@ alt3 : b_farm_dummy * alt3_farm + b_height_dummy * alt3_height + b_redkite * alt
 
 
    a-error    c-error    d-error    s-error 
-0.13146375        NaN 0.04329994        Inf 
+0.13091971        NaN 0.04229627        Inf 
 
 ---------------------------------------------------------------------
 
@@ -690,11 +690,11 @@ Printing the first few rows of the design
 # A tibble: 6 × 15
   alt1_sq alt2_farm2 alt2_farm3 alt2_height2 alt2_height3 alt2_redkite
     &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-1       1          0          1            0            1          5  
-2       1          0          1            1            0          5  
-3       1          1          0            1            0          0  
-4       1          0          0            0            1          2.5
-5       1          1          0            0            0          0  
+1       1          0          0            0            1         -2.5
+2       1          0          0            0            1          2.5
+3       1          1          0            0            0         -2.5
+4       1          0          1            1            0          0  
+5       1          1          0            1            0         -5  
 6       1          0          0            1            0          0  
 # ℹ 9 more variables: alt2_distance &lt;dbl&gt;, alt2_cost &lt;dbl&gt;, alt3_farm2 &lt;dbl&gt;,
 #   alt3_farm3 &lt;dbl&gt;, alt3_height2 &lt;dbl&gt;, alt3_height3 &lt;dbl&gt;,
@@ -718,70 +718,70 @@ Printing the first few rows of the design
 c("pearson", : the standard deviation is zero</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>              alt1_sq  alt2_farm2   alt2_farm3 alt2_height2 alt2_height3
-alt1_sq             1          NA           NA           NA           NA
-alt2_farm2         NA  1.00000000 -0.492537313 -0.144560644   0.09543193
-alt2_farm3         NA -0.49253731  1.000000000  0.124807016  -0.08548168
-alt2_height2       NA -0.14456064  0.124807016  1.000000000  -0.50371752
-alt2_height3       NA  0.09543193 -0.085481682 -0.503717523   1.00000000
-alt2_redkite       NA -0.09022811 -0.015038019 -0.119416287   0.07519010
-alt2_distance      NA -0.06015208 -0.045114057 -0.134343323   0.03007604
-alt2_cost          NA  0.24804099 -0.018510522 -0.007349564   0.04812736
-alt3_farm2         NA  0.05020353  0.050203528 -0.189455254   0.18588874
-alt3_farm3         NA  0.05020353 -0.130710086 -0.009876814  -0.08548168
-alt3_height2       NA -0.04025328  0.004975124  0.079912406   0.09543193
-alt3_height3       NA -0.08548168  0.095431931 -0.009876814  -0.08548168
-alt3_redkite       NA -0.16541821  0.105266133  0.029854072  -0.07519010
-alt3_distance      NA -0.07519010  0.090228114 -0.044781108   0.01503802
-alt3_cost          NA  0.04812736  0.188807323 -0.213137367   0.04812736
-              alt2_redkite alt2_distance    alt2_cost    alt3_farm2
-alt1_sq                 NA            NA           NA            NA
-alt2_farm2     -0.09022811 -6.015208e-02  0.248040993  5.020353e-02
-alt2_farm3     -0.01503802 -4.511406e-02 -0.018510522  5.020353e-02
-alt2_height2   -0.11941629 -1.343433e-01 -0.007349564 -1.894553e-01
-alt2_height3    0.07519010  3.007604e-02  0.048127357  1.858887e-01
-alt2_redkite    1.00000000  1.100000e-01 -0.046774767  1.954942e-01
-alt2_distance   0.11000000  1.000000e+00 -0.189560896  1.001733e-17
-alt2_cost      -0.04677477 -1.895609e-01  1.000000000  9.995682e-02
-alt3_farm2      0.19549425  1.001733e-17  0.099956818  1.000000e+00
-alt3_farm3     -0.15038019  1.203042e-01  0.062935774 -4.925373e-01
-alt3_height2   -0.27068434  1.503802e-02  0.107361027 -4.025328e-02
-alt3_height3    0.13534217 -1.503802e-01 -0.240636784  9.543193e-02
-alt3_redkite    0.02500000  1.500000e-02 -0.164942598 -1.954942e-01
-alt3_distance   0.02500000  4.500000e-02 -0.132938810  1.503802e-01
-alt3_cost      -0.02461830 -3.200379e-02  0.117575758  1.888073e-01
-                alt3_farm3 alt3_height2 alt3_height3 alt3_redkite alt3_distance
-alt1_sq                 NA           NA           NA           NA            NA
-alt2_farm2     0.050203528 -0.040253279 -0.085481682  -0.16541821   -0.07519010
-alt2_farm3    -0.130710086  0.004975124  0.095431931   0.10526613    0.09022811
-alt2_height2  -0.009876814  0.079912406 -0.009876814   0.02985407   -0.04478111
-alt2_height3  -0.085481682  0.095431931 -0.085481682  -0.07519010    0.01503802
-alt2_redkite  -0.150380191 -0.270684343  0.135342172   0.02500000    0.02500000
-alt2_distance  0.120304152  0.015038019 -0.150380191   0.01500000    0.04500000
-alt2_cost      0.062935774  0.107361027 -0.240636784  -0.16494260   -0.13293881
-alt3_farm2    -0.492537313 -0.040253279  0.095431931  -0.19549425    0.15038019
-alt3_farm3     1.000000000  0.185888738 -0.221166893   0.01503802    0.04511406
-alt3_height2   0.185888738  1.000000000 -0.492537313  -0.10526613   -0.01503802
-alt3_height3  -0.221166893 -0.492537313  1.000000000   0.03007604    0.18045623
-alt3_redkite   0.015038019 -0.105266133  0.030076038   1.00000000    0.17000000
-alt3_distance  0.045114057 -0.015038019  0.180456229   0.17000000    1.00000000
-alt3_cost     -0.077744192  0.062935774 -0.033318939   0.04185111   -0.06893123
-                alt3_cost
-alt1_sq                NA
-alt2_farm2     0.04812736
-alt2_farm3     0.18880732
-alt2_height2  -0.21313737
-alt2_height3   0.04812736
-alt2_redkite  -0.02461830
-alt2_distance -0.03200379
-alt2_cost      0.11757576
-alt3_farm2     0.18880732
-alt3_farm3    -0.07774419
-alt3_height2   0.06293577
-alt3_height3  -0.03331894
-alt3_redkite   0.04185111
-alt3_distance -0.06893123
-alt3_cost      1.00000000</code></pre>
+<pre><code>              alt1_sq    alt2_farm2  alt2_farm3 alt2_height2  alt2_height3
+alt1_sq             1            NA          NA           NA            NA
+alt2_farm2         NA  1.000000e+00 -0.50371752  -0.04025328 -9.966603e-02
+alt2_farm3         NA -5.037175e-01  1.00000000   0.03501780  6.417112e-02
+alt2_height2       NA -4.025328e-02  0.03501780   1.00000000 -5.037175e-01
+alt2_height3       NA -9.966603e-02  0.06417112  -0.50371752  1.000000e+00
+alt2_redkite       NA -9.349511e-18 -0.11941629  -0.04511406 -2.985407e-02
+alt2_distance      NA  1.353422e-01  0.07463518   0.06015208 -5.970814e-02
+alt2_cost          NA  2.591473e-02  0.05879652  -0.01110631  7.349564e-02
+alt3_farm2         NA -4.025328e-02  0.12480702  -0.22116689  1.248070e-01
+alt3_farm3         NA -1.307101e-01  0.03501780   0.23111714 -1.894553e-01
+alt3_height2       NA  3.501780e-02  0.10873440   0.12480702 -6.951872e-02
+alt3_height3       NA  9.543193e-02 -0.05477142  -0.04025328 -9.966603e-02
+alt3_redkite       NA  4.511406e-02 -0.05970814   0.03007604  1.492704e-02
+alt3_distance      NA  7.519010e-02 -0.01492704   0.03007604 -1.657234e-17
+alt3_cost          NA -7.033998e-02 -0.02939826  -0.04072315  5.879652e-02
+               alt2_redkite alt2_distance    alt2_cost   alt3_farm2  alt3_farm3
+alt1_sq                  NA            NA           NA           NA          NA
+alt2_farm2    -9.349511e-18    0.13534217  0.025914731 -0.040253279 -0.13071009
+alt2_farm3    -1.194163e-01    0.07463518  0.058796515  0.124807016  0.03501780
+alt2_height2  -4.511406e-02    0.06015208 -0.011106313 -0.221166893  0.23111714
+alt2_height3  -2.985407e-02   -0.05970814  0.073495644  0.124807016 -0.18945525
+alt2_redkite   1.000000e+00   -0.04500000  0.049236596  0.015038019  0.04511406
+alt2_distance -4.500000e-02    1.00000000  0.081240384  0.090228114  0.01503802
+alt2_cost      4.923660e-02    0.08124038  1.000000000  0.003702104 -0.09995682
+alt3_farm2     1.503802e-02    0.09022811  0.003702104  1.000000000 -0.49253731
+alt3_farm3     4.511406e-02    0.01503802 -0.099956818 -0.492537313  1.00000000
+alt3_height2  -1.492704e-01   -0.01492704  0.080845208 -0.189455254 -0.09966603
+alt3_height3   1.203042e-01   -0.03007604 -0.166594697  0.231117142 -0.04025328
+alt3_redkite  -1.250000e-01   -0.05500000  0.056622086 -0.135342172 -0.03007604
+alt3_distance -1.550000e-01    0.18500000 -0.248644812 -0.060152076 -0.07519010
+alt3_cost      3.692745e-02    0.01477098 -0.004848485 -0.129573653  0.06293577
+               alt3_height2 alt3_height3  alt3_redkite alt3_distance
+alt1_sq                  NA           NA            NA            NA
+alt2_farm2     3.501780e-02   0.09543193  4.511406e-02  7.519010e-02
+alt2_farm3     1.087344e-01  -0.05477142 -5.970814e-02 -1.492704e-02
+alt2_height2   1.248070e-01  -0.04025328  3.007604e-02  3.007604e-02
+alt2_height3  -6.951872e-02  -0.09966603  1.492704e-02 -1.657234e-17
+alt2_redkite  -1.492704e-01   0.12030415 -1.250000e-01 -1.550000e-01
+alt2_distance -1.492704e-02  -0.03007604 -5.500000e-02  1.850000e-01
+alt2_cost      8.084521e-02  -0.16659470  5.662209e-02 -2.486448e-01
+alt3_farm2    -1.894553e-01   0.23111714 -1.353422e-01 -6.015208e-02
+alt3_farm3    -9.966603e-02  -0.04025328 -3.007604e-02 -7.519010e-02
+alt3_height2   1.000000e+00  -0.50371752  3.181889e-17  1.492704e-01
+alt3_height3  -5.037175e-01   1.00000000  1.503802e-02 -6.015208e-02
+alt3_redkite   3.181889e-17   0.01503802  1.000000e+00 -1.000000e-02
+alt3_distance  1.492704e-01  -0.06015208 -1.000000e-02  1.000000e+00
+alt3_cost      1.322922e-01  -0.24804099 -1.723281e-02 -4.185111e-02
+                 alt3_cost
+alt1_sq                 NA
+alt2_farm2    -0.070339983
+alt2_farm3    -0.029398258
+alt2_height2  -0.040723148
+alt2_height3   0.058796515
+alt2_redkite   0.036927447
+alt2_distance  0.014770979
+alt2_cost     -0.004848485
+alt3_farm2    -0.129573653
+alt3_farm3     0.062935774
+alt3_height2   0.132292159
+alt3_height3  -0.248040993
+alt3_redkite  -0.017232809
+alt3_distance -0.041851107
+alt3_cost      1.000000000</code></pre>
 </div>
 </div>
 </section>
@@ -807,7 +807,7 @@ $alt2_farm2
 $alt2_farm3
 
  0  1 
-67 33 </code></pre>
+66 34 </code></pre>
 </div>
 </div>
 <p>First, we can see that the constant for the status quo alternative appears in all 100 rows of the design. Next, the medium and small wind farm sizes each occur 33 times, meaning the large size appears 34 times. This suggests the design is nearly balanced across attribute levels.</p>
@@ -826,12 +826,12 @@ $alt2_farm3
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>          alt1      alt2      alt3
-[1,] 0.1504948 0.4194435 0.4300617
-[2,] 0.2034756 0.2960552 0.5004692
-[3,] 0.2007922 0.3846258 0.4145820
-[4,] 0.1834030 0.4185038 0.3980932
-[5,] 0.2853148 0.2782704 0.4364148
-[6,] 0.3081912 0.4265461 0.2652627</code></pre>
+[1,] 0.2187204 0.3517055 0.4295741
+[2,] 0.2457483 0.2715939 0.4826578
+[3,] 0.2268929 0.3384845 0.4346226
+[4,] 0.1543426 0.3702487 0.4754087
+[5,] 0.1834030 0.3980932 0.4185038
+[6,] 0.2823977 0.3811971 0.3364052</code></pre>
 </div>
 </div>
 <p>To help spot any problematic choice tasks, we can create a simple plot. In this case, the plot shows no signs of <u>dominating or dominated</u> alternatives which would appear as very large or very small segments of a single color.</p>
@@ -895,7 +895,7 @@ $alt2_farm3
 <span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.7329757 0.8140033 0.8644891 0.8250008 0.9355232 0.9415126</code></pre>
+<pre><code>[1] 0.8922166 0.8697884 0.9012302 0.7335171 0.8250008 0.9777712</code></pre>
 </div>
 </div>
 <p>The function returns the utility balance for each choice task. The average utility balance across the design is 0.8478. For efficient designs, values typically fall between 70% and 90% indicates a good balance, not too equal (which gives little information) and not too skewed to have dominant alternatives.</p>
@@ -927,7 +927,7 @@ $alt2_farm3
 <pre><code># A tibble: 1 × 15
   alt1_sq alt2_farm2 alt2_farm3 alt2_height2 alt2_height3 alt2_redkite
     &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-1      NA     0.0259   -0.00370      -0.0147       0.0259      -0.0148
+1      NA   -0.00370     0.0147      -0.0185       0.0147       0.0394
 # ℹ 9 more variables: alt2_distance &lt;dbl&gt;, alt2_cost &lt;dbl&gt;, alt3_farm2 &lt;dbl&gt;,
 #   alt3_farm3 &lt;dbl&gt;, alt3_height2 &lt;dbl&gt;, alt3_height3 &lt;dbl&gt;,
 #   alt3_redkite &lt;dbl&gt;, alt3_distance &lt;dbl&gt;, alt3_cost &lt;dbl&gt;</code></pre>
@@ -1445,63 +1445,63 @@ Mariel, Petr, Danny Campbell, Erlend Dancke Sandorf, Jürgen Meyerhoff, Ainhoa V
 <span id="cb39-44"><a href="#cb39-44" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-45"><a href="#cb39-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Attribute &amp; Levels</span></span>
 <span id="cb39-46"><a href="#cb39-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-47"><a href="#cb39-47" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-48"><a href="#cb39-48" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Attributes                         <span class="pp">|</span> Labels         <span class="pp">|</span> Levels          <span class="pp">|</span></span>
-<span id="cb39-49"><a href="#cb39-49" aria-hidden="true" tabindex="-1"></a>+==================================<span class="al">==+================+==</span>===============+</span>
-<span id="cb39-50"><a href="#cb39-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Size of Wind Farm (discrete)       <span class="pp">|</span> Small Farms    <span class="pp">|</span> 0               <span class="pp">|</span></span>
-<span id="cb39-51"><a href="#cb39-51" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-52"><a href="#cb39-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ***Note reference is LargeFarm***  <span class="pp">|</span>                <span class="pp">|</span> 1               <span class="pp">|</span></span>
-<span id="cb39-53"><a href="#cb39-53" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-54"><a href="#cb39-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span> MediumFarms    <span class="pp">|</span> 0               <span class="pp">|</span></span>
-<span id="cb39-55"><a href="#cb39-55" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-56"><a href="#cb39-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>                <span class="pp">|</span> 1               <span class="pp">|</span></span>
-<span id="cb39-57"><a href="#cb39-57" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-58"><a href="#cb39-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Max. Height Turbine (discrete)     <span class="pp">|</span> Low Height     <span class="pp">|</span> 0               <span class="pp">|</span></span>
-<span id="cb39-59"><a href="#cb39-59" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-60"><a href="#cb39-60" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ***Note reference is HighHeight*** <span class="pp">|</span>                <span class="pp">|</span> 1               <span class="pp">|</span></span>
-<span id="cb39-61"><a href="#cb39-61" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-62"><a href="#cb39-62" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span> Medium Height  <span class="pp">|</span> 0               <span class="pp">|</span></span>
-<span id="cb39-63"><a href="#cb39-63" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-64"><a href="#cb39-64" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>                <span class="pp">|</span> 1               <span class="pp">|</span></span>
-<span id="cb39-65"><a href="#cb39-65" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-66"><a href="#cb39-66" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Reduction in Red Kite (continous)  <span class="pp">|</span> Red Kite       <span class="pp">|</span> 5               <span class="pp">|</span></span>
-<span id="cb39-67"><a href="#cb39-67" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-68"><a href="#cb39-68" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>                <span class="pp">|</span> 7.5             <span class="pp">|</span></span>
-<span id="cb39-69"><a href="#cb39-69" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-70"><a href="#cb39-70" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>                <span class="pp">|</span> 10              <span class="pp">|</span></span>
-<span id="cb39-71"><a href="#cb39-71" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-72"><a href="#cb39-72" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>                <span class="pp">|</span> 12.5            <span class="pp">|</span></span>
-<span id="cb39-73"><a href="#cb39-73" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-74"><a href="#cb39-74" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>                <span class="pp">|</span> 15              <span class="pp">|</span></span>
-<span id="cb39-75"><a href="#cb39-75" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-76"><a href="#cb39-76" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Distance to residents (continous)  <span class="pp">|</span> MinDistance    <span class="pp">|</span> 750             <span class="pp">|</span></span>
-<span id="cb39-77"><a href="#cb39-77" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-78"><a href="#cb39-78" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>                <span class="pp">|</span> 1000            <span class="pp">|</span></span>
-<span id="cb39-79"><a href="#cb39-79" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-80"><a href="#cb39-80" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>                <span class="pp">|</span> 1250            <span class="pp">|</span></span>
-<span id="cb39-81"><a href="#cb39-81" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-82"><a href="#cb39-82" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>                <span class="pp">|</span> 1500            <span class="pp">|</span></span>
-<span id="cb39-83"><a href="#cb39-83" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-84"><a href="#cb39-84" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>                <span class="pp">|</span> 1750            <span class="pp">|</span></span>
-<span id="cb39-85"><a href="#cb39-85" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-86"><a href="#cb39-86" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> MonthlyCost                        <span class="pp">|</span> Cost           <span class="pp">|</span> 0               <span class="pp">|</span></span>
-<span id="cb39-87"><a href="#cb39-87" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>                <span class="pp">|</span>                 <span class="pp">|</span></span>
-<span id="cb39-88"><a href="#cb39-88" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> (Continous)                        <span class="pp">|</span>                <span class="pp">|</span>                 <span class="pp">|</span></span>
-<span id="cb39-89"><a href="#cb39-89" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-90"><a href="#cb39-90" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>                <span class="pp">|</span> 1               <span class="pp">|</span></span>
-<span id="cb39-91"><a href="#cb39-91" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-92"><a href="#cb39-92" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>                <span class="pp">|</span> 2               <span class="pp">|</span></span>
-<span id="cb39-93"><a href="#cb39-93" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-94"><a href="#cb39-94" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>                <span class="pp">|</span> 3               <span class="pp">|</span></span>
-<span id="cb39-95"><a href="#cb39-95" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-96"><a href="#cb39-96" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>                <span class="pp">|</span> 4               <span class="pp">|</span></span>
-<span id="cb39-97"><a href="#cb39-97" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-98"><a href="#cb39-98" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>                <span class="pp">|</span> .....           <span class="pp">|</span></span>
-<span id="cb39-99"><a href="#cb39-99" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-100"><a href="#cb39-100" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>                <span class="pp">|</span> ....            <span class="pp">|</span></span>
-<span id="cb39-101"><a href="#cb39-101" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
-<span id="cb39-102"><a href="#cb39-102" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>                <span class="pp">|</span> 10              <span class="pp">|</span></span>
-<span id="cb39-103"><a href="#cb39-103" aria-hidden="true" tabindex="-1"></a>+------------------------------------+----------------+-----------------+</span>
+<span id="cb39-47"><a href="#cb39-47" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-48"><a href="#cb39-48" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Attributes                         <span class="pp">|</span> Labels        <span class="pp">|</span> Levels <span class="pp">|</span></span>
+<span id="cb39-49"><a href="#cb39-49" aria-hidden="true" tabindex="-1"></a>+==================================<span class="al">==+===============+==</span>======+</span>
+<span id="cb39-50"><a href="#cb39-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Size of Wind Farm (discrete)       <span class="pp">|</span> Small Farms   <span class="pp">|</span> 0      <span class="pp">|</span></span>
+<span id="cb39-51"><a href="#cb39-51" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-52"><a href="#cb39-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ***Note reference is LargeFarm***  <span class="pp">|</span>               <span class="pp">|</span> 1      <span class="pp">|</span></span>
+<span id="cb39-53"><a href="#cb39-53" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-54"><a href="#cb39-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span> MediumFarms   <span class="pp">|</span> 0      <span class="pp">|</span></span>
+<span id="cb39-55"><a href="#cb39-55" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-56"><a href="#cb39-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>               <span class="pp">|</span> 1      <span class="pp">|</span></span>
+<span id="cb39-57"><a href="#cb39-57" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-58"><a href="#cb39-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Max. Height Turbine (discrete)     <span class="pp">|</span> Low Height    <span class="pp">|</span> 0      <span class="pp">|</span></span>
+<span id="cb39-59"><a href="#cb39-59" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-60"><a href="#cb39-60" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ***Note reference is HighHeight*** <span class="pp">|</span>               <span class="pp">|</span> 1      <span class="pp">|</span></span>
+<span id="cb39-61"><a href="#cb39-61" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-62"><a href="#cb39-62" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span> Medium Height <span class="pp">|</span> 0      <span class="pp">|</span></span>
+<span id="cb39-63"><a href="#cb39-63" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-64"><a href="#cb39-64" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>               <span class="pp">|</span> 1      <span class="pp">|</span></span>
+<span id="cb39-65"><a href="#cb39-65" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-66"><a href="#cb39-66" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Reduction in Red Kite (continous)  <span class="pp">|</span> Red Kite      <span class="pp">|</span> 5      <span class="pp">|</span></span>
+<span id="cb39-67"><a href="#cb39-67" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-68"><a href="#cb39-68" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>               <span class="pp">|</span> 7.5    <span class="pp">|</span></span>
+<span id="cb39-69"><a href="#cb39-69" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-70"><a href="#cb39-70" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>               <span class="pp">|</span> 10     <span class="pp">|</span></span>
+<span id="cb39-71"><a href="#cb39-71" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-72"><a href="#cb39-72" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>               <span class="pp">|</span> 12.5   <span class="pp">|</span></span>
+<span id="cb39-73"><a href="#cb39-73" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-74"><a href="#cb39-74" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>               <span class="pp">|</span> 15     <span class="pp">|</span></span>
+<span id="cb39-75"><a href="#cb39-75" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-76"><a href="#cb39-76" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Distance to residents (continous)  <span class="pp">|</span> MinDistance   <span class="pp">|</span> 750    <span class="pp">|</span></span>
+<span id="cb39-77"><a href="#cb39-77" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-78"><a href="#cb39-78" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>               <span class="pp">|</span> 1000   <span class="pp">|</span></span>
+<span id="cb39-79"><a href="#cb39-79" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-80"><a href="#cb39-80" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>               <span class="pp">|</span> 1250   <span class="pp">|</span></span>
+<span id="cb39-81"><a href="#cb39-81" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-82"><a href="#cb39-82" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>               <span class="pp">|</span> 1500   <span class="pp">|</span></span>
+<span id="cb39-83"><a href="#cb39-83" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-84"><a href="#cb39-84" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>               <span class="pp">|</span> 1750   <span class="pp">|</span></span>
+<span id="cb39-85"><a href="#cb39-85" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-86"><a href="#cb39-86" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> MonthlyCost                        <span class="pp">|</span> Cost          <span class="pp">|</span> 0      <span class="pp">|</span></span>
+<span id="cb39-87"><a href="#cb39-87" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>               <span class="pp">|</span>        <span class="pp">|</span></span>
+<span id="cb39-88"><a href="#cb39-88" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> (Continous)                        <span class="pp">|</span>               <span class="pp">|</span>        <span class="pp">|</span></span>
+<span id="cb39-89"><a href="#cb39-89" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-90"><a href="#cb39-90" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>               <span class="pp">|</span> 1      <span class="pp">|</span></span>
+<span id="cb39-91"><a href="#cb39-91" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-92"><a href="#cb39-92" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>               <span class="pp">|</span> 2      <span class="pp">|</span></span>
+<span id="cb39-93"><a href="#cb39-93" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-94"><a href="#cb39-94" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>               <span class="pp">|</span> 3      <span class="pp">|</span></span>
+<span id="cb39-95"><a href="#cb39-95" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-96"><a href="#cb39-96" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>               <span class="pp">|</span> 4      <span class="pp">|</span></span>
+<span id="cb39-97"><a href="#cb39-97" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-98"><a href="#cb39-98" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>               <span class="pp">|</span> .....  <span class="pp">|</span></span>
+<span id="cb39-99"><a href="#cb39-99" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-100"><a href="#cb39-100" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>               <span class="pp">|</span> ....   <span class="pp">|</span></span>
+<span id="cb39-101"><a href="#cb39-101" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
+<span id="cb39-102"><a href="#cb39-102" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                    <span class="pp">|</span>               <span class="pp">|</span> 10     <span class="pp">|</span></span>
+<span id="cb39-103"><a href="#cb39-103" aria-hidden="true" tabindex="-1"></a>+------------------------------------+---------------+--------+</span>
 <span id="cb39-104"><a href="#cb39-104" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-105"><a href="#cb39-105" aria-hidden="true" tabindex="-1"></a><span class="fu">## Choice Set</span></span>
 <span id="cb39-106"><a href="#cb39-106" aria-hidden="true" tabindex="-1"></a></span>
@@ -1619,151 +1619,139 @@ Mariel, Petr, Danny Campbell, Erlend Dancke Sandorf, Jürgen Meyerhoff, Ainhoa V
 <span id="cb39-224"><a href="#cb39-224" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-225"><a href="#cb39-225" aria-hidden="true" tabindex="-1"></a>Here are the arguments needed for our example:</span>
 <span id="cb39-226"><a href="#cb39-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-227"><a href="#cb39-227" aria-hidden="true" tabindex="-1"></a>+-----------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
-<span id="cb39-228"><a href="#cb39-228" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`utility`</span>             <span class="pp">|</span> A named list of utility functions. See the examples and the vignette for examples of how to define these correctly for different types of experimental designs.                                                                                                <span class="pp">|</span></span>
-<span id="cb39-229"><a href="#cb39-229" aria-hidden="true" tabindex="-1"></a>+-----------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
+<span id="cb39-227"><a href="#cb39-227" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                       <span class="pp">|</span>                                                                                                                                                                                                                                                                <span class="pp">|</span></span>
+<span id="cb39-228"><a href="#cb39-228" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|</span></span>
+<span id="cb39-229"><a href="#cb39-229" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`utility`</span>             <span class="pp">|</span> A named list of utility functions. See the examples and the vignette for examples of how to define these correctly for different types of experimental designs.                                                                                                <span class="pp">|</span></span>
 <span id="cb39-230"><a href="#cb39-230" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`rows`</span>                <span class="pp">|</span> An integer giving the number of rows in the final design                                                                                                                                                                                                       <span class="pp">|</span></span>
-<span id="cb39-231"><a href="#cb39-231" aria-hidden="true" tabindex="-1"></a>+-----------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
-<span id="cb39-232"><a href="#cb39-232" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`model`</span>               <span class="pp">|</span> A character string indicating the model to optimize the design for. Currently the only model programmed is the 'mnl' model and this is also set as the default.                                                                                                <span class="pp">|</span></span>
-<span id="cb39-233"><a href="#cb39-233" aria-hidden="true" tabindex="-1"></a>+-----------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
-<span id="cb39-234"><a href="#cb39-234" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`efficiency_criteria`</span> <span class="pp">|</span> A character string giving the efficiency criteria to optimize for. One of 'a-error', 'c-error', 'd-error' or 's-error'. No default is set and argument must be specified. Optimizing for multiple criteria is not yet implemented and will result in an error. <span class="pp">|</span></span>
-<span id="cb39-235"><a href="#cb39-235" aria-hidden="true" tabindex="-1"></a>+-----------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
-<span id="cb39-236"><a href="#cb39-236" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`algorithm`</span>           <span class="pp">|</span> A character string giving the optimization algorithm to use. No default is set and the argument must be specified to be one of 'rsc', 'federov' or 'random'.                                                                                                   <span class="pp">|</span></span>
-<span id="cb39-237"><a href="#cb39-237" aria-hidden="true" tabindex="-1"></a>+-----------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
-<span id="cb39-238"><a href="#cb39-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-241"><a href="#cb39-241" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-242"><a href="#cb39-242" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate design ----</span></span>
-<span id="cb39-243"><a href="#cb39-243" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">generate_design</span>(utility, <span class="at">rows =</span> <span class="dv">100</span>,</span>
-<span id="cb39-244"><a href="#cb39-244" aria-hidden="true" tabindex="-1"></a><span class="at">model =</span> <span class="st">"mnl"</span>, <span class="at">efficiency_criteria =</span> <span class="st">"d-error"</span>, <span class="at">algorithm =</span> <span class="st">"rsc"</span>)</span>
-<span id="cb39-245"><a href="#cb39-245" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb39-246"><a href="#cb39-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-249"><a href="#cb39-249" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-250"><a href="#cb39-250" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(design)</span>
-<span id="cb39-251"><a href="#cb39-251" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-231"><a href="#cb39-231" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`model`</span>               <span class="pp">|</span> A character string indicating the model to optimize the design for. Currently the only model programmed is the 'mnl' model and this is also set as the default.                                                                                                <span class="pp">|</span></span>
+<span id="cb39-232"><a href="#cb39-232" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`efficiency_criteria`</span> <span class="pp">|</span> A character string giving the efficiency criteria to optimize for. One of 'a-error', 'c-error', 'd-error' or 's-error'. No default is set and argument must be specified. Optimizing for multiple criteria is not yet implemented and will result in an error. <span class="pp">|</span></span>
+<span id="cb39-233"><a href="#cb39-233" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`algorithm`</span>           <span class="pp">|</span> A character string giving the optimization algorithm to use. No default is set and the argument must be specified to be one of 'rsc', 'federov' or 'random'.                                                                                                   <span class="pp">|</span></span>
+<span id="cb39-234"><a href="#cb39-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-237"><a href="#cb39-237" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb39-238"><a href="#cb39-238" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate design ----</span></span>
+<span id="cb39-239"><a href="#cb39-239" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">generate_design</span>(utility, <span class="at">rows =</span> <span class="dv">100</span>,</span>
+<span id="cb39-240"><a href="#cb39-240" aria-hidden="true" tabindex="-1"></a><span class="at">model =</span> <span class="st">"mnl"</span>, <span class="at">efficiency_criteria =</span> <span class="st">"d-error"</span>, <span class="at">algorithm =</span> <span class="st">"rsc"</span>)</span>
+<span id="cb39-241"><a href="#cb39-241" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-242"><a href="#cb39-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-245"><a href="#cb39-245" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb39-246"><a href="#cb39-246" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(design)</span>
+<span id="cb39-247"><a href="#cb39-247" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-248"><a href="#cb39-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-249"><a href="#cb39-249" aria-hidden="true" tabindex="-1"></a><span class="fu">### Correlation</span></span>
+<span id="cb39-250"><a href="#cb39-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-251"><a href="#cb39-251" aria-hidden="true" tabindex="-1"></a>Next step check correlation</span>
 <span id="cb39-252"><a href="#cb39-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-253"><a href="#cb39-253" aria-hidden="true" tabindex="-1"></a><span class="fu">### Correlation</span></span>
-<span id="cb39-254"><a href="#cb39-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-255"><a href="#cb39-255" aria-hidden="true" tabindex="-1"></a>Next step check correlation</span>
-<span id="cb39-256"><a href="#cb39-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-259"><a href="#cb39-259" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-260"><a href="#cb39-260" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation matrix</span></span>
-<span id="cb39-261"><a href="#cb39-261" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(design)</span>
-<span id="cb39-262"><a href="#cb39-262" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb39-263"><a href="#cb39-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-264"><a href="#cb39-264" aria-hidden="true" tabindex="-1"></a><span class="fu">### Attribute Balance</span></span>
-<span id="cb39-265"><a href="#cb39-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-268"><a href="#cb39-268" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-269"><a href="#cb39-269" aria-hidden="true" tabindex="-1"></a><span class="co"># Print only the first three list elements</span></span>
-<span id="cb39-270"><a href="#cb39-270" aria-hidden="true" tabindex="-1"></a><span class="fu">level_balance</span>(design)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
-<span id="cb39-271"><a href="#cb39-271" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-255"><a href="#cb39-255" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb39-256"><a href="#cb39-256" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation matrix</span></span>
+<span id="cb39-257"><a href="#cb39-257" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(design)</span>
+<span id="cb39-258"><a href="#cb39-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-259"><a href="#cb39-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-260"><a href="#cb39-260" aria-hidden="true" tabindex="-1"></a><span class="fu">### Attribute Balance</span></span>
+<span id="cb39-261"><a href="#cb39-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-264"><a href="#cb39-264" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb39-265"><a href="#cb39-265" aria-hidden="true" tabindex="-1"></a><span class="co"># Print only the first three list elements</span></span>
+<span id="cb39-266"><a href="#cb39-266" aria-hidden="true" tabindex="-1"></a><span class="fu">level_balance</span>(design)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb39-267"><a href="#cb39-267" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-268"><a href="#cb39-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-269"><a href="#cb39-269" aria-hidden="true" tabindex="-1"></a>First, we can see that the constant for the status quo alternative appears in all 100 rows of the design. Next, the medium and small wind farm sizes each occur 33 times, meaning the large size appears 34 times. This suggests the design is nearly balanced across attribute levels.</span>
+<span id="cb39-270"><a href="#cb39-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-271"><a href="#cb39-271" aria-hidden="true" tabindex="-1"></a><span class="fu">### Dominated Strategy Check</span></span>
 <span id="cb39-272"><a href="#cb39-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-273"><a href="#cb39-273" aria-hidden="true" tabindex="-1"></a>First, we can see that the constant for the status quo alternative appears in all 100 rows of the design. Next, the medium and small wind farm sizes each occur 33 times, meaning the large size appears 34 times. This suggests the design is nearly balanced across attribute levels.</span>
+<span id="cb39-273"><a href="#cb39-273" aria-hidden="true" tabindex="-1"></a>**Dominant or dominated** alternatives should be avoided because they don't provide useful information about trade-offs and can bias your results.</span>
 <span id="cb39-274"><a href="#cb39-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-275"><a href="#cb39-275" aria-hidden="true" tabindex="-1"></a><span class="fu">### Dominated Strategy Check</span></span>
+<span id="cb39-275"><a href="#cb39-275" aria-hidden="true" tabindex="-1"></a>To check for this, we can look at the choice probabilities for each alternative. If one option has a probability close to 1, it likely dominates the others. If it's close to 0, it's probably dominated.</span>
 <span id="cb39-276"><a href="#cb39-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-277"><a href="#cb39-277" aria-hidden="true" tabindex="-1"></a>**Dominant or dominated** alternatives should be avoided because they don't provide useful information about trade-offs and can bias your results.</span>
+<span id="cb39-277"><a href="#cb39-277" aria-hidden="true" tabindex="-1"></a>The <span class="in">`spdesign`</span> package includes a <span class="in">`probabilities()`</span> function that calculates these values based on your design and priors. It shows the probability of choosing each alternative in every choice task. Each row of the output adds up to 1.</span>
 <span id="cb39-278"><a href="#cb39-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-279"><a href="#cb39-279" aria-hidden="true" tabindex="-1"></a>To check for this, we can look at the choice probabilities for each alternative. If one option has a probability close to 1, it likely dominates the others. If it's close to 0, it's probably dominated.</span>
-<span id="cb39-280"><a href="#cb39-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-281"><a href="#cb39-281" aria-hidden="true" tabindex="-1"></a>The <span class="in">`spdesign`</span> package includes a <span class="in">`probabilities()`</span> function that calculates these values based on your design and priors. It shows the probability of choosing each alternative in every choice task. Each row of the output adds up to 1.</span>
-<span id="cb39-282"><a href="#cb39-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-285"><a href="#cb39-285" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-286"><a href="#cb39-286" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the utility balance by inspecting the probabilities. We use head() to avoid printing all 100 rows in the book.</span></span>
-<span id="cb39-287"><a href="#cb39-287" aria-hidden="true" tabindex="-1"></a><span class="fu">probabilities</span>(design) <span class="sc">|&gt;</span></span>
-<span id="cb39-288"><a href="#cb39-288" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>()</span>
-<span id="cb39-289"><a href="#cb39-289" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-281"><a href="#cb39-281" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb39-282"><a href="#cb39-282" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the utility balance by inspecting the probabilities. We use head() to avoid printing all 100 rows in the book.</span></span>
+<span id="cb39-283"><a href="#cb39-283" aria-hidden="true" tabindex="-1"></a><span class="fu">probabilities</span>(design) <span class="sc">|&gt;</span></span>
+<span id="cb39-284"><a href="#cb39-284" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>()</span>
+<span id="cb39-285"><a href="#cb39-285" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-286"><a href="#cb39-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-287"><a href="#cb39-287" aria-hidden="true" tabindex="-1"></a>To help spot any problematic choice tasks, we can create a simple plot. In this case, the plot shows no signs of <span class="co">[</span><span class="ot">dominating or dominated</span><span class="co">]</span>{.underline} alternatives which would appear as very large or very small segments of a single color.</span>
+<span id="cb39-288"><a href="#cb39-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-289"><a href="#cb39-289" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">status quo option</span><span class="co">]</span>{.underline} (shown in red) has a low probability of being chosen, but it's not too low to be a problem. What's considered "too low" depends on the context. For example, in <span class="co">[</span><span class="ot">labelled experiments</span><span class="co">]</span>{.underline}, some options are naturally chosen less often, especially if they represent less common situations.</span>
 <span id="cb39-290"><a href="#cb39-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-291"><a href="#cb39-291" aria-hidden="true" tabindex="-1"></a>To help spot any problematic choice tasks, we can create a simple plot. In this case, the plot shows no signs of <span class="co">[</span><span class="ot">dominating or dominated</span><span class="co">]</span>{.underline} alternatives which would appear as very large or very small segments of a single color.</span>
+<span id="cb39-291"><a href="#cb39-291" aria-hidden="true" tabindex="-1"></a>If the status quo is chosen too often or too rarely compared to your expectations, you should adjust its prior value:</span>
 <span id="cb39-292"><a href="#cb39-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-293"><a href="#cb39-293" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">status quo option</span><span class="co">]</span>{.underline} (shown in red) has a low probability of being chosen, but it's not too low to be a problem. What's considered "too low" depends on the context. For example, in <span class="co">[</span><span class="ot">labelled experiments</span><span class="co">]</span>{.underline}, some options are naturally chosen less often, especially if they represent less common situations.</span>
+<span id="cb39-293"><a href="#cb39-293" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Increase the prior if you expect more people to choose the status quo.</span>
 <span id="cb39-294"><a href="#cb39-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-295"><a href="#cb39-295" aria-hidden="true" tabindex="-1"></a>If the status quo is chosen too often or too rarely compared to your expectations, you should adjust its prior value:</span>
+<span id="cb39-295"><a href="#cb39-295" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Decrease it if you expect fewer to choose it.</span>
 <span id="cb39-296"><a href="#cb39-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-297"><a href="#cb39-297" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Increase the prior if you expect more people to choose the status quo.</span>
+<span id="cb39-297"><a href="#cb39-297" aria-hidden="true" tabindex="-1"></a>This step highlights why it's important to check your design and make sure the priors match what you expect from real-world behavior.</span>
 <span id="cb39-298"><a href="#cb39-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-299"><a href="#cb39-299" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Decrease it if you expect fewer to choose it.</span>
-<span id="cb39-300"><a href="#cb39-300" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-301"><a href="#cb39-301" aria-hidden="true" tabindex="-1"></a>This step highlights why it's important to check your design and make sure the priors match what you expect from real-world behavior.</span>
-<span id="cb39-302"><a href="#cb39-302" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-305"><a href="#cb39-305" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-306"><a href="#cb39-306" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a plot to show the choice shares across the design</span></span>
-<span id="cb39-307"><a href="#cb39-307" aria-hidden="true" tabindex="-1"></a><span class="fu">probabilities</span>(design) <span class="sc">|&gt;</span></span>
-<span id="cb39-308"><a href="#cb39-308" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
-<span id="cb39-309"><a href="#cb39-309" aria-hidden="true" tabindex="-1"></a><span class="fu">rowid_to_column</span>() <span class="sc">|&gt;</span></span>
-<span id="cb39-310"><a href="#cb39-310" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(<span class="sc">-</span>rowid, <span class="at">names_to =</span> <span class="st">"alt"</span>, <span class="at">values_to =</span> <span class="st">"prob"</span>) <span class="sc">|&gt;</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> rowid, <span class="at">y =</span> prob, <span class="at">fill =</span> alt)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>, <span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
-<span id="cb39-311"><a href="#cb39-311" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Choice task"</span>, <span class="at">y =</span> <span class="st">"Choice probability"</span>, <span class="at">fill =</span> <span class="st">"Alternative"</span>) <span class="sc">+</span> <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span> <span class="fu">scale_fill_discrete</span>(<span class="at">label =</span> <span class="fu">c</span>(<span class="st">"SQ"</span>, <span class="st">"Alt 1"</span>, <span class="st">"Alt 2"</span>)) <span class="sc">+</span></span>
-<span id="cb39-312"><a href="#cb39-312" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb39-313"><a href="#cb39-313" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(</span>
-<span id="cb39-314"><a href="#cb39-314" aria-hidden="true" tabindex="-1"></a><span class="at">legend.position =</span> <span class="st">"bottom"</span>, <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">315</span>)</span>
-<span id="cb39-315"><a href="#cb39-315" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb39-316"><a href="#cb39-316" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-301"><a href="#cb39-301" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb39-302"><a href="#cb39-302" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a plot to show the choice shares across the design</span></span>
+<span id="cb39-303"><a href="#cb39-303" aria-hidden="true" tabindex="-1"></a><span class="fu">probabilities</span>(design) <span class="sc">|&gt;</span></span>
+<span id="cb39-304"><a href="#cb39-304" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb39-305"><a href="#cb39-305" aria-hidden="true" tabindex="-1"></a><span class="fu">rowid_to_column</span>() <span class="sc">|&gt;</span></span>
+<span id="cb39-306"><a href="#cb39-306" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(<span class="sc">-</span>rowid, <span class="at">names_to =</span> <span class="st">"alt"</span>, <span class="at">values_to =</span> <span class="st">"prob"</span>) <span class="sc">|&gt;</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> rowid, <span class="at">y =</span> prob, <span class="at">fill =</span> alt)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>, <span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb39-307"><a href="#cb39-307" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Choice task"</span>, <span class="at">y =</span> <span class="st">"Choice probability"</span>, <span class="at">fill =</span> <span class="st">"Alternative"</span>) <span class="sc">+</span> <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span> <span class="fu">scale_fill_discrete</span>(<span class="at">label =</span> <span class="fu">c</span>(<span class="st">"SQ"</span>, <span class="st">"Alt 1"</span>, <span class="st">"Alt 2"</span>)) <span class="sc">+</span></span>
+<span id="cb39-308"><a href="#cb39-308" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb39-309"><a href="#cb39-309" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(</span>
+<span id="cb39-310"><a href="#cb39-310" aria-hidden="true" tabindex="-1"></a><span class="at">legend.position =</span> <span class="st">"bottom"</span>, <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">315</span>)</span>
+<span id="cb39-311"><a href="#cb39-311" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb39-312"><a href="#cb39-312" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-313"><a href="#cb39-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-314"><a href="#cb39-314" aria-hidden="true" tabindex="-1"></a><span class="fu">### Utility Balance</span></span>
+<span id="cb39-315"><a href="#cb39-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-316"><a href="#cb39-316" aria-hidden="true" tabindex="-1"></a>So next on the list would be check utility balance of each choice task in our design.</span>
 <span id="cb39-317"><a href="#cb39-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-318"><a href="#cb39-318" aria-hidden="true" tabindex="-1"></a><span class="fu">### Utility Balance</span></span>
-<span id="cb39-319"><a href="#cb39-319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-320"><a href="#cb39-320" aria-hidden="true" tabindex="-1"></a>So next on the list would be check utility balance of each choice task in our design.</span>
-<span id="cb39-321"><a href="#cb39-321" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-324"><a href="#cb39-324" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-325"><a href="#cb39-325" aria-hidden="true" tabindex="-1"></a>utility_balance <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb39-326"><a href="#cb39-326" aria-hidden="true" tabindex="-1"></a><span class="co">#Ensure that it is a matrix (and not a data.frame()/tibble()) </span></span>
-<span id="cb39-327"><a href="#cb39-327" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(x)</span>
-<span id="cb39-328"><a href="#cb39-328" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-329"><a href="#cb39-329" aria-hidden="true" tabindex="-1"></a><span class="co"># Find number of non-zero alternatives where 0 or NA can be non-available</span></span>
-<span id="cb39-330"><a href="#cb39-330" aria-hidden="true" tabindex="-1"></a>n_alts <span class="ot">&lt;-</span> <span class="fu">apply</span>(x, <span class="dv">1</span>, <span class="cf">function</span>(y) <span class="fu">sum</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) </span>
-<span id="cb39-331"><a href="#cb39-331" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-332"><a href="#cb39-332" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate for each alternative</span></span>
-<span id="cb39-333"><a href="#cb39-333" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> x <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">/</span> n_alts)</span>
+<span id="cb39-320"><a href="#cb39-320" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb39-321"><a href="#cb39-321" aria-hidden="true" tabindex="-1"></a>utility_balance <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb39-322"><a href="#cb39-322" aria-hidden="true" tabindex="-1"></a><span class="co">#Ensure that it is a matrix (and not a data.frame()/tibble()) </span></span>
+<span id="cb39-323"><a href="#cb39-323" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(x)</span>
+<span id="cb39-324"><a href="#cb39-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-325"><a href="#cb39-325" aria-hidden="true" tabindex="-1"></a><span class="co"># Find number of non-zero alternatives where 0 or NA can be non-available</span></span>
+<span id="cb39-326"><a href="#cb39-326" aria-hidden="true" tabindex="-1"></a>n_alts <span class="ot">&lt;-</span> <span class="fu">apply</span>(x, <span class="dv">1</span>, <span class="cf">function</span>(y) <span class="fu">sum</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) </span>
+<span id="cb39-327"><a href="#cb39-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-328"><a href="#cb39-328" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate for each alternative</span></span>
+<span id="cb39-329"><a href="#cb39-329" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> x <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">/</span> n_alts)</span>
+<span id="cb39-330"><a href="#cb39-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-331"><a href="#cb39-331" aria-hidden="true" tabindex="-1"></a><span class="co">#Replace all zeroes with 1 to enable taking the product</span></span>
+<span id="cb39-332"><a href="#cb39-332" aria-hidden="true" tabindex="-1"></a>index_zero <span class="ot">&lt;-</span> x <span class="sc">==</span> <span class="dv">0</span> </span>
+<span id="cb39-333"><a href="#cb39-333" aria-hidden="true" tabindex="-1"></a>x[index_zero] <span class="ot">=</span> <span class="dv">1</span></span>
 <span id="cb39-334"><a href="#cb39-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-335"><a href="#cb39-335" aria-hidden="true" tabindex="-1"></a><span class="co">#Replace all zeroes with 1 to enable taking the product</span></span>
-<span id="cb39-336"><a href="#cb39-336" aria-hidden="true" tabindex="-1"></a>index_zero <span class="ot">&lt;-</span> x <span class="sc">==</span> <span class="dv">0</span> </span>
-<span id="cb39-337"><a href="#cb39-337" aria-hidden="true" tabindex="-1"></a>x[index_zero] <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb39-338"><a href="#cb39-338" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-339"><a href="#cb39-339" aria-hidden="true" tabindex="-1"></a><span class="co"># Take the product. This line requires the Rfast package.</span></span>
-<span id="cb39-340"><a href="#cb39-340" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> Rfast<span class="sc">::</span><span class="fu">rowprods</span>(x) </span>
-<span id="cb39-341"><a href="#cb39-341" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(x)</span>
-<span id="cb39-342"><a href="#cb39-342" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb39-335"><a href="#cb39-335" aria-hidden="true" tabindex="-1"></a><span class="co"># Take the product. This line requires the Rfast package.</span></span>
+<span id="cb39-336"><a href="#cb39-336" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> Rfast<span class="sc">::</span><span class="fu">rowprods</span>(x) </span>
+<span id="cb39-337"><a href="#cb39-337" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(x)</span>
+<span id="cb39-338"><a href="#cb39-338" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb39-339"><a href="#cb39-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-340"><a href="#cb39-340" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the function for utility balance on the choice probabilities</span></span>
+<span id="cb39-341"><a href="#cb39-341" aria-hidden="true" tabindex="-1"></a><span class="fu">utility_balance</span>(<span class="fu">probabilities</span>(design)) <span class="sc">|&gt;</span> </span>
+<span id="cb39-342"><a href="#cb39-342" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>()</span>
 <span id="cb39-343"><a href="#cb39-343" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-344"><a href="#cb39-344" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the function for utility balance on the choice probabilities</span></span>
-<span id="cb39-345"><a href="#cb39-345" aria-hidden="true" tabindex="-1"></a><span class="fu">utility_balance</span>(<span class="fu">probabilities</span>(design)) <span class="sc">|&gt;</span> </span>
-<span id="cb39-346"><a href="#cb39-346" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>()</span>
+<span id="cb39-344"><a href="#cb39-344" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-345"><a href="#cb39-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-346"><a href="#cb39-346" aria-hidden="true" tabindex="-1"></a>The function returns the utility balance for each choice task. The average utility balance across the design is 0.8478. For efficient designs, values typically fall between 70% and 90% indicates a good balance, not too equal (which gives little information) and not too skewed to have dominant alternatives.</span>
 <span id="cb39-347"><a href="#cb39-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-348"><a href="#cb39-348" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-348"><a href="#cb39-348" aria-hidden="true" tabindex="-1"></a><span class="fu">### Block Design</span></span>
 <span id="cb39-349"><a href="#cb39-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-350"><a href="#cb39-350" aria-hidden="true" tabindex="-1"></a>The function returns the utility balance for each choice task. The average utility balance across the design is 0.8478. For efficient designs, values typically fall between 70% and 90% indicates a good balance, not too equal (which gives little information) and not too skewed to have dominant alternatives.</span>
+<span id="cb39-350"><a href="#cb39-350" aria-hidden="true" tabindex="-1"></a>The design created in this includes 100 choice tasks which is far too many for a single respondent to handle effectively. To address this, we present two common solutions, starting with the most widely used: **blocking**.</span>
 <span id="cb39-351"><a href="#cb39-351" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-352"><a href="#cb39-352" aria-hidden="true" tabindex="-1"></a><span class="fu">### Block Design</span></span>
+<span id="cb39-352"><a href="#cb39-352" aria-hidden="true" tabindex="-1"></a>Blocking involves dividing the full design into smaller subsets, or *blocks*, so that each respondent is only shown the tasks from one block. For example, if pre-testing shows that respondents can comfortably complete 10 tasks, then a 100-task design would be split into 10 blocks of 10 tasks each.</span>
 <span id="cb39-353"><a href="#cb39-353" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-354"><a href="#cb39-354" aria-hidden="true" tabindex="-1"></a>The design created in this includes 100 choice tasks which is far too many for a single respondent to handle effectively. To address this, we present two common solutions, starting with the most widely used: **blocking**.</span>
+<span id="cb39-354"><a href="#cb39-354" aria-hidden="true" tabindex="-1"></a>Each choice task still needs to be answered by at least one respondent, so blocking increases the number of participants required. In this case, you'd need at least 10 respondents (one per block), instead of just one respondent completing all 100 tasks. In general, larger designs with blocking demand more respondents to ensure all tasks are adequately covered.</span>
 <span id="cb39-355"><a href="#cb39-355" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-356"><a href="#cb39-356" aria-hidden="true" tabindex="-1"></a>Blocking involves dividing the full design into smaller subsets, or *blocks*, so that each respondent is only shown the tasks from one block. For example, if pre-testing shows that respondents can comfortably complete 10 tasks, then a 100-task design would be split into 10 blocks of 10 tasks each.</span>
+<span id="cb39-356"><a href="#cb39-356" aria-hidden="true" tabindex="-1"></a>When using a blocked design, each respondent is randomly assigned to a block, and the order of choice tasks within that block is also randomized. Be sure to record the specific choice tasks shown to each respondent so you can accurately reconstruct their responses later.</span>
 <span id="cb39-357"><a href="#cb39-357" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-358"><a href="#cb39-358" aria-hidden="true" tabindex="-1"></a>Each choice task still needs to be answered by at least one respondent, so blocking increases the number of participants required. In this case, you'd need at least 10 respondents (one per block), instead of just one respondent completing all 100 tasks. In general, larger designs with blocking demand more respondents to ensure all tasks are adequately covered.</span>
+<span id="cb39-358"><a href="#cb39-358" aria-hidden="true" tabindex="-1"></a>The blocking column in your design must be orthogonal, meaning it should not be correlated with the other attributes. The <span class="in">`block()`</span> function from the <span class="in">`spdesign`</span> package creates a blocking column that minimizes mean squared correlation. However, it does not preserve attribute level balance within each block.</span>
 <span id="cb39-359"><a href="#cb39-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-360"><a href="#cb39-360" aria-hidden="true" tabindex="-1"></a>When using a blocked design, each respondent is randomly assigned to a block, and the order of choice tasks within that block is also randomized. Be sure to record the specific choice tasks shown to each respondent so you can accurately reconstruct their responses later.</span>
+<span id="cb39-360"><a href="#cb39-360" aria-hidden="true" tabindex="-1"></a>If your overall design is balanced, blocking won't change that. But keep in mind that in a blocked design, some respondents may never see certain attribute levels, which could affect how realistic the choice tasks feel. Also, depending on the complexity of your design, generating the blocking column may take some time.</span>
 <span id="cb39-361"><a href="#cb39-361" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-362"><a href="#cb39-362" aria-hidden="true" tabindex="-1"></a>The blocking column in your design must be orthogonal, meaning it should not be correlated with the other attributes. The <span class="in">`block()`</span> function from the <span class="in">`spdesign`</span> package creates a blocking column that minimizes mean squared correlation. However, it does not preserve attribute level balance within each block.</span>
-<span id="cb39-363"><a href="#cb39-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-364"><a href="#cb39-364" aria-hidden="true" tabindex="-1"></a>If your overall design is balanced, blocking won't change that. But keep in mind that in a blocked design, some respondents may never see certain attribute levels, which could affect how realistic the choice tasks feel. Also, depending on the complexity of your design, generating the blocking column may take some time.</span>
-<span id="cb39-365"><a href="#cb39-365" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-368"><a href="#cb39-368" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-369"><a href="#cb39-369" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a blocking variable to the design with 10 blocks.</span></span>
-<span id="cb39-370"><a href="#cb39-370" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">block</span>(design, <span class="dv">10</span>)</span>
-<span id="cb39-371"><a href="#cb39-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-372"><a href="#cb39-372" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb39-373"><a href="#cb39-373" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-376"><a href="#cb39-376" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-377"><a href="#cb39-377" aria-hidden="true" tabindex="-1"></a>design<span class="sc">$</span>blocks_correlation</span>
-<span id="cb39-378"><a href="#cb39-378" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-379"><a href="#cb39-379" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb39-380"><a href="#cb39-380" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-381"><a href="#cb39-381" aria-hidden="true" tabindex="-1"></a>Here, we see that the blocking column is practically uncorrelated with the rest of the design.</span>
-<span id="cb39-382"><a href="#cb39-382" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-383"><a href="#cb39-383" aria-hidden="true" tabindex="-1"></a><span class="in">                </span></span>
-<span id="cb39-384"><a href="#cb39-384" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-385"><a href="#cb39-385" aria-hidden="true" tabindex="-1"></a><span class="in">            </span></span>
-<span id="cb39-386"><a href="#cb39-386" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-387"><a href="#cb39-387" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
-<span id="cb39-388"><a href="#cb39-388" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-389"><a href="#cb39-389" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb39-364"><a href="#cb39-364" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb39-365"><a href="#cb39-365" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a blocking variable to the design with 10 blocks.</span></span>
+<span id="cb39-366"><a href="#cb39-366" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">block</span>(design, <span class="dv">10</span>)</span>
+<span id="cb39-367"><a href="#cb39-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-368"><a href="#cb39-368" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-369"><a href="#cb39-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-372"><a href="#cb39-372" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb39-373"><a href="#cb39-373" aria-hidden="true" tabindex="-1"></a>design<span class="sc">$</span>blocks_correlation</span>
+<span id="cb39-374"><a href="#cb39-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-375"><a href="#cb39-375" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-376"><a href="#cb39-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-377"><a href="#cb39-377" aria-hidden="true" tabindex="-1"></a>Here, we see that the blocking column is practically uncorrelated with the rest of the design.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
