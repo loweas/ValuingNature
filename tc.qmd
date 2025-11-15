@@ -100,10 +100,10 @@ Also known as a count model. We will work thru the following example
 
 Load in the following data. You can download it [here](https://github.com/loweas/ValuingNature/blob/main/park.csv). But the following code should grab it as well.
 
-```{r}
+```{r, cache=TRUE, eval=TRUE}
 
 library(readr)
-park <- read_csv("http://raw.githubusercontent.com/loweas/ValuingNature/refs/heads/main/data/park.csv")
+park <- read_csv("http://raw.githubusercontent.com/loweas/ValuingNature/refs/heads/main/park.csv")
 
 ```
 
@@ -484,7 +484,7 @@ if (!is.null(facilities_df)) {
 
 ## Map
 
-```{r}
+```{r, cache=TRUE, eval=TRUE}
 library(dplyr)
 library(purrr)
 library(leaflet)
@@ -534,10 +534,22 @@ leaflet(facilities_df) %>%
 
 ## Reservations
 
-```{r}
+```{r, cache=TRUE, eval=TRUE}
 
-library(readr)
-yosemite <- read_csv("http://raw.githubusercontent.com/loweas/ValuingNature/refs/heads/main/data/Yosemite.csv")
+#url <- "https://raw.githubusercontent.com/username/repo/main/Yosemite.rds"
+
+# Read directly from GitHub
+library(httr)
+
+# Method 1: readRDS from raw connection
+#reservations_df <- readRDS(url(url, "rb"))
+
+# Method 2: download then read (safer for large files)
+#download.file(url, destfile = "Yosemite.rds", mode = "wb")
+#reservations_df <- readRDS("Yosemite.rds")
+
+# Inspect
+#head(reservations_df)
 
 ```
 
