@@ -11,19 +11,14 @@ format:
     toc-location: left
     page-layout: full
 editor: visual
+bibliography: references.bib
 ---
 
-## Revealed Preferences
+# Revealed Preferences: Travel Cost
 
-![](https://y.yarn.co/c3d73787-78a2-4e9f-b932-e5dfdb46bc3f_text.gif)
+The **Travel Cost Method (TCM)** is a commonly used approach to estimate the value of recreation sites. It was first suggested by [Harold Hotelling in a 1947 letter to the National Park Service](https://www.economia.unam.mx/profesores/blopez/valoracion-hotelling.pdf) and then further defined by Marion Clawson [@methods1972]. It provides a [**lower-bound estimate**]{.underline} of how much people value a site based on the cost they incur to visit.
 
-![](https://64.media.tumblr.com/a2d3daadbf45c4d2903f82c5c5383f6b/tumblr_myg0klS5sR1snil4go2_250.gif)
-
-The **Travel Cost Method (TCM)** is a commonly used survey-based approach to estimate the value of recreation sites. It provides a [**lower-bound estimate**]{.underline} of how much people value a site based on the cost they incur to visit.
-
-There are **two main types** of TCM models:
-
-------------------------------------------------------------------------
+There are two main types of TCM models:
 
 #### 1. Single-Site Models
 
@@ -39,17 +34,15 @@ There are **two main types** of TCM models:
 
 -   These models are best when you want to estimate the total value of a site. For example, if a park is closed due to pollution or budget cuts and you want to estimate the loss in value from that closure.
 
-------------------------------------------------------------------------
-
 #### 2. Multi-Site (or Multi-Attribute) Models
 
--   Focus on multiple sites or on **different features (attributes)** of sites.
+-   Focus on multiple sites or on different features (attributes) of sites.
 
--   Use **random utility models**, typically estimated with a **mixed logit (random parameter logit)** model.
+-   Use random utility models, typically estimated with a mixed logit (random parameter logit) model.
 
--   These models help estimate how much people value different **features**, like trails, toilets, or accommodation.
+-   These models help estimate how much people value different features, like trails, toilets, or accommodation.
 
--   Useful for **park planning**, as they help managers decide which improvements provide the most value to visitors.
+-   Useful for park planning, as they help managers decide which improvements provide the most value to visitors.
 
 ------------------------------------------------------------------------
 
@@ -87,11 +80,21 @@ Consumer Surplus represents the area under the demand curve and above the actual
 
 Also known as a count model. We will work thru the following example
 
-1.  **Define the site** We will look at a park that is potentially impacted from a road closer along highway 101.
+1.  **Define the site** :
 
-2.  **Identify the types of recreation** and specify the relevant season. It represents campers at a campground for a popular park on the Oregon Coast. This dataset is specifically looking at the consumer surplus of camping at the park.
+    We will look at a park that is potentially impacted from a road closer along highway 101. This park cod be closed because of sea level rise and position of the road.
 
-3.  **Develop a sampling strategy** for data collection For this project we will use the data from the reservation system which gives us information on every camper ovfer the last 4 years.
+    ![](images/Screenshot%202025-10-05%20at%208.27.56%20PM.png)
+
+2.  **Identify the types of recreation** and specify the relevant season.
+
+    It represents campers at a campground for a popular park on the Oregon Coast. This data set is specifically looking at the consumer surplus of camping at the park that would be loss if we donʻt do anything about the road.
+
+    Currently the only factors we know is that the road repairs will cost a lot and the repairs will impact access to the beach.
+
+3.  **Develop a sampling strategy** for data collection
+
+    For this project we will use the data from the reservation system which gives us information on every camper over the last 4 years.
 
 4.  **Specify the model**, including functional form and variables
 
@@ -100,7 +103,7 @@ Load in the following data. You can download it [here](https://github.com/loweas
 ```{r}
 
 library(readr)
-park <- read_csv("http://raw.githubusercontent.com/loweas/ValuingNature/refs/heads/main/park.csv")
+park <- read_csv("http://raw.githubusercontent.com/loweas/ValuingNature/refs/heads/main/data/park.csv")
 
 ```
 
@@ -140,9 +143,9 @@ This distribution is clearly a count variable (non negative observations). The p
 
 7.  **Measure trip costs**, including travel expenses and time value
 
-### Travel Distance
+    To get a distance measurement you can use online sources like [OSRM](https://project-osrm.org/). We have already calculated it for this example but I have provide a code snippet for consideration.
 
-To get a distance measurement you can use online sources like [OSRM](https://project-osrm.org/). We have already calculated it for this example but I have provide a code snippet for consideration.
+### Travel Distance using OSRM
 
 ```{r}
 # --- 1. Load Libraries ---
@@ -414,3 +417,130 @@ Common models used:
 -   **Random Utility Models (RUMs)** or
 
 -   **Nested Logit Models**
+
+# Get Data
+
+```{r, cache=TRUE, eval=TRUE}
+# --- 1. Load Libraries ---
+library(httr)
+library(jsonlite)
+library(dplyr)
+library(tidyr)
+
+# --- 2. Configuration ---
+API_KEY <- Sys.getenv("RIDB_API_KEY")
+RIDB_BASE_URL <- "https://ridb.recreation.gov/api/v1/"
+
+# --- 3. Core API Function ---
+query_ridb <- function(endpoint = "facilities", search_term = NULL, api_key = API_KEY, limit = 50) {
+  
+  url <- paste0(RIDB_BASE_URL, endpoint)
+  
+  query_params <- list(
+    apikey = api_key,
+    limit = limit
+  )
+  
+  if (!is.null(search_term)) {
+    query_params$query <- search_term
+  }
+  
+  cat(paste0("Fetching data from: ", url, "\n"))
+  
+  tryCatch({
+    response <- GET(url, query = query_params)
+    stop_for_status(response)
+    
+    content <- content(response, "text", encoding = "UTF-8")
+    data_list <- fromJSON(content, flatten = TRUE)
+    
+    if ("RECDATA" %in% names(data_list) && is.data.frame(data_list$RECDATA)) {
+      cat(paste0("Successfully retrieved ", nrow(data_list$RECDATA), " records.\n"))
+      return(data_list$RECDATA)
+    } else {
+      cat("Warning: API response structure unexpected. No 'RECDATA' found.\n")
+      return(NULL)
+    }
+    
+  }, error = function(e) {
+    cat(paste0("An error occurred during the API call: ", e$message, "\n"))
+    return(NULL)
+  })
+}
+
+# --- 4. Example Usage ---
+facilities_df <- query_ridb(
+  endpoint = "facilities",
+  search_term = "Yosemite National Park camping",
+  limit = 100
+)
+
+# --- 5. Inspect Results ---
+if (!is.null(facilities_df)) {
+  cat("\n--- Structure of the Results ---\n")
+  print(head(facilities_df))
+}
+```
+
+## Map
+
+```{r}
+library(dplyr)
+library(purrr)
+library(leaflet)
+
+# Safe extractors
+get_lon <- function(x) {
+  if (is.null(x) || length(x) < 2) return(NA_real_)
+  x[1]
+}
+
+get_lat <- function(x) {
+  if (is.null(x) || length(x) < 2) return(NA_real_)
+  x[2]
+}
+
+# Add lon/lat columns
+facilities_df <- facilities_df %>%
+  mutate(
+    lon = map_dbl(GEOJSON.COORDINATES, get_lon),
+    lat = map_dbl(GEOJSON.COORDINATES, get_lat)
+  ) %>%
+  filter(!is.na(lon), !is.na(lat))  # removes NULL rows
+
+# Build interactive map centered on Yosemite
+leaflet(facilities_df) %>%
+  addProviderTiles(providers$Esri.NatGeoWorldMap) %>%  # prettier tile layer
+  setView(lng = -119.5383, lat = 37.8651, zoom = 6) %>%
+  addCircleMarkers(
+    lng = ~lon,
+    lat = ~lat,
+    radius = 6,
+    weight = 1,
+    color = "darkgreen",
+    fillColor = "lightgreen",
+    fillOpacity = 0.85,
+    popup = ~paste0(
+      "<b>Location</b><br>",
+      "Site:", FacilityName,"<br>",
+      "<b>Coordinates</b><br>",
+      "Lat: ", round(lat, 5), "<br>",
+      "Lon: ", round(lon, 5)
+       
+    )
+  )
+
+```
+
+## Reservations
+
+```{r}
+
+library(readr)
+yosemite <- read_csv("http://raw.githubusercontent.com/loweas/ValuingNature/refs/heads/main/data/Yosemite.csv")
+
+```
+
+![](https://y.yarn.co/c3d73787-78a2-4e9f-b932-e5dfdb46bc3f_text.gif)
+
+![](https://64.media.tumblr.com/a2d3daadbf45c4d2903f82c5c5383f6b/tumblr_myg0klS5sR1snil4go2_250.gif)

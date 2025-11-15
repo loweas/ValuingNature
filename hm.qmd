@@ -24,21 +24,21 @@ So before we asked people what are you willing to pay or accept but now we are o
 
 ## Bias
 
-### **Removed** 
+### **Removed**
 
-#### **Hypothetical bias** 
+#### **Hypothetical bias**
 
 In stated preference methods (like surveys or interviews), people describe what they say they would do in a certain situation. But their answers might not reflect what they'd actually do in real life.
 
--   Example: A tourist might say in a survey, \"I care a lot about sustainability and would pay extra for an eco-friendly tour,\" but in reality, they might book the cheapest option when the time comes.
+-   Example: A tourist might say in a survey, "I care a lot about sustainability and would pay extra for an eco-friendly tour," but in reality, they might book the cheapest option when the time comes.
 
 -   **Revealed preferences** rely on [**actual behavior**]{.underline} (e.g., trips they take, community lived in, choices made), so they avoid this disconnect.
 
 ### Introduced
 
-#### Omitted variable 
+#### Omitted variable
 
-People's choices are observed, but the reasons behind them aren\'t. You can't always tell why someone made a particular choice. Maybe they chose an option because it was cheapest, or maybe because of convenience or habit. This brings up equity issues.
+People's choices are observed, but the reasons behind them aren't. You can't always tell why someone made a particular choice. Maybe they chose an option because it was cheapest, or maybe because of convenience or habit. This brings up equity issues.
 
 #### Confounding factors
 
@@ -79,11 +79,11 @@ Rumors about the incinerator started after 1978, and construction began in 1981.
 
 Our hypothesis is that houses close to the incinerator would drop in value compared to those farther away.
 
-For this example, a house is considered "near" the incinerator if it's within three miles. (In another exercise, you\'ll use the exact distance, like Kiel and McClain did.)
+For this example, a house is considered "near" the incinerator if it's within three miles. (In another exercise, you'll use the exact distance, like Kiel and McClain did.)
 
-To measure the impact, we\'ll look at house prices in terms of 1978 dollars, adjusting for inflation using the Boston housing price index. We'll call this inflation-adjusted price **rprice**.
+To measure the impact, we'll look at house prices in terms of 1978 dollars, adjusting for inflation using the Boston housing price index. We'll call this inflation-adjusted price **rprice**.
 
-![Incineration Waste Disposal](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNJQ4DZRsrRpXPvBVUpPLDDSOIOfXxhybjPw&s){alt="Incineration Waste Disposal"}
+![Incineration Waste Disposal](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNJQ4DZRsrRpXPvBVUpPLDDSOIOfXxhybjPw&s)
 
 A dataframe containing 321 observations on 25 variables:
 
@@ -215,18 +215,15 @@ From here we can see houses located near the incinerator were valued less in 197
 
 The models we just ran are missing a lot of information. Kiel and McClain (1995)[@kiel1995] included housing features in their study for two main reasons:
 
-1.  The types of homes sold near the incinerator in 1981 might have been different from those sold in 1978. If so, it\'s important to account for those differences.
+1.  The types of homes sold near the incinerator in 1981 might have been different from those sold in 1978. If so, it's important to account for those differences.
 
-2.  Even if the homes didn\'t change, including their characteristics helps reduce the amount of unexplained variation (error), which in turn makes the estimates more precise.
+2.  Even if the homes didn't change, including their characteristics helps reduce the amount of unexplained variation (error), which in turn makes the estimates more precise.
 
 In column (3) of the results, they include the age of the houses (in a quadratic form). This improves the model by increasing the R-squared and reducing error. As a result, the effect of being near the incinerator in 1981 (y81·nearinc) becomes larger in size and more precisely estimated (lower standard error).
 
-In column (4) we additionally control for distance to the
-interstate in feet (`intst`), land area in feet (`land`), house area in feet (`area`), number of rooms (`rooms`), and number of baths (`baths`).
+In column (4) we additionally control for distance to the interstate in feet (`intst`), land area in feet (`land`), house area in feet (`area`), number of rooms (`rooms`), and number of baths (`baths`).
 
 Lastly, column (5) uses `lrprice`: log(rprice) so that we can interpret the entire equation as percentage changes in order to get the effect and address adjusting for inflation.
-
-	
 
 ```{r}
 library(stargazer)
@@ -247,4 +244,4 @@ Once we control for the housing characteristics (columns 4-6), we find that the 
 
 This all suggest that undesirable facilities known to impact many aspects of the quality of environment greatly impacts the overall assets of the [*people chosen to bear the change!!*]{.underline}
 
-![Trash incinerators disproportionately harm Black and Hispanic people - TheGrio](https://thegrio.com/cdn-cgi/image/width=1048,height=590,fit=crop,quality=80,format=auto,onerror=redirect,metadata=none/wp-content/uploads/2025/01/AdobeStock_1070980392-e1735858160837.jpeg){alt="Trash incinerators disproportionately harm Black and Hispanic people -  TheGrio"}
+![Trash incinerators disproportionately harm Black and Hispanic people - TheGrio](https://thegrio.com/cdn-cgi/image/width=1048,height=590,fit=crop,quality=80,format=auto,onerror=redirect,metadata=none/wp-content/uploads/2025/01/AdobeStock_1070980392-e1735858160837.jpeg)
