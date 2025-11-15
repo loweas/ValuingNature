@@ -324,7 +324,7 @@ This model accounts for the following:
 
 1.  Count outcomes (non-negative integers)
 
-    -   Models outcomes like 0, 1, 2, 3\...
+    -   Models outcomes like 0, 1, 2, 3...
 
     -   Cannot produce negative predictions.
 
@@ -484,7 +484,7 @@ if (!is.null(facilities_df)) {
 
 ## Map
 
-```{r, cache=TRUE, eval=TRUE}
+```{r}
 library(dplyr)
 library(purrr)
 library(leaflet)
