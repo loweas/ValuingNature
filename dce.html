@@ -650,7 +650,7 @@ attribute levels and swapping of attributes.</code></pre>
 ──────────────────────────────────────────────────────────────────────────────── 
  Iteration   A-error   C-error   D-error   S-error               Time stamp
 ──────────────────────────────────────────────────────────────────────────────── 
-         1    0.1267       N/A    0.0422       Inf2025-11-14 17:45:13.699565
+         1    0.1271       N/A    0.0412       Inf2025-11-25 12:12:39.596893
 ──────────────────────────────────────────────────────────────────────────── </code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
@@ -663,7 +663,7 @@ attribute levels and swapping of attributes.</code></pre>
 <pre><code>── Cleaning up design environment ──────────────────────────────────────────────</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time spent searching for designs:  0.0545609 </code></pre>
+<pre><code>Time spent searching for designs:  0.08035684 </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -681,8 +681,8 @@ alt2 : b_farm_dummy * alt2_farm + b_height_dummy * alt2_height + b_redkite * alt
 alt3 : b_farm_dummy * alt3_farm + b_height_dummy * alt3_height + b_redkite * alt3_redkite + b_distance * alt3_distance + b_cost * alt3_cost 
 
 
-  a-error   c-error   d-error   s-error 
-0.1266935       NaN 0.0421518       Inf 
+   a-error    c-error    d-error    s-error 
+0.12705117        NaN 0.04119895        Inf 
 
 ---------------------------------------------------------------------
 
@@ -690,12 +690,12 @@ Printing the first few rows of the design
 # A tibble: 6 × 15
   alt1_sq alt2_farm2 alt2_farm3 alt2_height2 alt2_height3 alt2_redkite
     &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-1       1          1          0            0            0          0  
-2       1          0          1            1            0         -2.5
-3       1          1          0            1            0          5  
-4       1          0          1            0            1          2.5
-5       1          1          0            0            0          2.5
-6       1          1          0            0            0         -2.5
+1       1          0          1            1            0          5  
+2       1          0          0            0            1          5  
+3       1          1          0            0            0          5  
+4       1          0          0            0            0         -2.5
+5       1          1          0            0            0         -2.5
+6       1          0          1            1            0          5  
 # ℹ 9 more variables: alt2_distance &lt;dbl&gt;, alt2_cost &lt;dbl&gt;, alt3_farm2 &lt;dbl&gt;,
 #   alt3_farm3 &lt;dbl&gt;, alt3_height2 &lt;dbl&gt;, alt3_height3 &lt;dbl&gt;,
 #   alt3_redkite &lt;dbl&gt;, alt3_distance &lt;dbl&gt;, alt3_cost &lt;dbl&gt;
@@ -720,68 +720,52 @@ c("pearson", : the standard deviation is zero</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>              alt1_sq   alt2_farm2    alt2_farm3 alt2_height2 alt2_height3
 alt1_sq             1           NA            NA           NA           NA
-alt2_farm2         NA  1.000000000 -5.037175e-01 -0.009876814  0.019607843
-alt2_farm3         NA -0.503717523  1.000000e+00 -0.040253279 -0.009876814
-alt2_height2       NA -0.009876814 -4.025328e-02  1.000000000 -0.503717523
-alt2_height3       NA  0.019607843 -9.876814e-03 -0.503717523  1.000000000
-alt2_redkite       NA  0.119416287 -1.052661e-01  0.045114057  0.074635179
-alt2_distance      NA  0.029854072 -6.015208e-02 -0.150380191  0.164197394
-alt2_cost          NA -0.014699129 -9.995682e-02  0.070339983 -0.044097386
-alt3_farm2         NA  0.079912406 -4.025328e-02  0.095431931 -0.054771424
-alt3_farm3         NA -0.114081996  7.991241e-02 -0.009876814  0.064171123
-alt3_height2       NA -0.009876814  9.543193e-02  0.004975124  0.079912406
-alt3_height3       NA  0.169701625 -1.759385e-01 -0.085481682 -0.099666034
-alt3_redkite       NA -0.074635179 -1.202080e-17  0.090228114  0.044781108
-alt3_distance      NA -0.059708143 -7.519010e-02 -0.015038019 -0.164197394
-alt3_cost          NA  0.007349564 -7.774419e-02 -0.040723148 -0.044097386
-              alt2_redkite alt2_distance   alt2_cost   alt3_farm2   alt3_farm3
-alt1_sq                 NA            NA          NA           NA           NA
-alt2_farm2      0.11941629    0.02985407 -0.01469913  0.079912406 -0.114081996
-alt2_farm3     -0.10526613   -0.06015208 -0.09995682 -0.040253279  0.079912406
-alt2_height2    0.04511406   -0.15038019  0.07033998  0.095431931 -0.009876814
-alt2_height3    0.07463518    0.16419739 -0.04409739 -0.054771424  0.064171123
-alt2_redkite    1.00000000    0.04500000 -0.03200379  0.270684343 -0.149270359
-alt2_distance   0.04500000    1.00000000  0.04431294  0.075190095 -0.014927036
-alt2_cost      -0.03200379    0.04431294  1.00000000 -0.107361027 -0.058796515
-alt3_farm2      0.27068434    0.07519010 -0.10736103  1.000000000 -0.503717523
-alt3_farm3     -0.14927036   -0.01492704 -0.05879652 -0.503717523  1.000000000
-alt3_height2    0.04511406   -0.10526613  0.06293577  0.004975124 -0.009876814
-alt3_height3   -0.01503802    0.15038019 -0.01851052  0.095431931 -0.054771424
-alt3_redkite    0.03500000   -0.07500000 -0.08616404 -0.030076038 -0.104489251
-alt3_distance   0.12500000    0.08500000 -0.07877855 -0.015038019  0.044781108
-alt3_cost       0.02215647    0.09847319 -0.09696970  0.070339983  0.007349564
-               alt3_height2 alt3_height3  alt3_redkite alt3_distance
-alt1_sq                  NA           NA            NA            NA
-alt2_farm2    -9.876814e-03   0.16970163 -7.463518e-02 -5.970814e-02
-alt2_farm3     9.543193e-02  -0.17593849 -1.202080e-17 -7.519010e-02
-alt2_height2   4.975124e-03  -0.08548168  9.022811e-02 -1.503802e-02
-alt2_height3   7.991241e-02  -0.09966603  4.478111e-02 -1.641974e-01
-alt2_redkite   4.511406e-02  -0.01503802  3.500000e-02  1.250000e-01
-alt2_distance -1.052661e-01   0.15038019 -7.500000e-02  8.500000e-02
-alt2_cost      6.293577e-02  -0.01851052 -8.616404e-02 -7.877855e-02
-alt3_farm2     4.975124e-03   0.09543193 -3.007604e-02 -1.503802e-02
-alt3_farm3    -9.876814e-03  -0.05477142 -1.044893e-01  4.478111e-02
-alt3_height2   1.000000e+00  -0.49253731 -1.503802e-02  2.838244e-17
-alt3_height3  -4.925373e-01   1.00000000 -1.503802e-02  1.203042e-01
-alt3_redkite  -1.503802e-02  -0.01503802  1.000000e+00 -1.150000e-01
-alt3_distance  2.838244e-17   0.12030415 -1.150000e-01  1.000000e+00
-alt3_cost      5.553157e-02  -0.01110631 -2.461830e-02 -6.646941e-02
-                 alt3_cost
-alt1_sq                 NA
-alt2_farm2     0.007349564
-alt2_farm3    -0.077744192
-alt2_height2  -0.040723148
-alt2_height3  -0.044097386
-alt2_redkite   0.022156468
-alt2_distance  0.098473193
-alt2_cost     -0.096969697
-alt3_farm2     0.070339983
-alt3_farm3     0.007349564
-alt3_height2   0.055531566
-alt3_height3  -0.011106313
-alt3_redkite  -0.024618298
-alt3_distance -0.066469405
-alt3_cost      1.000000000</code></pre>
+alt2_farm2         NA  1.000000000 -5.037175e-01 -0.054771424  -0.04025328
+alt2_farm3         NA -0.503717523  1.000000e+00  0.153297683   0.03501780
+alt2_height2       NA -0.054771424  1.532977e-01  1.000000000  -0.50371752
+alt2_height3       NA -0.040253279  3.501780e-02 -0.503717523   1.00000000
+alt2_redkite       NA -0.030076038  6.628936e-18  0.044781108   0.04511406
+alt2_distance      NA -0.015038019 -2.985407e-02  0.029854072  -0.15038019
+alt2_cost          NA -0.048127357  1.249426e-01 -0.132292159   0.06293577
+alt3_farm2         NA  0.050203528 -5.477142e-02 -0.099666034  -0.04025328
+alt3_farm3         NA  0.004975124 -9.876814e-03  0.079912406   0.18588874
+alt3_height2       NA -0.099666034  1.960784e-02 -0.114081996   0.07991241
+alt3_height3       NA  0.050203528 -9.966603e-02 -0.009876814  -0.17593849
+alt3_redkite       NA -0.060152076 -1.343433e-01 -0.164197394  -0.03007604
+alt3_distance      NA -0.120304152 -5.970814e-02 -0.074635179   0.18045623
+alt3_cost          NA -0.151786279  1.175930e-01  0.161690417  -0.06293577
+               alt2_redkite alt2_distance   alt2_cost   alt3_farm2   alt3_farm3
+alt1_sq                  NA            NA          NA           NA           NA
+alt2_farm2    -3.007604e-02   -0.01503802 -0.04812736  0.050203528  0.004975124
+alt2_farm3     6.628936e-18   -0.02985407  0.12494259 -0.054771424 -0.009876814
+alt2_height2   4.478111e-02    0.02985407 -0.13229216 -0.099666034  0.079912406
+alt2_height3   4.511406e-02   -0.15038019  0.06293577 -0.040253279  0.185888738
+alt2_redkite   1.000000e+00    0.12000000 -0.05662209  0.045114057  0.060152076
+alt2_distance  1.200000e-01    1.00000000 -0.08370221  0.150380191 -0.075190095
+alt2_cost     -5.662209e-02   -0.08370221  1.00000000  0.262849411 -0.166594697
+alt3_farm2     4.511406e-02    0.15038019  0.26284941  1.000000000 -0.492537313
+alt3_farm3     6.015208e-02   -0.07519010 -0.16659470 -0.492537313  1.000000000
+alt3_height2  -2.386417e-17   -0.08956222 -0.12494259 -0.009876814  0.035017796
+alt3_height3   4.511406e-02    0.15038019  0.08514840 -0.130710086 -0.040253279
+alt3_redkite   1.100000e-01    0.04500000 -0.10093502 -0.120304152 -0.045114057
+alt3_distance  0.000000e+00   -0.07000000 -0.12801515 -0.030076038  0.075190095
+alt3_cost      1.083205e-01   -0.01723281 -0.03151515 -0.062935774  0.092552609
+               alt3_height2 alt3_height3 alt3_redkite alt3_distance   alt3_cost
+alt1_sq                  NA           NA           NA            NA          NA
+alt2_farm2    -9.966603e-02  0.050203528  -0.06015208   -0.12030415 -0.15178628
+alt2_farm3     1.960784e-02 -0.099666034  -0.13434332   -0.05970814  0.11759303
+alt2_height2  -1.140820e-01 -0.009876814  -0.16419739   -0.07463518  0.16169042
+alt2_height3   7.991241e-02 -0.175938489  -0.03007604    0.18045623 -0.06293577
+alt2_redkite  -2.386417e-17  0.045114057   0.11000000    0.00000000  0.10832051
+alt2_distance -8.956222e-02  0.150380191   0.04500000   -0.07000000 -0.01723281
+alt2_cost     -1.249426e-01  0.085148401  -0.10093502   -0.12801515 -0.03151515
+alt3_farm2    -9.876814e-03 -0.130710086  -0.12030415   -0.03007604 -0.06293577
+alt3_farm3     3.501780e-02 -0.040253279  -0.04511406    0.07519010  0.09255261
+alt3_height2   1.000000e+00 -0.503717523  -0.08956222    0.08956222  0.06614608
+alt3_height3  -5.037175e-01  1.000000000   0.36091246   -0.06015208 -0.07774419
+alt3_redkite  -8.956222e-02  0.360912457   1.00000000    0.00500000 -0.08124038
+alt3_distance  8.956222e-02 -0.060152076   0.00500000    1.00000000 -0.02215647
+alt3_cost      6.614608e-02 -0.077744192  -0.08124038   -0.02215647  1.00000000</code></pre>
 </div>
 </div>
 </section>
@@ -802,12 +786,12 @@ alt3_cost      1.000000000</code></pre>
 $alt2_farm2
 
  0  1 
-66 34 
+67 33 
 
 $alt2_farm3
 
  0  1 
-67 33 </code></pre>
+66 34 </code></pre>
 </div>
 </div>
 <p>First, we can see that the constant for the status quo alternative appears in all 100 rows of the design. Next, the medium and small wind farm sizes each occur 33 times, meaning the large size appears 34 times. This suggests the design is nearly balanced across attribute levels.</p>
@@ -826,12 +810,12 @@ $alt2_farm3
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>          alt1      alt2      alt3
-[1,] 0.1804924 0.3288785 0.4906291
-[2,] 0.1603367 0.4250793 0.4145840
-[3,] 0.1615940 0.1831100 0.6552960
-[4,] 0.1937322 0.4532648 0.3530030
-[5,] 0.2998234 0.3151957 0.3849809
-[6,] 0.3114263 0.3356815 0.3528922</code></pre>
+[1,] 0.2161209 0.2388506 0.5450285
+[2,] 0.2416247 0.3181063 0.4402689
+[3,] 0.3007366 0.4059520 0.2933114
+[4,] 0.2277681 0.3572114 0.4150205
+[5,] 0.2828248 0.4547863 0.2623889
+[6,] 0.2094809 0.4780104 0.3125087</code></pre>
 </div>
 </div>
 <p>To help spot any problematic choice tasks, we can create a simple plot. In this case, the plot shows no signs of <u>dominating or dominated</u> alternatives which would appear as very large or very small segments of a single color.</p>
@@ -895,7 +879,7 @@ $alt2_farm3
 <span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.7863419 0.7629202 0.5235264 0.8369431 0.9823104 0.9960669</code></pre>
+<pre><code>[1] 0.7596369 0.9136829 0.9668379 0.9116991 0.9112427 0.8449045</code></pre>
 </div>
 </div>
 <p>The function returns the utility balance for each choice task. The average utility balance across the design is 0.8478. For efficient designs, values typically fall between 70% and 90% indicates a good balance, not too equal (which gives little information) and not too skewed to have dominant alternatives.</p>
@@ -927,7 +911,7 @@ $alt2_farm3
 <pre><code># A tibble: 1 × 15
   alt1_sq alt2_farm2 alt2_farm3 alt2_height2 alt2_height3 alt2_redkite
     &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-1      NA   -0.00735    -0.0481     -0.00370      0.00735      -0.0419
+1      NA   -0.00370  -8.16e-18       0.0220      -0.0333      0.00246
 # ℹ 9 more variables: alt2_distance &lt;dbl&gt;, alt2_cost &lt;dbl&gt;, alt3_farm2 &lt;dbl&gt;,
 #   alt3_farm3 &lt;dbl&gt;, alt3_height2 &lt;dbl&gt;, alt3_height3 &lt;dbl&gt;,
 #   alt3_redkite &lt;dbl&gt;, alt3_distance &lt;dbl&gt;, alt3_cost &lt;dbl&gt;</code></pre>
