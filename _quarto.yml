@@ -4,6 +4,7 @@ project:
 website:
   title: "Valuing Nature NREM 691"
   search: true
+  google-analytics: "G-6DE15R56YH" # Replace with your Google Tag ID
   
   navbar:
     left:

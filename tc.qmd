@@ -414,7 +414,7 @@ Use **multi-site models** when:
 
 Common models used:
 
-##   Random Utility Models (RUMs) 
+## Random Utility Models (RUMs)
 
 ```{r}
 
@@ -422,7 +422,6 @@ Common models used:
 
 
 ```
-
 
 # NREM 691 Fall 2025
 
@@ -540,9 +539,9 @@ leaflet(facilities_df) %>%
 
 ## Reservations Data
 
-Use this code to download the raw data for Yosemite. Use the map above to either explore different locations. You may choose to lower the number of sites to estimate. 
+Use this code to download the raw data for Yosemite. Use the map above to either explore different locations. You may choose to lower the number of sites to estimate.
 
-From here you can start estimating a wtp following the steps listed above. 
+From here you can start estimating a wtp following the steps listed above.
 
 ```{r, cache=TRUE, eval=TRUE}
 
